@@ -92,26 +92,11 @@ describe('CreatePkg', async function () {
     const Counter = await ethers.getContractFactory('Counter');
     const counter = await Counter.deploy();
     await counter.deployed();
-<<<<<<< HEAD
     console.log('Counter deployed to:', counter.address);
     await run('verify:sourcify', {
       name: 'Counter',
       address: counter.address,
       chainid: chainId,
-=======
-    contractsToVerify.push({ name: 'Counter', address: counter.address });
-    const cuts = {
-      cuts: createAddFacetCut([counter]),
-      target: ethers.constants.AddressZero,
-      selector: '0x00000000',
-    };
-    const cid = 'bafkreia55vhn3epbwz5it2225445wecbh3aqaddhojmnvqxtaojk7fjlka';
-
-    // send tx with 0.001 ether
-    const tx = await installer.connect(signer[1]).create(cuts, cid, {
-      value: ethers.utils.parseEther('0.001'),
-      gasLimit: 1000000,
->>>>>>> 0ae3de27f6538bbf38454f3b293ac7924705871e
     });
     const pkg: IPKGCUT = {
       cuts: createAddFacetCut([counter]),
@@ -126,30 +111,11 @@ describe('CreatePkg', async function () {
     const Greeter = await ethers.getContractFactory('Greeter');
     const greeter = await Greeter.deploy();
     await greeter.deployed();
-<<<<<<< HEAD
     console.log('Greeter deployed to:', greeter.address);
     await run('verify:sourcify', {
       name: 'Greeter',
       address: greeter.address,
       chainid: chainId,
-=======
-    contractsToVerify.push({ name: 'Greeter', address: greeter.address });
-
-    const GreeterInit = await ethers.getContractFactory('GreeterInit');
-    greeterinit = await GreeterInit.deploy();
-    await greeterinit.deployed();
-
-    const cuts = {
-      cuts: createAddFacetCut([greeter]),
-      target: greeterinit.address,
-      selector: greeterinit.interface.getSighash('init(string)'),
-    };
-    const cid = 'bafkreienqsp5ccl6ozveb57nox5tv4jzdi7d7h3m5iv3voflp5kaesryvu';
-
-    const tx = await installer.connect(signer[1]).create(cuts, cid, {
-      value: ethers.utils.parseEther('0.001'),
-      gasLimit: 1000000,
->>>>>>> 0ae3de27f6538bbf38454f3b293ac7924705871e
     });
 
     const GreeterInit = await ethers.getContractFactory('GreeterInit');
@@ -211,28 +177,12 @@ describe('CreatePkg', async function () {
 
     const counterInstall = await installer
       .connect(signer[1])
-<<<<<<< HEAD
       .install(counterPkg, '0x', {
         gasLimit: 1000000,
         value: costOf.install,
       });
     await counterInstall.wait();
 
-=======
-      .install(counterPkg, '0x');
-    await counterInstall.wait();
-
-    // pass functioncall as bytes -- init(string memory), where string is 'Hello, world!'
-    const calldata = greeterinit.interface.encodeFunctionData('init', [
-      'Hello, world!',
-    ]);
-
-    const greeterInstall = await installer
-      .connect(signer[1])
-      .install(greeterPkg, calldata, { gasLimit: 1000000 });
-    await greeterInstall.wait();
-
->>>>>>> 0ae3de27f6538bbf38454f3b293ac7924705871e
     const after = await clientloupefacet.facetAddresses();
 
     expect(before.length).to.be.lessThan(after.length);
@@ -242,7 +192,7 @@ describe('CreatePkg', async function () {
     const before = await ethers.provider.getBalance(deployer.address);
 
     // pass functioncall as bytes -- init(string memory), where string is 'Hello, world!'
-    const calldata = greeterinit.interface.encodeFunctionData('init', [
+    const calldata = greeterinit.interface.encodeFunctionData('init(string)', [
       'Hello, world!',
     ]);
 
@@ -250,7 +200,7 @@ describe('CreatePkg', async function () {
       .connect(signer[1])
       .install(greeterPkg, calldata, {
         gasLimit: 1000000,
-        value: ethers.utils.parseEther('0.1'),
+        value: ethers.utils.parseEther('1'),
       });
     await greeterInstall.wait();
 
@@ -264,14 +214,10 @@ describe('CreatePkg', async function () {
 
     const uninstall = await installer
       .connect(signer[1])
-<<<<<<< HEAD
       .uninstall(greeterPkg, '0x', {
         gasLimit: 1000000,
         value: costOf.install,
       });
-=======
-      .uninstall(greeterPkg, '0x', { gasLimit: 1000000 });
->>>>>>> 0ae3de27f6538bbf38454f3b293ac7924705871e
     await uninstall.wait();
 
     const after = await clientloupefacet.facetAddresses();

@@ -167,64 +167,21 @@ async function deploy() {
   contracts.push({ name, address: installer.address } as IContract);
   console.log('🔌 Installer deployed:', installer.address);
 
-<<<<<<< HEAD
   const clientFacets = createAddFacetCut([loupe, ownership, erc165, installer]);
-=======
-  const clientFacets = createAddFacetCut([
-    diamondloupe,
-    ownership,
-    erc165,
-    installer,
-  ]);
->>>>>>> 0ae3de27f6538bbf38454f3b293ac7924705871e
 
   const clientCut = {
     cuts: clientFacets,
     target: clientinit.address,
-<<<<<<< HEAD
     selector: clientinit.interface.getSighash('init'),
   };
 
   const sysUpgradeCuts = createAddFacetCut([viewer]);
-=======
-    //@ts-ignore
-    selector: clientinit.interface.getSighash('init'),
-  };
-
-  const rootOwner = await ens.owner(rootNode);
-  if (rootOwner === deployer.address) {
-    //@ts-ignore
-    let tx = await ens.setOwner(rootNode, diamond.address);
-    await tx.wait();
-    const newOwner = await ens.owner(rootNode);
-    if (newOwner === diamond.address) {
-      console.log('👑 Root node owner set to Diamond:', diamond.address);
-    } else {
-      console.error('🚫 Root node owner not set to Diamond:', diamond.address);
-    }
-  } else {
-    console.error('🚫 Root node already set, change it manually.');
-  }
-
-  name = 'ClientRegistry';
-  const ClientRegistry = await ethers.getContractFactory(name);
-  const clientregistry = await ClientRegistry.deploy(ens.address, rootNode);
-  await clientregistry.deployed();
-  contracts.push({ name, address: clientregistry.address } as IContract);
-  console.log('🏭 ClientRegistry deployed:', clientregistry.address);
-
-  const sysUpgradeCuts = createAddFacetCut([clientregistry]);
->>>>>>> 0ae3de27f6538bbf38454f3b293ac7924705871e
 
   const x_diamondcutfacet = await ethers.getContractAt(
     'DiamondCutFacet',
     diamond.address
   );
-<<<<<<< HEAD
   const tx = await x_diamondcutfacet.diamondCut(
-=======
-  await x_diamondcutfacet.diamondCut(
->>>>>>> 0ae3de27f6538bbf38454f3b293ac7924705871e
     sysUpgradeCuts,
     sysupgradeinit.address,
     sysupgradeinit.interface.encodeFunctionData('init', [clientCut]),
@@ -235,28 +192,32 @@ async function deploy() {
   console.log('~~~ Deployments complete ~~~');
   console.log('✅ Contracts deployed');
 
-  await verify(contracts, chainId, true);
+  await verify(
+    contracts,
+    chainId,
+    [
+      '../interface/src/contracts/deployments.json',
+      '../shell/src/contracts/deployments.json',
+    ],
+    false
+  );
+
+  await verify(
+    contracts,
+    chainId,
+    [
+      './deployments.json',
+      '../cli/src/lib/deployments.json', // TODO: change to npm package destination
+      // npm package destinations
+    ],
+    true
+  );
+
   console.log('✅ Contracts verified');
 }
 
 async function main() {
-<<<<<<< HEAD
   await deploy();
-=======
-  const contracts = await deploy();
-  console.log('✅ Contracts deployed');
-
-  await verify(contracts);
-  console.log('✅ Contracts verified');
-
-  await saveDeployments(contracts, [
-    './deployments.json',
-    // '../interface/src/contracts/deployments.json',
-    // '../shell/src/contracts/deployments.json',
-    // '../template/imported/deployments.json',
-  ]);
-  console.log('✅ Deployments saved');
->>>>>>> 0ae3de27f6538bbf38454f3b293ac7924705871e
 }
 
 // We recommend this pattern to be able to use async/await everywhere

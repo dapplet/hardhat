@@ -3174,11 +3174,7 @@
   },
   "31337": {
     "ENS": {
-<<<<<<< HEAD
       "address": "0xc31968D1cbC247Fc0f3b9157909d72A1339Afa75",
-=======
-      "address": "0x1bEfE2d8417e22Da2E0432560ef9B2aB68Ab75Ad",
->>>>>>> 0ae3de27f6538bbf38454f3b293ac7924705871e
       "abi": [
         {
           "anonymous": false,
@@ -3551,13 +3547,8 @@
         }
       ]
     },
-<<<<<<< HEAD
     "Installer": {
-      "address": "0x88CD73b4B7F34052F93dB4503B51bF426c747419",
-=======
-    "Multicall2": {
-      "address": "0x04f1A5b9BD82a5020C49975ceAd160E98d8B77Af",
->>>>>>> 0ae3de27f6538bbf38454f3b293ac7924705871e
+      "address": "0xE6E340D132b5f46d1e472DebcD681B2aBc16e57E",
       "abi": [
         {
           "inputs": [
@@ -3778,7 +3769,7 @@
       ]
     },
     "Diamond": {
-      "address": "0x8E3648a9BE69968553ee34D76BBE4cD7FddF030f",
+      "address": "0x67d269191c92Caf3cD7723F116c85e6E9bf55933",
       "abi": [
         {
           "inputs": [
@@ -3950,11 +3941,7 @@
       ]
     },
     "DiamondLoupeFacet": {
-<<<<<<< HEAD
-      "address": "0x338190FA48a7Cf9bb07C5F95eBd715853212D5fe",
-=======
-      "address": "0xde79380FBd39e08150adAA5C6c9dE3146f53029e",
->>>>>>> 0ae3de27f6538bbf38454f3b293ac7924705871e
+      "address": "0x9A9f2CCfdE556A7E9Ff0848998Aa4a0CFD8863AE",
       "abi": [
         {
           "inputs": [
@@ -4039,7 +4026,7 @@
       ]
     },
     "ERC165Facet": {
-      "address": "0x622703b79B515d93F5c48C7C7dfdCf24d110f1CC",
+      "address": "0x3Aa5ebB10DC797CAC828524e59A333d0A371443c",
       "abi": [
         {
           "inputs": [],
@@ -4072,11 +4059,7 @@
       ]
     },
     "OwnershipFacet": {
-<<<<<<< HEAD
-      "address": "0xF044e00B3D57e28CBFD80e1268cf31185087aCcE",
-=======
-      "address": "0xbFD3c8A956AFB7a9754C951D03C9aDdA7EC5d638",
->>>>>>> 0ae3de27f6538bbf38454f3b293ac7924705871e
+      "address": "0x68B1D87F95878fE05B998F19b66F4baba5De1aed",
       "abi": [
         {
           "inputs": [],
@@ -4164,13 +4147,8 @@
         }
       ]
     },
-<<<<<<< HEAD
     "AdminFacet": {
-      "address": "0xd26ffB5e404F5Dc3bF07d9c214957b2731E8EB9b",
-=======
-    "ERC165Facet": {
-      "address": "0x38F6F2caE52217101D7CA2a5eC040014b4164E6C",
->>>>>>> 0ae3de27f6538bbf38454f3b293ac7924705871e
+      "address": "0xc6e7DF5E7b4f2A278906862b61205850344D4e7d",
       "abi": [
         {
           "inputs": [],
@@ -4370,7 +4348,7 @@
       ]
     },
     "ClientRegistry": {
-      "address": "0x9aA2dF5B922c4a3B8A6406419d409fC2c58143F4",
+      "address": "0x59b670e9fA9D0A427751Af201D676719a970857b",
       "abi": [
         {
           "inputs": [],
@@ -4564,7 +4542,7 @@
       ]
     },
     "ConnectorFacet": {
-      "address": "0xd6e1b2681b1dd5Da85e0A4E41fB2E97410e644dd",
+      "address": "0x4ed7c70F96B99c776995fB64377f0d4aB3B0e1C1",
       "abi": [
         {
           "inputs": [],
@@ -4900,7 +4878,7 @@
       ]
     },
     "DiamondCutFacet": {
-      "address": "0xb37bD8801077aa591FB5e0dbe00F66657D2C740a",
+      "address": "0x322813Fd9A801c5507c9de605d63CEA4f2CE6c44",
       "abi": [
         {
           "inputs": [],
@@ -5056,7 +5034,7 @@
       ]
     },
     "ViewerFacet": {
-      "address": "0xCBb7BcCe916d3f898Bed75B5bC03aF04F90A6897",
+      "address": "0x4A679253410272dd5232B3Ff7cF5dbB88f295319",
       "abi": [
         {
           "inputs": [],
@@ -5214,11 +5192,7 @@
       ]
     },
     "WETHFacet": {
-<<<<<<< HEAD
       "address": "0xcA0a523c01675BF9F516EF1c00916f995ae736B3",
-=======
-      "address": "0xc075BC0f734EFE6ceD866324fc2A9DBe1065CBB1",
->>>>>>> 0ae3de27f6538bbf38454f3b293ac7924705871e
       "abi": [
         {
           "inputs": [],
@@ -5548,7 +5522,7 @@
       ]
     },
     "ClientInit": {
-      "address": "0x5A9b3c3232E6e9Eb8E1C4481a29B15638Cf423ec",
+      "address": "0x09635F643e140090A9A8Dcd712eD6285858ceBef",
       "abi": [
         {
           "inputs": [],
@@ -5560,7 +5534,7 @@
       ]
     },
     "SysUpgradeInit": {
-      "address": "0x7A2Cf017076D8D0A8Fb359ADb4DB2e2c27C53CDF",
+      "address": "0xc5a5C42992dECbae36851359345FE25997F5C42d",
       "abi": [
         {
           "inputs": [],
@@ -5694,7 +5668,7 @@
       ]
     },
     "SystemInit": {
-      "address": "0xa893f007719D1E3236d1936f0fF797C3538beCA9",
+      "address": "0x7a2088a1bFc9d81c55368AE168C2C02570cB814F",
       "abi": [
         {
           "inputs": [],
@@ -5906,7 +5880,7 @@
       ]
     },
     "Multicall2": {
-      "address": "0x08FC09eC959B366E701fdb8b3600cfC5aA5F36b0",
+      "address": "0x959922bE3CAee4b8Cd9a407cc3ac1C251C2007B1",
       "abi": [
         {
           "inputs": [
@@ -6222,7 +6196,7 @@
       ]
     },
     "StakingFacet": {
-      "address": "0x6bA757f1f0860BC033B7C09615bb885fEff559B4",
+      "address": "0xa85233C63b9Ee964Add6F2cffe00Fd84eb32338f",
       "abi": [
         {
           "inputs": [],
@@ -6577,7 +6551,7 @@
   },
   "11155111": {
     "Installer": {
-      "address": "0xBa92f84745e2128C5ab46d9Bfc3B12248a415A8d",
+      "address": "0x0f272c089599F5A0c89dF8ae77885db4ef63F4d2",
       "abi": [
         {
           "inputs": [
@@ -7571,11 +7545,7 @@
       ]
     },
     "ConnectorFacet": {
-<<<<<<< HEAD
       "address": "0x3F9d99FE701d4e71CF4a16E3692B306eDf051E38",
-=======
-      "address": "0x837a41023CF81234f89F956C94D676918b4791c1",
->>>>>>> 0ae3de27f6538bbf38454f3b293ac7924705871e
       "abi": [
         {
           "inputs": [],
@@ -7910,433 +7880,8 @@
         }
       ]
     },
-<<<<<<< HEAD
     "DiamondCutFacet": {
       "address": "0xDB5434C504Ae69cA842B1Dc20571304CB0C4b32b",
-=======
-    "ViewerFacet": {
-      "address": "0x04d7478fDF318C3C22cECE62Da9D78ff94807D77",
-      "abi": [
-        {
-          "inputs": [],
-          "name": "EnumerableMap__IndexOutOfBounds",
-          "type": "error"
-        },
-        {
-          "inputs": [],
-          "name": "EnumerableMap__NonExistentKey",
-          "type": "error"
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "bytes32",
-              "name": "_node",
-              "type": "bytes32"
-            }
-          ],
-          "name": "addr",
-          "outputs": [
-            {
-              "internalType": "address",
-              "name": "",
-              "type": "address"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function"
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "bytes32",
-              "name": "_node",
-              "type": "bytes32"
-            }
-          ],
-          "name": "contentHash",
-          "outputs": [
-            {
-              "internalType": "bytes",
-              "name": "",
-              "type": "bytes"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function"
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "address[]",
-              "name": "pkgs",
-              "type": "address[]"
-            }
-          ],
-          "name": "metadataOf",
-          "outputs": [
-            {
-              "internalType": "string[]",
-              "name": "metadata",
-              "type": "string[]"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function"
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "bytes32",
-              "name": "_node",
-              "type": "bytes32"
-            }
-          ],
-          "name": "name",
-          "outputs": [
-            {
-              "internalType": "string",
-              "name": "",
-              "type": "string"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function"
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "address",
-              "name": "_addr",
-              "type": "address"
-            }
-          ],
-          "name": "node",
-          "outputs": [
-            {
-              "internalType": "bytes32",
-              "name": "",
-              "type": "bytes32"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function"
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "address",
-              "name": "account",
-              "type": "address"
-            }
-          ],
-          "name": "ownedBy",
-          "outputs": [
-            {
-              "internalType": "address[]",
-              "name": "pkgs",
-              "type": "address[]"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function"
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "address",
-              "name": "pkg",
-              "type": "address"
-            }
-          ],
-          "name": "ownerOf",
-          "outputs": [
-            {
-              "internalType": "address",
-              "name": "owner",
-              "type": "address"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function"
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "address",
-              "name": "account",
-              "type": "address"
-            }
-          ],
-          "name": "receivedStakeOf",
-          "outputs": [
-            {
-              "internalType": "address[]",
-              "name": "pkgs",
-              "type": "address[]"
-            },
-            {
-              "internalType": "uint256[]",
-              "name": "amounts",
-              "type": "uint256[]"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function"
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "address",
-              "name": "account",
-              "type": "address"
-            }
-          ],
-          "name": "sentStakeOf",
-          "outputs": [
-            {
-              "internalType": "address[]",
-              "name": "pkgs",
-              "type": "address[]"
-            },
-            {
-              "internalType": "uint256[]",
-              "name": "amounts",
-              "type": "uint256[]"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function"
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "bytes32",
-              "name": "_node",
-              "type": "bytes32"
-            },
-            {
-              "internalType": "string",
-              "name": "_key",
-              "type": "string"
-            }
-          ],
-          "name": "text",
-          "outputs": [
-            {
-              "internalType": "string",
-              "name": "",
-              "type": "string"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function"
-        }
-      ]
-    },
-    "AdminFacet": {
-      "address": "0xd9abC93F81394Bd161a1b24B03518e0a570bDEAd",
-      "abi": [
-        {
-          "inputs": [],
-          "name": "Ownable__NotOwner",
-          "type": "error"
-        },
-        {
-          "inputs": [],
-          "name": "Ownable__NotTransitiveOwner",
-          "type": "error"
-        },
-        {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "previousOwner",
-              "type": "address"
-            },
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "newOwner",
-              "type": "address"
-            }
-          ],
-          "name": "OwnershipTransferred",
-          "type": "event"
-        },
-        {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": true,
-              "internalType": "bytes32",
-              "name": "role",
-              "type": "bytes32"
-            },
-            {
-              "indexed": true,
-              "internalType": "bytes32",
-              "name": "previousAdminRole",
-              "type": "bytes32"
-            },
-            {
-              "indexed": true,
-              "internalType": "bytes32",
-              "name": "newAdminRole",
-              "type": "bytes32"
-            }
-          ],
-          "name": "RoleAdminChanged",
-          "type": "event"
-        },
-        {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": true,
-              "internalType": "bytes32",
-              "name": "role",
-              "type": "bytes32"
-            },
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "account",
-              "type": "address"
-            },
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "sender",
-              "type": "address"
-            }
-          ],
-          "name": "RoleGranted",
-          "type": "event"
-        },
-        {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": true,
-              "internalType": "bytes32",
-              "name": "role",
-              "type": "bytes32"
-            },
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "account",
-              "type": "address"
-            },
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "sender",
-              "type": "address"
-            }
-          ],
-          "name": "RoleRevoked",
-          "type": "event"
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "string",
-              "name": "_title",
-              "type": "string"
-            }
-          ],
-          "name": "getClientUpgrade",
-          "outputs": [
-            {
-              "components": [
-                {
-                  "internalType": "address",
-                  "name": "target",
-                  "type": "address"
-                },
-                {
-                  "internalType": "enum IDiamondWritableInternal.FacetCutAction",
-                  "name": "action",
-                  "type": "uint8"
-                },
-                {
-                  "internalType": "bytes4[]",
-                  "name": "selectors",
-                  "type": "bytes4[]"
-                }
-              ],
-              "internalType": "struct IDiamondWritableInternal.FacetCut[]",
-              "name": "cuts",
-              "type": "tuple[]"
-            },
-            {
-              "internalType": "address",
-              "name": "target",
-              "type": "address"
-            },
-            {
-              "internalType": "bytes",
-              "name": "data",
-              "type": "bytes"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function"
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "string",
-              "name": "_title",
-              "type": "string"
-            },
-            {
-              "components": [
-                {
-                  "internalType": "address",
-                  "name": "target",
-                  "type": "address"
-                },
-                {
-                  "internalType": "enum IDiamondWritableInternal.FacetCutAction",
-                  "name": "action",
-                  "type": "uint8"
-                },
-                {
-                  "internalType": "bytes4[]",
-                  "name": "selectors",
-                  "type": "bytes4[]"
-                }
-              ],
-              "internalType": "struct IDiamondWritableInternal.FacetCut[]",
-              "name": "_cuts",
-              "type": "tuple[]"
-            },
-            {
-              "internalType": "address",
-              "name": "_target",
-              "type": "address"
-            },
-            {
-              "internalType": "bytes4",
-              "name": "_selector",
-              "type": "bytes4"
-            }
-          ],
-          "name": "setClientUpgrade",
-          "outputs": [],
-          "stateMutability": "nonpayable",
-          "type": "function"
-        }
-      ]
-    },
-    "DiamondCutFacet": {
-      "address": "0xcB0f2a13098f8e841e6Adfa5B17Ec00508b27665",
->>>>>>> 0ae3de27f6538bbf38454f3b293ac7924705871e
       "abi": [
         {
           "inputs": [],
@@ -9149,11 +8694,7 @@
       ]
     },
     "SystemInit": {
-<<<<<<< HEAD
       "address": "0xE2a37Bd92D2820cdD31131F6b98D4c9AB3347Ca6",
-=======
-      "address": "0x37D31345F164Ab170B19bc35225Abc98Ce30b46A",
->>>>>>> 0ae3de27f6538bbf38454f3b293ac7924705871e
       "abi": [
         {
           "inputs": [],
@@ -9364,69 +8905,10 @@
         }
       ]
     },
-<<<<<<< HEAD
     "Multicall2": {
       "address": "0xb09a6173CE232C2758cfC6c0b621E4ABf44Ca449",
       "abi": [
         {
-=======
-    "ClientInit": {
-      "address": "0x6345e50859b0Ce82D8A495ba9894C6C81de385F3",
-      "abi": [
-        {
-          "inputs": [],
-          "name": "init",
-          "outputs": [],
-          "stateMutability": "nonpayable",
-          "type": "function"
-        }
-      ]
-    },
-    "SysUpgradeInit": {
-      "address": "0x88D1aF96098a928eE278f162c1a84f339652f95b",
-      "abi": [
-        {
-          "inputs": [],
-          "name": "DiamondWritable__InvalidInitializationParameters",
-          "type": "error"
-        },
-        {
-          "inputs": [],
-          "name": "DiamondWritable__RemoveTargetNotZeroAddress",
-          "type": "error"
-        },
-        {
-          "inputs": [],
-          "name": "DiamondWritable__ReplaceTargetIsIdentical",
-          "type": "error"
-        },
-        {
-          "inputs": [],
-          "name": "DiamondWritable__SelectorAlreadyAdded",
-          "type": "error"
-        },
-        {
-          "inputs": [],
-          "name": "DiamondWritable__SelectorIsImmutable",
-          "type": "error"
-        },
-        {
-          "inputs": [],
-          "name": "DiamondWritable__SelectorNotFound",
-          "type": "error"
-        },
-        {
-          "inputs": [],
-          "name": "DiamondWritable__SelectorNotSpecified",
-          "type": "error"
-        },
-        {
-          "inputs": [],
-          "name": "DiamondWritable__TargetHasNoCode",
-          "type": "error"
-        },
-        {
-          "anonymous": false,
           "inputs": [
             {
               "components": [
@@ -9436,57 +8918,9 @@
                   "type": "address"
                 },
                 {
-                  "internalType": "enum IDiamondWritableInternal.FacetCutAction",
-                  "name": "action",
-                  "type": "uint8"
-                },
-                {
-                  "internalType": "bytes4[]",
-                  "name": "selectors",
-                  "type": "bytes4[]"
-                }
-              ],
-              "indexed": false,
-              "internalType": "struct IDiamondWritableInternal.FacetCut[]",
-              "name": "facetCuts",
-              "type": "tuple[]"
-            },
-            {
-              "indexed": false,
-              "internalType": "address",
-              "name": "target",
-              "type": "address"
-            },
-            {
-              "indexed": false,
-              "internalType": "bytes",
-              "name": "data",
-              "type": "bytes"
-            }
-          ],
-          "name": "DiamondCut",
-          "type": "event"
-        },
-        {
->>>>>>> 0ae3de27f6538bbf38454f3b293ac7924705871e
-          "inputs": [
-            {
-              "components": [
-                {
-                  "internalType": "address",
-                  "name": "target",
-                  "type": "address"
-                },
-                {
-<<<<<<< HEAD
                   "internalType": "bytes",
                   "name": "callData",
                   "type": "bytes"
-=======
-                  "internalType": "bytes4",
-                  "name": "selector",
-                  "type": "bytes4"
->>>>>>> 0ae3de27f6538bbf38454f3b293ac7924705871e
                 }
               ],
               "internalType": "struct Multicall2.Call[]",
@@ -9494,23 +8928,8 @@
               "type": "tuple[]"
             }
           ],
-<<<<<<< HEAD
           "name": "aggregate",
           "outputs": [
-=======
-          "name": "init",
-          "outputs": [],
-          "stateMutability": "nonpayable",
-          "type": "function"
-        }
-      ]
-    },
-    "Diamond": {
-      "address": "0x7Ce73F8f636C6bD3357A0A8a59e0ab6462C955B0",
-      "abi": [
-        {
-          "inputs": [
->>>>>>> 0ae3de27f6538bbf38454f3b293ac7924705871e
             {
               "internalType": "uint256",
               "name": "blockNumber",
@@ -9523,262 +8942,7 @@
             }
           ],
           "stateMutability": "nonpayable",
-<<<<<<< HEAD
           "type": "function"
-=======
-          "type": "constructor"
-        },
-        {
-          "inputs": [],
-          "name": "DiamondWritable__InvalidInitializationParameters",
-          "type": "error"
-        },
-        {
-          "inputs": [],
-          "name": "DiamondWritable__RemoveTargetNotZeroAddress",
-          "type": "error"
-        },
-        {
-          "inputs": [],
-          "name": "DiamondWritable__ReplaceTargetIsIdentical",
-          "type": "error"
-        },
-        {
-          "inputs": [],
-          "name": "DiamondWritable__SelectorAlreadyAdded",
-          "type": "error"
-        },
-        {
-          "inputs": [],
-          "name": "DiamondWritable__SelectorIsImmutable",
-          "type": "error"
-        },
-        {
-          "inputs": [],
-          "name": "DiamondWritable__SelectorNotFound",
-          "type": "error"
-        },
-        {
-          "inputs": [],
-          "name": "DiamondWritable__SelectorNotSpecified",
-          "type": "error"
-        },
-        {
-          "inputs": [],
-          "name": "DiamondWritable__TargetHasNoCode",
-          "type": "error"
-        },
-        {
-          "inputs": [],
-          "name": "Ownable__NotOwner",
-          "type": "error"
-        },
-        {
-          "inputs": [],
-          "name": "Ownable__NotTransitiveOwner",
-          "type": "error"
-        },
-        {
-          "inputs": [],
-          "name": "Proxy__ImplementationIsNotContract",
-          "type": "error"
-        },
-        {
-          "anonymous": false,
-          "inputs": [
-            {
-              "components": [
-                {
-                  "internalType": "address",
-                  "name": "target",
-                  "type": "address"
-                },
-                {
-                  "internalType": "enum IDiamondWritableInternal.FacetCutAction",
-                  "name": "action",
-                  "type": "uint8"
-                },
-                {
-                  "internalType": "bytes4[]",
-                  "name": "selectors",
-                  "type": "bytes4[]"
-                }
-              ],
-              "indexed": false,
-              "internalType": "struct IDiamondWritableInternal.FacetCut[]",
-              "name": "facetCuts",
-              "type": "tuple[]"
-            },
-            {
-              "indexed": false,
-              "internalType": "address",
-              "name": "target",
-              "type": "address"
-            },
-            {
-              "indexed": false,
-              "internalType": "bytes",
-              "name": "data",
-              "type": "bytes"
-            }
-          ],
-          "name": "DiamondCut",
-          "type": "event"
-        },
-        {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "previousOwner",
-              "type": "address"
-            },
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "newOwner",
-              "type": "address"
-            }
-          ],
-          "name": "OwnershipTransferred",
-          "type": "event"
-        },
-        {
-          "stateMutability": "payable",
-          "type": "fallback"
-        },
-        {
-          "stateMutability": "payable",
-          "type": "receive"
-        }
-      ]
-    },
-    "Installer": {
-      "address": "0x87c470437282174b3f8368c7CF1Ac03bcAe57954",
-      "abi": [
-        {
-          "inputs": [
-            {
-              "internalType": "address",
-              "name": "_sys",
-              "type": "address"
-            }
-          ],
-          "stateMutability": "nonpayable",
-          "type": "constructor"
-        },
-        {
-          "inputs": [],
-          "name": "DiamondWritable__InvalidInitializationParameters",
-          "type": "error"
-        },
-        {
-          "inputs": [],
-          "name": "DiamondWritable__RemoveTargetNotZeroAddress",
-          "type": "error"
-        },
-        {
-          "inputs": [],
-          "name": "DiamondWritable__ReplaceTargetIsIdentical",
-          "type": "error"
-        },
-        {
-          "inputs": [],
-          "name": "DiamondWritable__SelectorAlreadyAdded",
-          "type": "error"
-        },
-        {
-          "inputs": [],
-          "name": "DiamondWritable__SelectorIsImmutable",
-          "type": "error"
-        },
-        {
-          "inputs": [],
-          "name": "DiamondWritable__SelectorNotFound",
-          "type": "error"
-        },
-        {
-          "inputs": [],
-          "name": "DiamondWritable__SelectorNotSpecified",
-          "type": "error"
-        },
-        {
-          "inputs": [],
-          "name": "DiamondWritable__TargetHasNoCode",
-          "type": "error"
-        },
-        {
-          "inputs": [],
-          "name": "Ownable__NotOwner",
-          "type": "error"
-        },
-        {
-          "inputs": [],
-          "name": "Ownable__NotTransitiveOwner",
-          "type": "error"
-        },
-        {
-          "anonymous": false,
-          "inputs": [
-            {
-              "components": [
-                {
-                  "internalType": "address",
-                  "name": "target",
-                  "type": "address"
-                },
-                {
-                  "internalType": "enum IDiamondWritableInternal.FacetCutAction",
-                  "name": "action",
-                  "type": "uint8"
-                },
-                {
-                  "internalType": "bytes4[]",
-                  "name": "selectors",
-                  "type": "bytes4[]"
-                }
-              ],
-              "indexed": false,
-              "internalType": "struct IDiamondWritableInternal.FacetCut[]",
-              "name": "facetCuts",
-              "type": "tuple[]"
-            },
-            {
-              "indexed": false,
-              "internalType": "address",
-              "name": "target",
-              "type": "address"
-            },
-            {
-              "indexed": false,
-              "internalType": "bytes",
-              "name": "data",
-              "type": "bytes"
-            }
-          ],
-          "name": "DiamondCut",
-          "type": "event"
-        },
-        {
-          "anonymous": false,
-          "inputs": [
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "previousOwner",
-              "type": "address"
-            },
-            {
-              "indexed": true,
-              "internalType": "address",
-              "name": "newOwner",
-              "type": "address"
-            }
-          ],
-          "name": "OwnershipTransferred",
-          "type": "event"
->>>>>>> 0ae3de27f6538bbf38454f3b293ac7924705871e
         },
         {
           "inputs": [
@@ -9790,15 +8954,9 @@
                   "type": "address"
                 },
                 {
-<<<<<<< HEAD
                   "internalType": "bytes",
                   "name": "callData",
                   "type": "bytes"
-=======
-                  "internalType": "bytes4",
-                  "name": "selector",
-                  "type": "bytes4"
->>>>>>> 0ae3de27f6538bbf38454f3b293ac7924705871e
                 }
               ],
               "internalType": "struct Multicall2.Call[]",
@@ -9809,67 +8967,9 @@
           "name": "blockAndAggregate",
           "outputs": [
             {
-<<<<<<< HEAD
               "internalType": "uint256",
               "name": "blockNumber",
               "type": "uint256"
-=======
-              "internalType": "address",
-              "name": "pkg",
-              "type": "address"
-            }
-          ],
-          "stateMutability": "payable",
-          "type": "function"
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "address",
-              "name": "_pkg",
-              "type": "address"
-            },
-            {
-              "internalType": "bytes",
-              "name": "data",
-              "type": "bytes"
-            }
-          ],
-          "name": "install",
-          "outputs": [],
-          "stateMutability": "payable",
-          "type": "function"
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "address",
-              "name": "_pkg",
-              "type": "address"
-            },
-            {
-              "internalType": "bytes",
-              "name": "data",
-              "type": "bytes"
-            }
-          ],
-          "name": "uninstall",
-          "outputs": [],
-          "stateMutability": "payable",
-          "type": "function"
-        }
-      ]
-    },
-    "ClientRegistry": {
-      "address": "0x96E303b6D807c0824E83f954784e2d6f3614f167",
-      "abi": [
-        {
-          "inputs": [
-            {
-              "internalType": "address",
-              "name": "ensAddr",
-              "type": "address"
->>>>>>> 0ae3de27f6538bbf38454f3b293ac7924705871e
             },
             {
               "internalType": "bytes32",

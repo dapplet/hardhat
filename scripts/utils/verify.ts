@@ -7,9 +7,10 @@ import type { IPFSHTTPClient } from 'ipfs-http-client';
 import * as IPFS from 'ipfs-http-client';
 import all from 'it-all';
 import SourcifyJS from 'sourcify-js';
-import { concat as uint8ArrayConcat } from 'uint8arrays/concat';
-import { fromString as uint8ArrayFromString } from 'uint8arrays/from-string';
-import { toString as uint8ArrayToString } from 'uint8arrays/to-string';
+import uint8arrays from 'uint8arrays';
+// import { concat as uint8ArrayConcat } from 'uint8arrays/concat';
+// import { fromString as uint8ArrayFromString } from 'uint8arrays/from-string';
+// import { toString as uint8ArrayToString } from 'uint8arrays/to-string';
 
 async function getBuildInfo() {
   const path = 'artifacts/build-info';
@@ -85,7 +86,8 @@ async function saveDeployment(
 export async function verify(
   contracts: { name: string; address: string }[],
   chainId: number,
-  save?: boolean
+  savePaths?: string[] | null,
+  saveABI?: boolean
 ) {
   const ipfs = await createIPFS();
   const buildInfo = await getBuildInfo();
@@ -111,22 +113,17 @@ export async function verify(
           );
         }
         const cid = await ipfs.add(buffer);
-        if (save) {
-          await saveDeployment(
-            contract,
-            [
-              '../interface/src/contracts/deployments.json',
-              '../shell/src/contracts/deployments.json',
-              '../template/imported/deployments.json',
-            ],
-            chainId
-          );
-          await saveDeployment(
-            contract,
-            ['./deployments.json'],
-            chainId,
-            await getABIfromBuildInfo(contract.name)
-          );
+        if (savePaths) {
+          if (saveABI) {
+            await saveDeployment(
+              contract,
+              savePaths,
+              chainId,
+              await getABIfromBuildInfo(contract.name)
+            );
+          } else {
+            await saveDeployment(contract, savePaths, chainId);
+          }
         }
 
         console.log(`ℹ️ Verified ${contract.name} at ${cid.path}`);
@@ -144,10 +141,12 @@ export async function getMetadata(address: string, provider: any) {
     code.length - 4 - ipfsHashLength * 2,
     code.length - 4
   );
-  const contractMetadata = decode(uint8ArrayFromString(cborEncoded, 'base16'));
+  const contractMetadata = decode(
+    uint8arrays.fromString(cborEncoded, 'base16')
+  );
   const cidv0 = new CID(bs58.encode(contractMetadata.ipfs));
   const cidv1 = new CID(1, 'dag-pb', cidv0.bytes, 'base32');
-  const data = uint8ArrayConcat(await all(ipfs.cat(String(cidv1))));
-  const metadata = JSON.parse(uint8ArrayToString(data));
+  const data = uint8arrays.concat(await all(ipfs.cat(String(cidv1))));
+  const metadata = JSON.parse(uint8arrays.toString(data));
   return metadata;
 }
