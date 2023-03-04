@@ -25,3 +25,8 @@ export interface urlParams {
   prefix: string;
   suffix: string;
 }
+
+export interface IContract {
+  name: string;
+  address: string;
+}

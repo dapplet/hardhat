@@ -46,16 +46,16 @@ const config: HardhatUserConfig = {
         process.env.USER1_PRIVATE_KEY!,
       ],
     },
-    goerli: {
-      url: process.env.INFURA_ETH_GOERLI_URL,
-      accounts: [
-        process.env.DEPLOYER_PRIVATE_KEY!,
-        process.env.USER0_PRIVATE_KEY!,
-        process.env.USER1_PRIVATE_KEY!,
-      ],
-      blockGasLimit: 10000000,
-      timeout: 5000000,
-    },
+    // goerli: {
+    //   url: process.env.INFURA_ETH_GOERLI_URL,
+    //   accounts: [
+    //     process.env.DEPLOYER_PRIVATE_KEY!,
+    //     process.env.USER0_PRIVATE_KEY!,
+    //     process.env.USER1_PRIVATE_KEY!,
+    //   ],
+    //   blockGasLimit: 10000000,
+    //   timeout: 5000000,
+    // },
     // mainnet: {
     //   url: process.env.INFURA_ETH_MAINNET_URL,
     //   accounts: [

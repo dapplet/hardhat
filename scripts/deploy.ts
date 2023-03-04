@@ -1,21 +1,18 @@
 import { config } from 'dotenv';
 import hre, { ethers } from 'hardhat';
+import { IContract } from '../types';
 import { costOf, createAddFacetCut, recompile } from './utils';
-import { verify } from './utils/verify';
+import { saveContracts, verify } from './utils/verify';
 config();
 
-async function deploy() {
-  await recompile(hre);
+let chainId: number;
 
+export async function deploy() {
   const [deployer] = await ethers.getSigners();
-  const chainId = await ethers.provider
+  chainId = await ethers.provider
     .getNetwork()
     .then((network) => network.chainId);
 
-  interface IContract {
-    name: string;
-    address: string;
-  }
   let name;
   let contracts: IContract[] = [];
 
@@ -190,34 +187,35 @@ async function deploy() {
   await tx.wait();
 
   console.log('~~~ Deployments complete ~~~');
-  console.log('✅ Contracts deployed');
 
-  await verify(
-    contracts,
-    chainId,
-    [
-      '../interface/src/contracts/deployments.json',
-      '../shell/src/contracts/deployments.json',
-    ],
-    false
-  );
-
-  await verify(
-    contracts,
-    chainId,
-    [
-      './deployments.json',
-      '../cli/src/lib/deployments.json', // TODO: change to npm package destination
-      // npm package destinations
-    ],
-    true
-  );
-
-  console.log('✅ Contracts verified');
+  return contracts;
 }
 
 async function main() {
-  await deploy();
+  await recompile(hre);
+  const contracts = await deploy();
+  console.log('✅ Contracts deployed');
+
+  await verify(contracts, chainId);
+  console.log('✅ Contracts verified');
+
+  await saveContracts(contracts, chainId, [
+    '../interface/src/contracts/deployments.json',
+    '../shell/src/contracts/deployments.json',
+  ]);
+
+  await saveContracts(contracts, chainId, ['./deployments.json'], true, true);
+
+  const namesOnly = contracts.map((c) => ({ name: c.name }));
+  chainId === 31337 &&
+    (await saveContracts(
+      namesOnly,
+      chainId,
+      ['../cli/src/types/deployments.json'],
+      true,
+      true
+    ));
+  console.log('✅ Deployments saved');
 }
 
 // We recommend this pattern to be able to use async/await everywhere

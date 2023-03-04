@@ -1,5 +1,4 @@
-import { BytesLike, Contract, ethers } from 'ethers';
-import { promises } from 'fs';
+import { Contract, ethers } from 'ethers';
 import { HardhatRuntimeEnvironment } from 'hardhat/types';
 import deployments from '../../deployments.json';
 import { IFacetCut } from '../../types';
@@ -43,46 +42,6 @@ export function createRemoveFacetCut(contracts: Contract[]) {
 export async function recompile(hre: HardhatRuntimeEnvironment) {
   await hre.run('clean');
   await hre.run('compile');
-}
-
-async function getBuildInfo() {
-  const path = 'artifacts/build-info';
-  const dir = await promises.readdir(path);
-  const file = await promises.readFile(`${path}/${dir[0]}`);
-  const buildInfo = JSON.parse(file.toString());
-  return buildInfo;
-}
-
-export function getEnsAddressByChainId(chainId: number) {
-  switch (chainId) {
-    // mainnet
-    case 1:
-      return '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e';
-    // goerli
-    case 5:
-      return '0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e';
-    // optimism
-    case 10:
-      throw 'utils: ENS not yet supported on Optimism';
-    // arbitrum
-    case 42161:
-      throw 'utils: ENS not yet supported on Arbitrum';
-    // or throw error
-    default:
-      throw 'utils: add ENS address for chainId';
-  }
-}
-
-export async function deployDummyENSRegistry(
-  hre: HardhatRuntimeEnvironment,
-  topNode: BytesLike,
-  rootNode: BytesLike
-) {
-  const Registry = await hre.ethers.getContractFactory('DummyRegistry');
-  const registry = await Registry.deploy(topNode, rootNode);
-  await registry.deployed();
-  console.log('DummyRegistry deployed to:', registry.address);
-  return registry;
 }
 
 export interface IDeployments {

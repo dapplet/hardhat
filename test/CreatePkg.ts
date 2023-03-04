@@ -30,7 +30,10 @@ describe('CreatePkg', async function () {
   let greeterinit: Contract;
 
   let pkgs: string[];
-  let counterPkg: string, greeterPkg: string;
+  let visitorlogPkg: string,
+    greeterPkg: string,
+    counterPkg: string,
+    favoriterPkg: string;
 
   before(async function () {
     [deployer, ...signer] = await ethers.getSigners();
@@ -88,23 +91,35 @@ describe('CreatePkg', async function () {
   //   await createPkgFromRoot(hre, signer[0].address, `${clientName}999`);
   // });
 
-  it('should create counter package', async function () {
-    const Counter = await ethers.getContractFactory('Counter');
-    const counter = await Counter.deploy();
-    await counter.deployed();
-    console.log('Counter deployed to:', counter.address);
+  it('should create visitor log package', async function () {
+    const VisitorLog = await ethers.getContractFactory('VisitorLog');
+    const visitorlog = await VisitorLog.deploy();
+    await visitorlog.deployed();
+    console.log('VisitorLog deployed to:', visitorlog.address);
     await run('verify:sourcify', {
-      name: 'Counter',
-      address: counter.address,
+      name: 'VisitorLog',
+      address: visitorlog.address,
       chainid: chainId,
     });
+
+    const VisitorLogInit = await ethers.getContractFactory('VisitorLogInit');
+    const visitorloginit = await VisitorLogInit.deploy(deployer.address);
+    await visitorloginit.deployed();
+    console.log('VisitorLogInit deployed to:', visitorloginit.address);
+    await run('verify:sourcify', {
+      name: 'VisitorLogInit',
+      address: visitorloginit.address,
+      chainid: chainId,
+    });
+
     const pkg: IPKGCUT = {
-      cuts: createAddFacetCut([counter]),
-      target: '0x0000000000000000000000000000000000000000',
-      selector: '0x00000000',
+      cuts: createAddFacetCut([visitorlog]),
+      target: visitorloginit.address,
+      selector: visitorloginit.interface.getSighash('init'),
     };
-    const cid = 'bafkreibqxnhdkj4eihg4klptqsaw6ckdnhqtlv4lylwcopgylmqf5npiyq';
-    counterPkg = await createPkg(hre, clientAddress, pkg, cid, signer[1]);
+
+    const cid = 'bafkreibbiwiulq4e4qwzb5cq4awiw2jhmyyaqb3l2upqr2ywfwp5iaa7um';
+    visitorlogPkg = await createPkg(hre, clientAddress, pkg, cid, signer[1]);
   });
 
   it('should create greeter package', async function () {
@@ -133,7 +148,8 @@ describe('CreatePkg', async function () {
       target: greeterinit.address,
       selector: greeterinit.interface.getSighash('init(string)'),
     };
-    const cid = 'bafkreihxqlswwk7htltdez2ekldymmx7lo5d6t7s34tiojdygd4cbc6i6e';
+    //greeter cid
+    const cid = 'bafkreifa3v35tfwto6lhgwrmg6iun72avnpiw5pbbownahxgbucujhybxe';
 
     greeterPkg = await createPkg(hre, clientAddress, pkg, cid, signer[1]);
   });
@@ -146,18 +162,15 @@ describe('CreatePkg', async function () {
     // get metadataOf(pkg)
     const metadata = await viewerfacet.metadataOf(pkgs);
     console.log('📦 metadata', metadata);
-
-    counterPkg = pkgs[pkgs.length - 2];
-    greeterPkg = pkgs[pkgs.length - 1];
   });
 
   it('should stake on a package', async function () {
     const assetAmount = ethers.utils.parseEther('0.1');
 
-    const before = await stakingfacet.balanceOf(counterPkg);
+    const before = await stakingfacet.balanceOf(visitorlogPkg);
 
     // stake 0.001 WETH
-    const tx = await stakingfacet.connect(signer[1]).stake(counterPkg, {
+    const tx = await stakingfacet.connect(signer[1]).stake(visitorlogPkg, {
       value: assetAmount,
       gasLimit: 1000000,
     });
@@ -166,22 +179,22 @@ describe('CreatePkg', async function () {
     expect(evts[0].args.account).to.equal(signer[1].address);
 
     // check balance
-    const after = await stakingfacet.balanceOf(counterPkg);
+    const after = await stakingfacet.balanceOf(visitorlogPkg);
     expect(after.sub(before)).to.equal(assetAmount);
   });
 
-  it('should install a package to a diamond', async function () {
+  it('should install a basic package to a diamond', async function () {
     const before = await clientloupefacet.facetAddresses();
 
     // send install(counterPkg, bytes(0))
 
-    const counterInstall = await installer
+    const visitorLogInstall = await installer
       .connect(signer[1])
-      .install(counterPkg, '0x', {
+      .install(visitorlogPkg, '0x', {
         gasLimit: 1000000,
         value: costOf.install,
       });
-    await counterInstall.wait();
+    await visitorLogInstall.wait();
 
     const after = await clientloupefacet.facetAddresses();
 
@@ -200,7 +213,7 @@ describe('CreatePkg', async function () {
       .connect(signer[1])
       .install(greeterPkg, calldata, {
         gasLimit: 1000000,
-        value: ethers.utils.parseEther('1'),
+        value: costOf.install.add(ethers.utils.parseEther('0.0001')),
       });
     await greeterInstall.wait();
 
@@ -226,7 +239,7 @@ describe('CreatePkg', async function () {
   });
 
   it('should check stake increased', async function () {
-    const pkg = new Contract(counterPkg, PKGInterface, ethers.provider);
+    const pkg = new Contract(visitorlogPkg, PKGInterface, ethers.provider);
 
     const before = await ethers.provider.getBalance(signer[1].address);
 
@@ -238,7 +251,7 @@ describe('CreatePkg', async function () {
 
     const tx = await stakingfacet
       .connect(signer[1])
-      .unstake(counterPkg, amount);
+      .unstake(visitorlogPkg, amount);
     const receipt = await tx.wait();
     const gas = receipt.gasUsed.mul(tx.gasPrice);
     const evts = receipt.events.filter((e: any) => e.event == 'Unstake');
@@ -251,5 +264,51 @@ describe('CreatePkg', async function () {
     expect(after.sub(before)).to.equal(preview.sub(gas));
 
     expect(beforePkgBalanceOf.sub(afterPkgBalanceOf)).to.equal(amount);
+  });
+
+  it('should create counter pkg', async function () {
+    const Counter = await ethers.getContractFactory('Counter');
+    const counter = await Counter.deploy();
+    await counter.deployed();
+    console.log('Counter deployed to:', counter.address);
+    await run('verify:sourcify', {
+      name: 'Counter',
+      address: counter.address,
+      chainid: chainId,
+    });
+
+    const pkg: IPKGCUT = {
+      cuts: createAddFacetCut([counter]),
+      target: ethers.constants.AddressZero,
+      selector: '0x00000000',
+    };
+
+    //counter cid
+    const cid = 'bafkreida5su7sliqg2xzgp3wdgnqpoybxt4a3c46zmcnsw6pyzwigghvoa';
+
+    counterPkg = await createPkg(hre, clientAddress, pkg, cid, signer[1]);
+  });
+
+  it('should create favoriter pkg', async function () {
+    const Favoriter = await ethers.getContractFactory('Favoriter');
+    const favoriter = await Favoriter.deploy();
+    await favoriter.deployed();
+    console.log('Favoriter deployed to:', favoriter.address);
+    await run('verify:sourcify', {
+      name: 'Favoriter',
+      address: favoriter.address,
+      chainid: chainId,
+    });
+
+    const pkg: IPKGCUT = {
+      cuts: createAddFacetCut([favoriter]),
+      target: ethers.constants.AddressZero,
+      selector: '0x00000000',
+    };
+
+    //favoriter cid
+    const cid = 'bafkreicl4cj5fkd2bdglst7kr3x7mspbm65akx5a2vgudgw4ieax7x4qx4';
+
+    favoriterPkg = await createPkg(hre, clientAddress, pkg, cid, signer[1]);
   });
 });
