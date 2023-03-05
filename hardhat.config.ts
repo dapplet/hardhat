@@ -16,8 +16,8 @@ dotenv.config();
 
 const config: HardhatUserConfig = {
   solidity: '0.8.17',
-  defaultNetwork: 'localhost',
-  // defaultNetwork: 'sepolia',
+  // defaultNetwork: 'localhost',
+  defaultNetwork: 'sepolia',
   // defaultNetwork: 'goerli',
   // defaultNetwork: "mainnet",
   // defaultNetwork: 'hardhat',
