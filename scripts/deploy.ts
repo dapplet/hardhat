@@ -16,7 +16,7 @@ export async function deploy() {
   let name;
   let contracts: IContract[] = [];
 
-  /// Deploy Utils
+  // /// Deploy Utils
   console.log('~~~ Deploying Utils ~~~');
   name = 'Multicall2';
   const Multicall2 = await ethers.getContractFactory(name);
@@ -51,26 +51,26 @@ export async function deploy() {
   /// Deploy Shell Facets
   console.log('~~~ Deploying Shell Facets ~~~');
 
-  name = 'AdminFacet';
-  const Admin = await ethers.getContractFactory(name);
-  const admin = await Admin.deploy();
-  await admin.deployed();
-  contracts.push({ name, address: admin.address } as IContract);
-  console.log('👮 AdminFacet deployed:', admin.address);
-
-  name = 'ClientRegistry';
-  const ClientRegistry = await ethers.getContractFactory(name);
-  const clientregistry = await ClientRegistry.deploy();
-  await clientregistry.deployed();
-  contracts.push({ name, address: clientregistry.address } as IContract);
-  console.log('🏭 ClientRegistry deployed:', clientregistry.address);
-
   name = 'ConnectorFacet';
-  const Connector = await ethers.getContractFactory(name);
-  const connector = await Connector.deploy();
-  await connector.deployed();
-  contracts.push({ name, address: connector.address } as IContract);
-  console.log('🔌 ConnectorFacet deployed:', connector.address);
+  const ConnectorFacet = await ethers.getContractFactory(name);
+  const connectorfacet = await ConnectorFacet.deploy();
+  await connectorfacet.deployed();
+  contracts.push({ name, address: connectorfacet.address } as IContract);
+  console.log('🔌 ConnectorFacet deployed:', connectorfacet.address);
+
+  name = 'DappletsFacet';
+  const DappletsFacet = await ethers.getContractFactory(name);
+  const dappletsfacet = await DappletsFacet.deploy();
+  await dappletsfacet.deployed();
+  contracts.push({ name, address: dappletsfacet.address } as IContract);
+  console.log('📦 DappletsFacet deployed:', dappletsfacet.address);
+
+  name = 'DappsFacet';
+  const DappsFacet = await ethers.getContractFactory(name);
+  const dappsfacet = await DappsFacet.deploy();
+  await dappsfacet.deployed();
+  contracts.push({ name, address: dappsfacet.address } as IContract);
+  console.log('📱 DappsFacet deployed:', dappsfacet.address);
 
   name = 'DiamondCutFacet';
   const DiamondCutFacet = await ethers.getContractFactory(name);
@@ -79,30 +79,14 @@ export async function deploy() {
   contracts.push({ name, address: diamondcutfacet.address } as IContract);
   console.log('🔪 DiamondCutFacet deployed:', diamondcutfacet.address);
 
-  name = 'StakingFacet';
-  const Staking = await ethers.getContractFactory(name);
-  const staking = await Staking.deploy();
-  await staking.deployed();
-  contracts.push({ name, address: staking.address } as IContract);
-  console.log('🪙  StakingFacet deployed:', staking.address);
-
-  name = 'ViewerFacet';
-  const Viewer = await ethers.getContractFactory(name);
-  const viewer = await Viewer.deploy();
-  await viewer.deployed();
-  contracts.push({ name, address: viewer.address } as IContract);
-  console.log('👁️ ViewerFacet deployed:', viewer.address);
-
   const sysCuts = createAddFacetCut([
     loupe,
     ownership,
     erc165,
-    admin,
-    clientregistry,
-    connector,
+    connectorfacet,
+    dappletsfacet,
+    dappsfacet,
     diamondcutfacet,
-    staking,
-    // add viewer in 2nd cut
   ]);
 
   /// Deploy Initializers
@@ -121,26 +105,36 @@ export async function deploy() {
   contracts.push({ name, address: clientinit.address } as IContract);
   console.log('💠 ClientInit deployed:', clientinit.address);
 
-  name = 'SysUpgradeInit';
-  const SysUpgradeInit = await ethers.getContractFactory(name);
-  const sysupgradeinit = await SysUpgradeInit.deploy();
-  await sysupgradeinit.deployed();
-  contracts.push({ name, address: sysupgradeinit.address } as IContract);
-  console.log('💠 SysUpgradeInit deployed:', sysupgradeinit.address);
-
   /// Deploy Diamond //////////////////////////////////////////
   const systemFees = [
     {
-      selector: connector.interface.getSighash(
+      selector: connectorfacet.interface.getSighash(
         'createPkg(((address,uint8,bytes4[])[],address,bytes4),string)'
       ),
       amount: costOf.createPkg,
     },
     {
-      selector: clientregistry.interface.getSighash('createClient(string)'),
+      selector: dappsfacet.interface.getSighash('createClient(string)'),
       amount: costOf.createClient,
     },
   ];
+
+  // get installer selectors
+  const Installer = await ethers.getContractFactory('Installer');
+  const iface = new ethers.utils.Interface(Installer.interface.format());
+  const clientFacets = [
+    {
+      target: ethers.constants.AddressZero, // will be replaced via init call
+      action: 0,
+      selectors: Object.keys(iface.functions).map((fn) => iface.getSighash(fn)),
+    },
+  ].concat(createAddFacetCut([loupe, ownership, erc165]));
+
+  const clientUpgrade = {
+    cuts: clientFacets,
+    target: clientinit.address,
+    selector: clientinit.interface.getSighash('init'),
+  };
 
   name = 'Diamond';
   const Diamond = await ethers.getContractFactory(name);
@@ -151,42 +145,18 @@ export async function deploy() {
     systeminit.interface.encodeFunctionData('init', [
       systemFees,
       costOf.install,
+      clientUpgrade,
     ])
   );
   await diamond.deployed();
   contracts.push({ name, address: diamond.address } as IContract);
   console.log('💎 Diamond deployed:', diamond.address);
 
-  name = 'Installer';
-  const Installer = await ethers.getContractFactory(name);
-  const installer = await Installer.deploy(diamond.address);
-  await installer.deployed();
-  contracts.push({ name, address: installer.address } as IContract);
-  console.log('🔌 Installer deployed:', installer.address);
-
-  const clientFacets = createAddFacetCut([loupe, ownership, erc165, installer]);
-
-  const clientCut = {
-    cuts: clientFacets,
-    target: clientinit.address,
-    selector: clientinit.interface.getSighash('init'),
-  };
-
-  const sysUpgradeCuts = createAddFacetCut([viewer]);
-
-  const x_diamondcutfacet = await ethers.getContractAt(
-    'DiamondCutFacet',
-    diamond.address
-  );
-  const tx = await x_diamondcutfacet.diamondCut(
-    sysUpgradeCuts,
-    sysupgradeinit.address,
-    sysupgradeinit.interface.encodeFunctionData('init', [clientCut]),
-    { gasLimit: 1000000 }
-  );
-  await tx.wait();
-
-  console.log('~~~ Deployments complete ~~~');
+  // get installer address
+  const x_dapps = await ethers.getContractAt('DappsFacet', diamond.address);
+  const clientUpgradeData = await x_dapps.getClientUpgrade('default');
+  const installerAddress = clientUpgradeData.cuts[0].target;
+  console.log('💎 Installer deployed:', installerAddress);
 
   return contracts;
 }
@@ -205,17 +175,14 @@ async function main() {
   ]);
 
   await saveContracts(contracts, chainId, ['./deployments.json'], true, true);
-
-  const namesOnly = contracts.map((c) => ({ name: c.name }));
-  chainId === 31337 &&
-    (await saveContracts(
-      namesOnly,
-      chainId,
-      ['../cli/src/types/deployments.json'],
-      true,
-      true
-    ));
   console.log('✅ Deployments saved');
+
+  await saveContracts(
+    contracts,
+    chainId,
+    ['../ide/src/contracts/deployments.json'],
+    true
+  );
 }
 
 // We recommend this pattern to be able to use async/await everywhere

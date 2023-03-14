@@ -1,20 +1,20 @@
 // import deployments.json
-import type { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
-import { Contract } from 'ethers';
-import { HardhatRuntimeEnvironment } from 'hardhat/types';
+import { Contract, ethers } from 'ethers';
 import deployments from '../../deployments.json';
 import type { IDeployments } from '../../types';
 
 export async function installPkg(
-  hre: HardhatRuntimeEnvironment,
   clientAddress: string,
   pkgAddress: string,
-  signer: SignerWithAddress,
+  provider: ethers.providers.JsonRpcProvider,
+  signer: ethers.providers.JsonRpcSigner,
   data: string
 ) {
-  const chainId = await hre.ethers.provider
+  const chainId = await provider
     .getNetwork()
     .then((network) => network.chainId);
+
+  const account = signer ? signer : provider.getSigner();
 
   const deployment = (deployments as IDeployments)[
     chainId as keyof IDeployments
@@ -23,21 +23,25 @@ export async function installPkg(
   const Installer = new Contract(
     clientAddress,
     deployment['Installer'].abi,
-    hre.ethers.provider
+    provider
   );
 
-  const installPkg = await Installer.connect(signer).install(pkgAddress, data, {
-    gasLimit: 1000000,
-  });
+  const installPkg = await Installer.connect(account).install(
+    pkgAddress,
+    data,
+    {
+      gasLimit: 1000000,
+    }
+  );
   await installPkg.wait();
 
-  const Connector = new Contract(
+  const ConnectorFacet = new Contract(
     deployment['Diamond'].address,
     deployment['ConnectorFacet'].abi,
-    hre.ethers.provider
+    provider
   );
 
-  const events = await Connector.queryFilter('Upgrade');
+  const events = await ConnectorFacet.queryFilter('Upgrade');
   let pkgs = events.map((e) => e.args?.pkg);
   return pkgs[pkgs.length - 1];
 }
