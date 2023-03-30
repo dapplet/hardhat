@@ -156,6 +156,10 @@ export async function deploy() {
   const x_dapps = await ethers.getContractAt('DappsFacet', diamond.address);
   const clientUpgradeData = await x_dapps.getClientUpgrade('default');
   const installerAddress = clientUpgradeData.cuts[0].target;
+  contracts.push({
+    name: 'Installer',
+    address: installerAddress,
+  } as IContract);
   console.log('💎 Installer deployed:', installerAddress);
 
   return contracts;
@@ -172,6 +176,7 @@ async function main() {
   await saveContracts(contracts, chainId, [
     '../interface/src/contracts/deployments.json',
     '../shell/src/contracts/deployments.json',
+    '../ide/src/contracts/deployments.json',
   ]);
 
   await saveContracts(contracts, chainId, ['./deployments.json'], true, true);

@@ -15,7 +15,7 @@ export interface IFacetCut {
   selectors: string[];
 }
 
-export interface IPKGCUT {
+export interface IPKGUpgrade {
   cuts: IFacetCut[];
   target: string;
   selector: string;

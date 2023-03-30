@@ -40,27 +40,23 @@ describe('CreateClient', async function () {
 
     const Diamond = deployment['Diamond'];
     diamond = new Contract(Diamond.address, Diamond.abi, provider);
-    console.log('Diamond:', Diamond.address);
 
     const DappsFacet = deployment['DappsFacet'];
     dappsfacet = new Contract(Diamond.address, DappsFacet.abi, provider);
-    console.log('ClientRegistry:', DappsFacet.address);
 
     const DappletsFacet = deployment['DappletsFacet'];
     dappletsfacet = new Contract(Diamond.address, DappletsFacet.abi, provider);
-    console.log('dapplets:', DappletsFacet.address);
 
     const LoupeFacet = deployment['DiamondLoupeFacet'];
     const loupefacet = new Contract(Diamond.address, LoupeFacet.abi, provider);
-    console.log('LoupeFacet:', LoupeFacet.address);
 
     const facets = await loupefacet.facetAddresses();
-    console.log('facets:', facets);
     expect(facets).to.include(LoupeFacet.address);
   });
 
   it('Should createClient and register name successfully', async function () {
     const clientDiamond = await createClient(clientName, provider, signer[0]);
+    console.log('clientDiamond:', clientDiamond);
     clientdiamonds.push(clientDiamond);
   });
 

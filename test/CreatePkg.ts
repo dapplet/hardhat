@@ -7,7 +7,7 @@ import { costOf, createAddFacetCut } from '../scripts/utils';
 import { createClient } from '../scripts/utils/createClient';
 import { createPkg } from '../scripts/utils/createPkg';
 import { PKG__factory } from '../typechain-types';
-import type { IDeployment, IDeployments, IPKGCUT } from '../types';
+import type { IDeployment, IDeployments, IPKGUpgrade } from '../types';
 const PKGInterface = new ethers.utils.Interface(PKG__factory.abi);
 
 describe('CreatePkg', async function () {
@@ -96,7 +96,7 @@ describe('CreatePkg', async function () {
       chainid: chainId,
     });
 
-    const pkg: IPKGCUT = {
+    const pkg: IPKGUpgrade = {
       cuts: createAddFacetCut([visitorlog]),
       target: visitorloginit.address,
       selector: visitorloginit.interface.getSighash('init'),
@@ -133,7 +133,7 @@ describe('CreatePkg', async function () {
       chainid: chainId,
     });
 
-    const pkg: IPKGCUT = {
+    const pkg: IPKGUpgrade = {
       cuts: createAddFacetCut([greeter]),
       target: greeterinit.address,
       selector: greeterinit.interface.getSighash('init(string)'),
@@ -274,7 +274,7 @@ describe('CreatePkg', async function () {
       chainid: chainId,
     });
 
-    const pkg: IPKGCUT = {
+    const pkg: IPKGUpgrade = {
       cuts: createAddFacetCut([counter]),
       target: ethers.constants.AddressZero,
       selector: '0x00000000',
@@ -297,7 +297,7 @@ describe('CreatePkg', async function () {
       chainid: chainId,
     });
 
-    const pkg: IPKGCUT = {
+    const pkg: IPKGUpgrade = {
       cuts: createAddFacetCut([favoriter]),
       target: ethers.constants.AddressZero,
       selector: '0x00000000',

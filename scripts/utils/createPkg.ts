@@ -1,15 +1,16 @@
 // import deployments.json
 import type { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import { Contract, ethers } from 'ethers';
+import { Interface } from 'ethers/lib/utils';
 import deployments from '../../deployments.json';
-import type { IDeployments, IPKGCUT } from '../../types';
+import type { IDeployments, IPKGUpgrade } from '../../types';
 import { costOf } from '../utils';
 import { createClient } from './createClient';
 import { installPkg } from './installPkg';
 
 export async function createPkg(
   clientAddress: string,
-  cut: IPKGCUT,
+  cut: IPKGUpgrade,
   cid: string,
   provider: ethers.providers.JsonRpcProvider,
   signer?: SignerWithAddress
@@ -30,21 +31,19 @@ export async function createPkg(
     provider
   );
 
-  const createPkg = await Installer.connect(account).create(cut, cid, {
+  const tx = await Installer.connect(account).create(cut, cid, {
     value: costOf.createPkg,
     gasLimit: 1000000,
   });
-  await createPkg.wait();
+  const receipt = await tx.wait();
 
-  const ConnectorFacet = new Contract(
-    deployment['Diamond'].address,
-    deployment['ConnectorFacet'].abi,
-    provider
-  );
-
-  const events = await ConnectorFacet.queryFilter('PackageCreated');
-  let pkgs = events.map((e) => e.args?.pkg);
-  return pkgs[pkgs.length - 1];
+  const iface = new Interface(deployment['ConnectorFacet'].abi);
+  for (const log of receipt.logs) {
+    const event = iface.parseLog(log);
+    if (event.name === 'PackageCreated') {
+      return event.args.pkg;
+    }
+  }
 }
 
 export async function createPkgFromRoot(
@@ -58,7 +57,7 @@ export async function createPkgFromRoot(
   const cwd = process.cwd();
   const packageJson = require(`${cwd}/package.json`);
   const { custom } = packageJson;
-  const pkg: IPKGCUT = custom;
+  const pkg: IPKGUpgrade = custom;
 
   const account = signer ? signer : provider.getSigner();
 

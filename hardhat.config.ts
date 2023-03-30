@@ -26,15 +26,29 @@ const config: HardhatUserConfig = {
     localhost: {
       url: 'http://localhost:8545',
       chainId: 31337,
-      blockGasLimit: 10000000,
+      // blockGasLimit: 10000000,
     },
     hardhat: {
       forking: {
-        url: process.env.INFURA_ETH_SEPOLIA_URL!,
+        url: process.env.SEPOLIA_URL!,
       },
+      accounts: [
+        {
+          privateKey: process.env.DEPLOYER_PRIVATE_KEY!,
+          balance: '10000000000000000000000',
+        },
+        {
+          privateKey: process.env.USER0_PRIVATE_KEY!,
+          balance: '10000000000000000000000',
+        },
+        {
+          privateKey: process.env.USER1_PRIVATE_KEY!,
+          balance: '10000000000000000000000',
+        },
+      ],
     },
     sepolia: {
-      url: process.env.INFURA_ETH_SEPOLIA_URL!,
+      url: process.env.SEPOLIA_URL!,
       accounts: [
         process.env.DEPLOYER_PRIVATE_KEY!,
         process.env.USER0_PRIVATE_KEY!,
@@ -108,6 +122,7 @@ const config: HardhatUserConfig = {
         'DappsFacet',
         'DiamondCutFacet',
         'Multicall2',
+        'Initializer',
       ],
       // except: [],
       spacing: 2,
@@ -129,6 +144,8 @@ const config: HardhatUserConfig = {
         'DappsFacet',
         'Installer',
         'Diamond',
+        'Initializer',
+        'PKG',
       ],
       // except: [],
       spacing: 2,
