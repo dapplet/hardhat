@@ -5,8 +5,6 @@ import { Interface } from 'ethers/lib/utils';
 import deployments from '../../deployments.json';
 import type { IDeployments, IPKGUpgrade } from '../../types';
 import { costOf } from '../utils';
-import { createClient } from './createClient';
-import { installPkg } from './installPkg';
 
 export async function createPkg(
   clientAddress: string,
@@ -46,38 +44,38 @@ export async function createPkg(
   }
 }
 
-export async function createPkgFromRoot(
-  provider: ethers.providers.JsonRpcProvider,
-  signer?: ethers.providers.JsonRpcSigner,
-  clientName?: string,
-  cid?: string,
-  data?: string
-) {
-  // get cwd
-  const cwd = process.cwd();
-  const packageJson = require(`${cwd}/package.json`);
-  const { custom } = packageJson;
-  const pkg: IPKGUpgrade = custom;
+// export async function createPkgFromRoot(
+//   provider: ethers.providers.JsonRpcProvider,
+//   signer?: ethers.providers.JsonRpcSigner,
+//   clientName?: string,
+//   cid?: string,
+//   data?: string
+// ) {
+//   // get cwd
+//   const cwd = process.cwd();
+//   const packageJson = require(`${cwd}/package.json`);
+//   const { custom } = packageJson;
+//   const pkg: IPKGUpgrade = custom;
 
-  const account = signer ? signer : provider.getSigner();
+//   const account = signer ? signer : provider.getSigner();
 
-  const clientAddress = await createClient(
-    clientName || `${packageJson.name}-dev`,
-    provider
-  );
+//   const clientAddress = await createClient(
+//     clientName || `${packageJson.name}-dev`,
+//     provider
+//   );
 
-  cid = cid || 'bafkreibqxnhdkj4eihg4klptqsaw6ckdnhqtlv4lylwcopgylmqf5npiyq';
+//   cid = cid || 'bafkreibqxnhdkj4eihg4klptqsaw6ckdnhqtlv4lylwcopgylmqf5npiyq';
 
-  const pkgAddress = await createPkg(clientAddress, pkg, cid, provider);
+//   const pkgAddress = await createPkg(clientAddress, pkg, cid, provider);
 
-  console.log('📦', pkgAddress);
-  /// now cut pkg into diamond
-  const installedPkg = await installPkg(
-    clientAddress,
-    pkgAddress,
-    provider,
-    account,
-    data || '0x'
-  );
-  console.log('🔪', installedPkg);
-}
+//   console.log('📦', pkgAddress);
+//   /// now cut pkg into diamond
+//   const installedPkg = await installPkg(
+//     clientAddress,
+//     pkgAddress,
+//     provider,
+//     account,
+//     data || '0x'
+//   );
+//   console.log('🔪', installedPkg);
+// }

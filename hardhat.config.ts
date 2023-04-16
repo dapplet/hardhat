@@ -26,10 +26,10 @@ const config: HardhatUserConfig = {
     localhost: {
       url: 'http://localhost:8545',
       chainId: 31337,
-      // blockGasLimit: 10000000,
     },
     hardhat: {
       forking: {
+        enabled: true,
         url: process.env.SEPOLIA_URL!,
       },
       accounts: [
@@ -46,6 +46,9 @@ const config: HardhatUserConfig = {
           balance: '10000000000000000000000',
         },
       ],
+      throwOnTransactionFailures: true,
+      throwOnCallFailures: true,
+      hardfork: 'london',
     },
     sepolia: {
       url: process.env.SEPOLIA_URL!,
@@ -167,6 +170,9 @@ const config: HardhatUserConfig = {
         'DappsFacet',
         'Installer',
         'Diamond',
+        'OwnershipFacet',
+        'DiamondLoupeFacet',
+        'ERC165Facet',
       ],
       // except: [],
       spacing: 2,

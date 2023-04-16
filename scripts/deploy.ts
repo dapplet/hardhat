@@ -114,7 +114,7 @@ export async function deploy() {
       amount: costOf.createPkg,
     },
     {
-      selector: dappsfacet.interface.getSighash('createClient(string)'),
+      selector: dappsfacet.interface.getSighash('createClient()'),
       amount: costOf.createClient,
     },
   ];

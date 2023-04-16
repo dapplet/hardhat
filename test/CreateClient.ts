@@ -23,7 +23,6 @@ describe('CreateClient', async function () {
   let chainId: number;
   let deployment: IDeployment;
 
-  let clientName: string;
   let clientdiamonds: string[] = [];
 
   let diamond: Contract;
@@ -33,7 +32,6 @@ describe('CreateClient', async function () {
   before(async function () {
     [deployer, ...signer] = await hre.ethers.getSigners();
     provider = hre.ethers.provider;
-    clientName = 'diamond' + (await deployer.getTransactionCount());
     chainId = await provider.getNetwork().then((n) => n.chainId);
     console.log('⛓️🆔', chainId);
     deployment = (deployments as IDeployments)[chainId as keyof IDeployments];
@@ -55,13 +53,18 @@ describe('CreateClient', async function () {
   });
 
   it('Should createClient and register name successfully', async function () {
-    const clientDiamond = await createClient(clientName, provider, signer[0]);
+    const clientDiamond = await createClient(provider, signer[0]);
     console.log('clientDiamond:', clientDiamond);
     clientdiamonds.push(clientDiamond);
   });
 
-  it('Should resolve to clientName', async function () {
-    const names = await dappsfacet.nameOf(clientdiamonds);
-    console.log('clientName:', names[0]);
+  it('Should have facets on client', async function () {
+    const diamondloupefacet = new Contract(
+      clientdiamonds[0],
+      deployment['DiamondLoupeFacet'].abi,
+      provider
+    );
+    const facets = await diamondloupefacet.facets();
+    expect(facets.length).to.be.greaterThan(0);
   });
 });

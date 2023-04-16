@@ -18,7 +18,6 @@ describe('CreatePkg', async function () {
   let deployment: IDeployment;
 
   let clientAddress: string; //address of client
-  let clientName: string;
   let clientdiamonds: string[] = [];
 
   let diamond: Contract;
@@ -38,8 +37,6 @@ describe('CreatePkg', async function () {
   before(async function () {
     [deployer, ...signer] = await hre.ethers.getSigners();
     provider = hre.ethers.provider;
-    clientName = 'client' + (await signer[0].getTransactionCount());
-    console.log('clientName:', clientName);
     chainId = await provider.getNetwork().then((network) => network.chainId);
     console.log('⛓️🆔', chainId);
     deployment = (deployments as IDeployments)[chainId as keyof IDeployments];
@@ -50,7 +47,7 @@ describe('CreatePkg', async function () {
     const DappsFacet = deployment['DappsFacet'];
     dappsfacet = new Contract(Diamond.address, DappsFacet.abi, provider);
 
-    clientAddress = await createClient(clientName, provider, signer[1]);
+    clientAddress = await createClient(provider, signer[1]);
 
     const DappletsFacet = deployment['DappletsFacet'];
     dappletsfacet = new Contract(Diamond.address, DappletsFacet.abi, provider);
@@ -68,10 +65,6 @@ describe('CreatePkg', async function () {
     const LoupeFacet = deployment['DiamondLoupeFacet'];
     clientloupefacet = new Contract(clientAddress, LoupeFacet.abi, provider);
   });
-
-  // it('should create a pkg', async function () {
-  //   await createPkgFromRoot(hre, signer[0].address, `${clientName}999`);
-  // });
 
   it('should create visitor log package', async function () {
     const VisitorLog = await hre.ethers.getContractFactory('VisitorLog');
@@ -284,6 +277,13 @@ describe('CreatePkg', async function () {
     const cid = 'bafkreidvmavlaya2j4jb7uddskc76vwy6a5atb47siaquwdp5kxb62ktai';
 
     counterPkg = await createPkg(clientAddress, pkg, cid, provider, signer[1]);
+
+    const upgrade = new Contract(counterPkg, PKGInterface, provider);
+    console.log('📦 pkg', upgrade.address);
+
+    const get = await upgrade.get(0);
+    const firstFacetAddr = get.cuts[0].target;
+    expect(firstFacetAddr).to.equal(counter.address);
   });
 
   it('should create favoriter pkg', async function () {

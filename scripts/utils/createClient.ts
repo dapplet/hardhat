@@ -5,7 +5,6 @@ import deployments from '../../deployments.json';
 import type { IDeployments } from '../../types';
 
 export async function createClient(
-  name: string,
   provider: ethers.providers.JsonRpcProvider,
   signer?: ethers.providers.JsonRpcSigner
 ) {
@@ -26,7 +25,7 @@ export async function createClient(
     provider
   );
 
-  const tx = await x_dapps.connect(account).createClient(name, {
+  const tx = await x_dapps.connect(account).createClient({
     value: costOf.createClient,
     gasLimit: 1000000,
   });
