@@ -4,9 +4,9 @@ import deployments from '../../deployments.json';
 import { IFacetCut } from '../../types';
 
 export const costOf = {
-  createPkg: ethers.utils.parseEther('0.001'),
+  createPkg: ethers.utils.parseEther('0.01'),
   createClient: ethers.utils.parseEther('0.01'),
-  install: ethers.utils.parseEther('0.0001'),
+  install: ethers.utils.parseEther('0.001'),
 };
 
 const action = { add: 0, replace: 1, remove: 2 };

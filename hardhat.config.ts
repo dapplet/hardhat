@@ -29,7 +29,6 @@ const config: HardhatUserConfig = {
     },
     hardhat: {
       forking: {
-        enabled: true,
         url: process.env.SEPOLIA_URL!,
       },
       accounts: [
@@ -46,9 +45,9 @@ const config: HardhatUserConfig = {
           balance: '10000000000000000000000',
         },
       ],
-      throwOnTransactionFailures: true,
-      throwOnCallFailures: true,
-      hardfork: 'london',
+      // throwOnTransactionFailures: true,
+      // throwOnCallFailures: true,
+      // hardfork: 'london',
     },
     sepolia: {
       url: process.env.SEPOLIA_URL!,
@@ -100,7 +99,7 @@ const config: HardhatUserConfig = {
         'ERC165Facet',
         'OwnershipFacet',
         'DiamondLoupeFacet',
-        'ConnectorFacet',
+        'OperatorFacet',
         'DappletsFacet',
         'DappsFacet',
         'DiamondCutFacet',
@@ -120,7 +119,7 @@ const config: HardhatUserConfig = {
         'DiamondLoupeFacet',
         'ERC165Facet',
         'OwnershipFacet',
-        'ConnectorFacet',
+        'OperatorFacet',
         'DappletsFacet',
         'DappsFacet',
         'DiamondCutFacet',
@@ -142,7 +141,7 @@ const config: HardhatUserConfig = {
       clear: true,
       flat: true,
       only: [
-        'ConnectorFacet',
+        'OperatorFacet',
         'DappletsFacet',
         'DappsFacet',
         'Installer',
@@ -165,7 +164,7 @@ const config: HardhatUserConfig = {
       clear: true,
       flat: true,
       only: [
-        'ConnectorFacet',
+        'OperatorFacet',
         'DappletsFacet',
         'DappsFacet',
         'Installer',
@@ -173,6 +172,8 @@ const config: HardhatUserConfig = {
         'OwnershipFacet',
         'DiamondLoupeFacet',
         'ERC165Facet',
+        'Initializer',
+        'PKG',
       ],
       // except: [],
       spacing: 2,
@@ -188,7 +189,7 @@ const config: HardhatUserConfig = {
       runOnCompile: true,
       clear: true,
       flat: true,
-      only: ['ConnectorFacet', 'DappletsFacet'],
+      only: ['OperatorFacet', 'DappletsFacet'],
       // except: [],
       spacing: 2,
       pretty: false,
@@ -209,6 +210,9 @@ const config: HardhatUserConfig = {
   },
   dependencyCompiler: {
     paths: ['@ensdomains/ens/contracts/ENS.sol'],
+  },
+  gasReporter: {
+    enabled: true,
   },
 };
 

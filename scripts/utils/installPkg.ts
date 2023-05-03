@@ -35,13 +35,13 @@ export async function installPkg(
   );
   await installPkg.wait();
 
-  const ConnectorFacet = new Contract(
+  const OperatorFacet = new Contract(
     deployment['Diamond'].address,
-    deployment['ConnectorFacet'].abi,
+    deployment['OperatorFacet'].abi,
     provider
   );
 
-  const events = await ConnectorFacet.queryFilter('Upgrade');
+  const events = await OperatorFacet.queryFilter('Upgrade');
   let pkgs = events.map((e) => e.args?.pkg);
   return pkgs[pkgs.length - 1];
 }

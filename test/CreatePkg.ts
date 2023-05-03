@@ -23,7 +23,7 @@ describe('CreatePkg', async function () {
   let diamond: Contract;
   let dappsfacet: Contract;
   let dappletsfacet: Contract;
-  let connectorfacet: Contract;
+  let operatorfacet: Contract;
   let installer: Contract;
   let clientloupefacet: Contract;
   let greeterinit: Contract;
@@ -55,12 +55,8 @@ describe('CreatePkg', async function () {
     const Installer = deployment['Installer'];
     installer = new Contract(clientAddress, Installer.abi, provider);
 
-    const ConnectorFacet = deployment['ConnectorFacet'];
-    connectorfacet = new Contract(
-      Diamond.address,
-      ConnectorFacet.abi,
-      provider
-    );
+    const OperatorFacet = deployment['OperatorFacet'];
+    operatorfacet = new Contract(Diamond.address, OperatorFacet.abi, provider);
 
     const LoupeFacet = deployment['DiamondLoupeFacet'];
     clientloupefacet = new Contract(clientAddress, LoupeFacet.abi, provider);
@@ -139,7 +135,7 @@ describe('CreatePkg', async function () {
 
   /* event Upgrade (address indexed pkg, address indexed client, bool install); */
   it('should view packages from events', async function () {
-    const events = await connectorfacet.queryFilter('PackageCreated');
+    const events = await operatorfacet.queryFilter('PackageCreated');
     pkgs = events.map((e) => e.args?.pkg);
 
     // get metadataOf(pkg)
@@ -212,7 +208,6 @@ describe('CreatePkg', async function () {
       .connect(signer[1])
       .uninstall(greeterPkg, '0x', {
         gasLimit: 1000000,
-        value: costOf.install,
       });
     await uninstall.wait();
 
@@ -313,5 +308,10 @@ describe('CreatePkg', async function () {
       provider,
       signer[1]
     );
+  });
+
+  it('should fetch installed packages', async function () {
+    const installed = await dappletsfacet.installedBy(clientAddress);
+    expect(installed).to.include(visitorlogPkg);
   });
 });

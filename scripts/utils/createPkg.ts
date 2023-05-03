@@ -35,7 +35,7 @@ export async function createPkg(
   });
   const receipt = await tx.wait();
 
-  const iface = new Interface(deployment['ConnectorFacet'].abi);
+  const iface = new Interface(deployment['OperatorFacet'].abi);
   for (const log of receipt.logs) {
     const event = iface.parseLog(log);
     if (event.name === 'PackageCreated') {

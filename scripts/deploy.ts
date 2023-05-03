@@ -51,12 +51,12 @@ export async function deploy() {
   /// Deploy Shell Facets
   console.log('~~~ Deploying Shell Facets ~~~');
 
-  name = 'ConnectorFacet';
-  const ConnectorFacet = await ethers.getContractFactory(name);
-  const connectorfacet = await ConnectorFacet.deploy();
-  await connectorfacet.deployed();
-  contracts.push({ name, address: connectorfacet.address } as IContract);
-  console.log('🔌 ConnectorFacet deployed:', connectorfacet.address);
+  name = 'OperatorFacet';
+  const OperatorFacet = await ethers.getContractFactory(name);
+  const operatorfacet = await OperatorFacet.deploy();
+  await operatorfacet.deployed();
+  contracts.push({ name, address: operatorfacet.address } as IContract);
+  console.log('🔌 OperatorFacet deployed:', operatorfacet.address);
 
   name = 'DappletsFacet';
   const DappletsFacet = await ethers.getContractFactory(name);
@@ -83,7 +83,7 @@ export async function deploy() {
     loupe,
     ownership,
     erc165,
-    connectorfacet,
+    operatorfacet,
     dappletsfacet,
     dappsfacet,
     diamondcutfacet,
@@ -108,8 +108,8 @@ export async function deploy() {
   /// Deploy Diamond //////////////////////////////////////////
   const systemFees = [
     {
-      selector: connectorfacet.interface.getSighash(
-        'createPkg(((address,uint8,bytes4[])[],address,bytes4),string)'
+      selector: operatorfacet.interface.getSighash(
+        'createPkg(((address,uint8,bytes4[])[],address,bytes4),string,address)'
       ),
       amount: costOf.createPkg,
     },
