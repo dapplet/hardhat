@@ -1,5 +1,6 @@
 // import deployments.json
 import { Contract, ethers } from 'ethers';
+import { Interface } from 'ethers/lib/utils';
 import deployments from '../../deployments.json';
 import type { IDeployments } from '../../types';
 
@@ -26,22 +27,16 @@ export async function installPkg(
     provider
   );
 
-  const installPkg = await Installer.connect(account).install(
-    pkgAddress,
-    data,
-    {
-      gasLimit: 1000000,
+  const tx = await Installer.connect(account).install(pkgAddress, data, {
+    gasLimit: 1000000,
+  });
+  const receipt = await tx.wait();
+
+  const iface = new Interface(deployment['OperatorFacet'].abi);
+  for (const log of receipt.logs) {
+    const event = iface.parseLog(log);
+    if (event.name === 'ClientUpgraded') {
+      return event.args.pkg;
     }
-  );
-  await installPkg.wait();
-
-  const OperatorFacet = new Contract(
-    deployment['Diamond'].address,
-    deployment['OperatorFacet'].abi,
-    provider
-  );
-
-  const events = await OperatorFacet.queryFilter('Upgrade');
-  let pkgs = events.map((e) => e.args?.pkg);
-  return pkgs[pkgs.length - 1];
+  }
 }
