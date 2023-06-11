@@ -98,12 +98,7 @@ export async function deploy() {
   contracts.push({ name, address: systeminit.address } as IContract);
   console.log('💠 SystemInit deployed:', systeminit.address);
 
-  name = 'ClientInit';
-  const ClientInit = await ethers.getContractFactory(name);
-  const clientinit = await ClientInit.deploy();
-  await clientinit.deployed();
-  contracts.push({ name, address: clientinit.address } as IContract);
-  console.log('💠 ClientInit deployed:', clientinit.address);
+  /// 🚫🚫🚫🚫
 
   /// Deploy Diamond //////////////////////////////////////////
   const systemFees = [
@@ -114,27 +109,11 @@ export async function deploy() {
       amount: costOf.createPkg,
     },
     {
-      selector: dappsfacet.interface.getSighash('createClient()'),
+      selector: dappsfacet.interface.getSighash('createClient(bytes32)'),
       amount: costOf.createClient,
     },
   ];
-
-  // get installer selectors
-  const Installer = await ethers.getContractFactory('Installer');
-  const iface = new ethers.utils.Interface(Installer.interface.format());
-  const clientFacets = [
-    {
-      target: ethers.constants.AddressZero, // will be replaced via init call
-      action: 0,
-      selectors: Object.keys(iface.functions).map((fn) => iface.getSighash(fn)),
-    },
-  ].concat(createAddFacetCut([loupe, ownership, erc165]));
-
-  const clientUpgrade = {
-    cuts: clientFacets,
-    target: clientinit.address,
-    selector: clientinit.interface.getSighash('init'),
-  };
+  /* address _creator, FacetCut[] memory _cuts, address _target, bytes memory _data */
 
   name = 'Diamond';
   const Diamond = await ethers.getContractFactory(name);
@@ -145,22 +124,45 @@ export async function deploy() {
     systeminit.interface.encodeFunctionData('init', [
       systemFees,
       costOf.install,
-      clientUpgrade,
     ])
   );
   await diamond.deployed();
   contracts.push({ name, address: diamond.address } as IContract);
   console.log('💎 Diamond deployed:', diamond.address);
 
-  // get installer address
+  name = 'BasicDiamond';
+  const Basic = await ethers.getContractFactory(name);
+  const basic = await Basic.deploy(diamond.address);
+  await basic.deployed();
+  contracts.push({ name, address: basic.address } as IContract);
+  console.log('📦 BasicDiamond deployed:', basic.address);
+
+  // call init(owner) on BasicDiamond
+  const init = await basic.connect(deployer).init(deployer.address);
+  await init.wait();
+
+  //get owner of BasicDiamond
+  const owner = await basic.owner();
+  console.log('👑 BasicDiamond owner:', owner);
+
+  const basic_id = ethers.utils.keccak256(ethers.utils.toUtf8Bytes('basic'));
+
+  // setBaseplate
   const x_dapps = await ethers.getContractAt('DappsFacet', diamond.address);
-  const clientUpgradeData = await x_dapps.getClientUpgrade('default');
-  const installerAddress = clientUpgradeData.cuts[0].target;
-  contracts.push({
-    name: 'Installer',
-    address: installerAddress,
-  } as IContract);
-  console.log('💎 Installer deployed:', installerAddress);
+  const tx = await x_dapps
+    .connect(deployer)
+    .setBaseplate(basic_id, basic.address);
+  await tx.wait();
+
+  // // get installer address
+  // const x_dapps = await ethers.getContractAt('DappsFacet', diamond.address);
+  // const clientUpgradeData = await x_dapps.getClientUpgrade('default');
+  // const installerAddress = clientUpgradeData.cuts[0].target;
+  // contracts.push({
+  //   name: 'Installer',
+  //   address: installerAddress,
+  // } as IContract);
+  // console.log('💎 Installer deployed:', installerAddress);
 
   return contracts;
 }
@@ -177,17 +179,11 @@ async function main() {
     '../interface/src/contracts/deployments.json',
     '../shell/src/contracts/deployments.json',
     '../ide/src/contracts/deployments.json',
+    './assistant/src/lib/contracts/deployments.json',
   ]);
 
   await saveContracts(contracts, chainId, ['./deployments.json'], true, true);
   console.log('✅ Deployments saved');
-
-  await saveContracts(
-    contracts,
-    chainId,
-    ['../ide/src/contracts/deployments.json'],
-    true
-  );
 }
 
 // We recommend this pattern to be able to use async/await everywhere

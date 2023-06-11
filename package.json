@@ -45,7 +45,7 @@
   },
   "dependencies": {
     "@ensdomains/ens-contracts": "^0.0.16",
-    "@solidstate/contracts": "^0.0.52",
+    "@solidstate/contracts": "^0.0.57",
     "axios": "^1.3.3",
     "web3.storage": "^4.4.0"
   }

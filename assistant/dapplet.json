@@ -1,0 +1,6 @@
+{
+  "name": "assistant",
+  "chainId": 11155111,
+  "client": "0x407d99d3dea54fa55860678dad2d1749afcbca5c",
+  "facets": ["Greeter"]
+}

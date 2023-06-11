@@ -11,18 +11,22 @@ import 'tsconfig-paths/register';
 import './tasks';
 dotenv.config();
 
-// import tasks from './tasks';
-// tasks();
-
 const config: HardhatUserConfig = {
   solidity: '0.8.17',
-  // defaultNetwork: 'localhost',
-  defaultNetwork: 'sepolia',
-  // defaultNetwork: 'goerli',
   // defaultNetwork: "mainnet",
+  // defaultNetwork: 'sepolia',
+  defaultNetwork: 'localhost',
   // defaultNetwork: 'hardhat',
   // defaultNetwork: 'ganache',
   networks: {
+    sepolia: {
+      url: process.env.SEPOLIA_URL!,
+      accounts: [
+        process.env.DEPLOYER_PRIVATE_KEY!,
+        process.env.USER0_PRIVATE_KEY!,
+        process.env.USER1_PRIVATE_KEY!,
+      ],
+    },
     localhost: {
       url: 'http://localhost:8545',
       chainId: 31337,
@@ -49,39 +53,11 @@ const config: HardhatUserConfig = {
       // throwOnCallFailures: true,
       // hardfork: 'london',
     },
-    sepolia: {
-      url: process.env.SEPOLIA_URL!,
-      accounts: [
-        process.env.DEPLOYER_PRIVATE_KEY!,
-        process.env.USER0_PRIVATE_KEY!,
-        process.env.USER1_PRIVATE_KEY!,
-      ],
-    },
     ganache: {
       url: 'http://localhost:7545',
       chainId: 1337,
       blockGasLimit: 10000000,
     },
-    // goerli: {
-    //   url: process.env.INFURA_ETH_GOERLI_URL,
-    //   accounts: [
-    //     process.env.DEPLOYER_PRIVATE_KEY!,
-    //     process.env.USER0_PRIVATE_KEY!,
-    //     process.env.USER1_PRIVATE_KEY!,
-    //   ],
-    //   blockGasLimit: 10000000,
-    //   timeout: 5000000,
-    // },
-    // mainnet: {
-    //   url: process.env.INFURA_ETH_MAINNET_URL,
-    //   accounts: [
-    //     process.env.DEPLOYER_PRIVATE_KEY!,
-    //     process.env.USER0_PRIVATE_KEY!,
-    //     process.env.USER1_PRIVATE_KEY!,
-    //   ],
-    //   blockGasLimit: 5000000,
-    //   timeout: 5000000,
-    // },
   },
   paths: {
     sources: './contracts',
@@ -96,13 +72,13 @@ const config: HardhatUserConfig = {
     {
       name: 'System',
       include: [
-        'ERC165Facet',
-        'OwnershipFacet',
-        'DiamondLoupeFacet',
-        'OperatorFacet',
         'DappletsFacet',
         'DappsFacet',
         'DiamondCutFacet',
+        'DiamondLoupeFacet',
+        'ERC165Facet',
+        'OperatorFacet',
+        'OwnershipFacet',
       ],
       strict: false,
     },
@@ -114,15 +90,16 @@ const config: HardhatUserConfig = {
       clear: true,
       flat: true,
       only: [
+        'BasicDiamond',
         'Installer',
         'PKG',
-        'DiamondLoupeFacet',
-        'ERC165Facet',
-        'OwnershipFacet',
-        'OperatorFacet',
         'DappletsFacet',
         'DappsFacet',
         'DiamondCutFacet',
+        'DiamondLoupeFacet',
+        'ERC165Facet',
+        'OperatorFacet',
+        'OwnershipFacet',
         'Multicall2',
         'Initializer',
       ],
@@ -141,55 +118,18 @@ const config: HardhatUserConfig = {
       clear: true,
       flat: true,
       only: [
-        'OperatorFacet',
-        'DappletsFacet',
-        'DappsFacet',
+        'BasicDiamond',
         'Installer',
-        'Diamond',
-        'Initializer',
         'PKG',
-      ],
-      // except: [],
-      spacing: 2,
-      pretty: false,
-      format: 'json',
-      filter: function (abiElement, index, fullAbi, fullyQualifiedName) {
-        // if abiElement is already in the fullAbi, it's a duplicate, so don't include it
-        return fullAbi.indexOf(abiElement) === index;
-      },
-    },
-    {
-      path: '../ide/src/contracts/metadata',
-      runOnCompile: true,
-      clear: true,
-      flat: true,
-      only: [
-        'OperatorFacet',
         'DappletsFacet',
         'DappsFacet',
-        'Installer',
-        'Diamond',
-        'OwnershipFacet',
+        'DiamondCutFacet',
         'DiamondLoupeFacet',
         'ERC165Facet',
+        'OperatorFacet',
+        'OwnershipFacet',
         'Initializer',
-        'PKG',
       ],
-      // except: [],
-      spacing: 2,
-      pretty: false,
-      format: 'json',
-      filter: function (abiElement, index, fullAbi, fullyQualifiedName) {
-        // if abiElement is already in the fullAbi, it's a duplicate, so don't include it
-        return fullAbi.indexOf(abiElement) === index;
-      },
-    },
-    {
-      path: '../template/imported/metadata',
-      runOnCompile: true,
-      clear: true,
-      flat: true,
-      only: ['OperatorFacet', 'DappletsFacet'],
       // except: [],
       spacing: 2,
       pretty: false,

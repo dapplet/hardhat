@@ -4,7 +4,7 @@ import { Contract, ethers } from 'ethers';
 import hre, { run } from 'hardhat';
 import deployments from '../deployments.json';
 import { costOf, createAddFacetCut } from '../scripts/utils';
-import { createClient } from '../scripts/utils/createClient';
+import { createBasicDiamond } from '../scripts/utils/createClient';
 import { createPkg } from '../scripts/utils/createPkg';
 import { PKG__factory } from '../typechain-types';
 import type { IDeployment, IDeployments, IPKGUpgrade } from '../types';
@@ -17,8 +17,8 @@ describe('CreatePkg', async function () {
   let chainId: number;
   let deployment: IDeployment;
 
-  let clientAddress: string; //address of client
-  let clientdiamonds: string[] = [];
+  let client: string; //address of client
+  let clients: string[] = [];
 
   let diamond: Contract;
   let dappsfacet: Contract;
@@ -47,19 +47,19 @@ describe('CreatePkg', async function () {
     const DappsFacet = deployment['DappsFacet'];
     dappsfacet = new Contract(Diamond.address, DappsFacet.abi, provider);
 
-    clientAddress = await createClient(provider, signer[1]);
+    client = await createBasicDiamond(provider, signer[1]);
 
     const DappletsFacet = deployment['DappletsFacet'];
     dappletsfacet = new Contract(Diamond.address, DappletsFacet.abi, provider);
 
     const Installer = deployment['Installer'];
-    installer = new Contract(clientAddress, Installer.abi, provider);
+    installer = new Contract(client, Installer.abi, provider);
 
     const OperatorFacet = deployment['OperatorFacet'];
     operatorfacet = new Contract(Diamond.address, OperatorFacet.abi, provider);
 
     const LoupeFacet = deployment['DiamondLoupeFacet'];
-    clientloupefacet = new Contract(clientAddress, LoupeFacet.abi, provider);
+    clientloupefacet = new Contract(client, LoupeFacet.abi, provider);
   });
 
   it('should create visitor log package', async function () {
@@ -92,13 +92,7 @@ describe('CreatePkg', async function () {
     };
 
     const cid = 'bafkreibbiwiulq4e4qwzb5cq4awiw2jhmyyaqb3l2upqr2ywfwp5iaa7um';
-    visitorlogPkg = await createPkg(
-      clientAddress,
-      pkg,
-      cid,
-      provider,
-      signer[1]
-    );
+    visitorlogPkg = await createPkg(client, pkg, cid, provider, signer[1]);
   });
 
   it('should create greeter package', async function () {
@@ -130,7 +124,7 @@ describe('CreatePkg', async function () {
     //greeter cid
     const cid = 'bafkreiezq4fqsc6z2v2chluobw76fkm7zkmdi5pdjvskseo2mducns633m';
 
-    greeterPkg = await createPkg(clientAddress, pkg, cid, provider, signer[1]);
+    greeterPkg = await createPkg(client, pkg, cid, provider, signer[1]);
   });
 
   /* event Upgrade (address indexed pkg, address indexed client, bool install); */
@@ -271,7 +265,7 @@ describe('CreatePkg', async function () {
     //counter cid
     const cid = 'bafkreidvmavlaya2j4jb7uddskc76vwy6a5atb47siaquwdp5kxb62ktai';
 
-    counterPkg = await createPkg(clientAddress, pkg, cid, provider, signer[1]);
+    counterPkg = await createPkg(client, pkg, cid, provider, signer[1]);
 
     const upgrade = new Contract(counterPkg, PKGInterface, provider);
     console.log('📦 pkg', upgrade.address);
@@ -301,17 +295,42 @@ describe('CreatePkg', async function () {
     //favoriter cid
     const cid = 'bafkreiganjv6vhpentvya5q4i64uv25dlpf4atslp6zykd6rgsnttvwuoy';
 
-    favoriterPkg = await createPkg(
-      clientAddress,
-      pkg,
-      cid,
-      provider,
-      signer[1]
-    );
+    favoriterPkg = await createPkg(client, pkg, cid, provider, signer[1]);
   });
 
   it('should fetch installed packages', async function () {
-    const installed = await dappletsfacet.installedBy(clientAddress);
+    const installed = await dappletsfacet.installedBy(client);
     expect(installed).to.include(visitorlogPkg);
+  });
+
+  it('should check facets are added', async function () {
+    const facets = await clientloupefacet.facetAddresses();
+    console.log('👤 facets', facets);
+  });
+
+  it('should call vistorlog', async function () {
+    const visitorlog = await hre.ethers.getContractAt(
+      'VisitorLog',
+      client,
+      signer[1]
+    );
+
+    const before = await visitorlog.getVisitors();
+
+    const tx = await visitorlog.logVisit();
+    await tx.wait();
+
+    const after = await visitorlog.getVisitors();
+    expect(before.length).to.be.lessThan(after.length);
+    expect(after).to.include(signer[1].address);
+  });
+
+  it('should view installers via installersOf fn', async function () {
+    const basic_id = ethers.utils.keccak256(ethers.utils.toUtf8Bytes('basic'));
+    const installers = await dappletsfacet.installersOf(
+      visitorlogPkg,
+      basic_id
+    );
+    expect(installers).to.include(client);
   });
 });

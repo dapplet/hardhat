@@ -4,7 +4,7 @@ import { costOf } from '.';
 import deployments from '../../deployments.json';
 import type { IDeployments } from '../../types';
 
-export async function createClient(
+export async function createBasicDiamond(
   provider: ethers.providers.JsonRpcProvider,
   signer?: ethers.providers.JsonRpcSigner
 ) {
@@ -18,14 +18,17 @@ export async function createClient(
     chainId as keyof IDeployments
   ];
 
-  const Dapps = deployment['DappsFacet'];
+  const DappsFacet = deployment['DappsFacet'];
   const x_dapps = new ethers.Contract(
     deployment['Diamond'].address,
-    Dapps.abi,
+    DappsFacet.abi,
     provider
   );
 
-  const tx = await x_dapps.connect(account).createClient({
+  const basic_id = ethers.utils.keccak256(ethers.utils.toUtf8Bytes('basic'));
+  console.log('basic_id:', basic_id);
+
+  const tx = await x_dapps.connect(account).createClient(basic_id, {
     value: costOf.createClient,
     gasLimit: 1000000,
   });

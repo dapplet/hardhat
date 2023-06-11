@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { Contract, ethers } from 'ethers';
 import hre from 'hardhat';
 import deployments from '../deployments.json';
-import { createClient } from '../scripts/utils/createClient';
+import { createBasicDiamond } from '../scripts/utils/createClient';
 
 interface IDeployment {
   [key: string]: {
@@ -23,7 +23,7 @@ describe('CreateClient', async function () {
   let chainId: number;
   let deployment: IDeployment;
 
-  let clientdiamonds: string[] = [];
+  let clients: string[] = [];
 
   let diamond: Contract;
   let dappsfacet: Contract;
@@ -52,19 +52,24 @@ describe('CreateClient', async function () {
     expect(facets).to.include(LoupeFacet.address);
   });
 
-  it('Should createClient and register name successfully', async function () {
-    const clientDiamond = await createClient(provider, signer[0]);
-    console.log('clientDiamond:', clientDiamond);
-    clientdiamonds.push(clientDiamond);
+  it('Should get the baseplate', async function () {
+    const baseplate = await dappsfacet.getBaseplate('basic');
+    expect(baseplate).not.to.equal(ethers.constants.AddressZero);
   });
 
-  it('Should have facets on client', async function () {
-    const diamondloupefacet = new Contract(
-      clientdiamonds[0],
-      deployment['DiamondLoupeFacet'].abi,
+  it('Should createClient and register name successfully', async function () {
+    const client = await createBasicDiamond(provider, signer[0]);
+    console.log('clientDiamond:', client);
+    clients.push(client);
+  });
+
+  it('Should have an owner', async function () {
+    const x_ownerfacet = new Contract(
+      clients[0],
+      deployment['BasicDiamond'].abi,
       provider
     );
-    const facets = await diamondloupefacet.facets();
-    expect(facets.length).to.be.greaterThan(0);
+    const owner = await x_ownerfacet.owner();
+    expect(owner).to.equal(signer[0].address);
   });
 });
