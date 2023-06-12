@@ -1,5 +1,0 @@
-[submodule "contracts"]
-  path = contracts
-  url = [submodule "cli"]
-  path = cli
-  url = git@github.com:dapplet/contracts.git
