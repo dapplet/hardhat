@@ -1,0 +1,7 @@
+[submodule "contracts"]
+  path = contracts
+  url = "https://github.com/dapplet/contracts"
+
+[submodule "assistant"]
+  path = assistant
+  url = "https://github.com/dapplet/assistant"
