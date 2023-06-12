@@ -130,6 +130,7 @@ export async function deploy() {
   contracts.push({ name, address: diamond.address } as IContract);
   console.log('💎 Diamond deployed:', diamond.address);
 
+  //TODO: update contracts
   name = 'BasicDiamond';
   const Basic = await ethers.getContractFactory(name);
   const basic = await Basic.deploy(diamond.address);
