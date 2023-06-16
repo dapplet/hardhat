@@ -6234,7 +6234,7 @@ function base58check(data) {
 }
 function getWordlist(wordlist) {
     if (wordlist == null) {
-        return _ethersproject_wordlists__WEBPACK_IMPORTED_MODULE_7__.wordlists.en;
+        return _ethersproject_wordlists__WEBPACK_IMPORTED_MODULE_7__.wordlists["en"];
     }
     if (typeof (wordlist) === "string") {
         const words = _ethersproject_wordlists__WEBPACK_IMPORTED_MODULE_7__.wordlists[wordlist];
@@ -6604,7 +6604,7 @@ function decrypt(json, password) {
     const iv = encseed.slice(0, 16);
     const encryptedSeed = encseed.slice(16);
     // Decrypt the seed
-    const aesCbc = new (aes_js__WEBPACK_IMPORTED_MODULE_0___default().ModeOfOperation.cbc)(key, iv);
+    const aesCbc = new (aes_js__WEBPACK_IMPORTED_MODULE_0___default().ModeOfOperation).cbc(key, iv);
     const seed = aes_js__WEBPACK_IMPORTED_MODULE_0___default().padding.pkcs7.strip((0,_ethersproject_bytes__WEBPACK_IMPORTED_MODULE_6__.arrayify)(aesCbc.decrypt(encryptedSeed)));
     // This wallet format is weird... Convert the binary encoded hex to a string.
     let seedHex = "";
@@ -6812,7 +6812,7 @@ function _decrypt(data, key, ciphertext) {
     if (cipher === "aes-128-ctr") {
         const iv = (0,_utils__WEBPACK_IMPORTED_MODULE_5__.looseArrayify)((0,_utils__WEBPACK_IMPORTED_MODULE_5__.searchPath)(data, "crypto/cipherparams/iv"));
         const counter = new (aes_js__WEBPACK_IMPORTED_MODULE_0___default().Counter)(iv);
-        const aesCtr = new (aes_js__WEBPACK_IMPORTED_MODULE_0___default().ModeOfOperation.ctr)(key, counter);
+        const aesCtr = new (aes_js__WEBPACK_IMPORTED_MODULE_0___default().ModeOfOperation).ctr(key, counter);
         return (0,_ethersproject_bytes__WEBPACK_IMPORTED_MODULE_6__.arrayify)(aesCtr.decrypt(ciphertext));
     }
     return null;
@@ -6850,7 +6850,7 @@ function _getAccount(data, key) {
         const mnemonicCiphertext = (0,_utils__WEBPACK_IMPORTED_MODULE_5__.looseArrayify)((0,_utils__WEBPACK_IMPORTED_MODULE_5__.searchPath)(data, "x-ethers/mnemonicCiphertext"));
         const mnemonicIv = (0,_utils__WEBPACK_IMPORTED_MODULE_5__.looseArrayify)((0,_utils__WEBPACK_IMPORTED_MODULE_5__.searchPath)(data, "x-ethers/mnemonicCounter"));
         const mnemonicCounter = new (aes_js__WEBPACK_IMPORTED_MODULE_0___default().Counter)(mnemonicIv);
-        const mnemonicAesCtr = new (aes_js__WEBPACK_IMPORTED_MODULE_0___default().ModeOfOperation.ctr)(mnemonicKey, mnemonicCounter);
+        const mnemonicAesCtr = new (aes_js__WEBPACK_IMPORTED_MODULE_0___default().ModeOfOperation).ctr(mnemonicKey, mnemonicCounter);
         const path = (0,_utils__WEBPACK_IMPORTED_MODULE_5__.searchPath)(data, "x-ethers/path") || _ethersproject_hdnode__WEBPACK_IMPORTED_MODULE_10__.defaultPath;
         const locale = (0,_utils__WEBPACK_IMPORTED_MODULE_5__.searchPath)(data, "x-ethers/locale") || "en";
         const entropy = (0,_ethersproject_bytes__WEBPACK_IMPORTED_MODULE_6__.arrayify)(mnemonicAesCtr.decrypt(mnemonicCiphertext));
@@ -7037,7 +7037,7 @@ function encrypt(account, password, options, progressCallback) {
         const mnemonicKey = key.slice(32, 64);
         // Encrypt the private key
         const counter = new (aes_js__WEBPACK_IMPORTED_MODULE_0___default().Counter)(iv);
-        const aesCtr = new (aes_js__WEBPACK_IMPORTED_MODULE_0___default().ModeOfOperation.ctr)(derivedKey, counter);
+        const aesCtr = new (aes_js__WEBPACK_IMPORTED_MODULE_0___default().ModeOfOperation).ctr(derivedKey, counter);
         const ciphertext = (0,_ethersproject_bytes__WEBPACK_IMPORTED_MODULE_6__.arrayify)(aesCtr.encrypt(privateKey));
         // Compute the message authentication code, used to check the password
         const mac = (0,_ethersproject_keccak256__WEBPACK_IMPORTED_MODULE_7__.keccak256)((0,_ethersproject_bytes__WEBPACK_IMPORTED_MODULE_6__.concat)([macPrefix, ciphertext]));
@@ -7067,7 +7067,7 @@ function encrypt(account, password, options, progressCallback) {
         if (entropy) {
             const mnemonicIv = (0,_ethersproject_random__WEBPACK_IMPORTED_MODULE_12__.randomBytes)(16);
             const mnemonicCounter = new (aes_js__WEBPACK_IMPORTED_MODULE_0___default().Counter)(mnemonicIv);
-            const mnemonicAesCtr = new (aes_js__WEBPACK_IMPORTED_MODULE_0___default().ModeOfOperation.ctr)(mnemonicKey, mnemonicCounter);
+            const mnemonicAesCtr = new (aes_js__WEBPACK_IMPORTED_MODULE_0___default().ModeOfOperation).ctr(mnemonicKey, mnemonicCounter);
             const mnemonicCiphertext = (0,_ethersproject_bytes__WEBPACK_IMPORTED_MODULE_6__.arrayify)(mnemonicAesCtr.encrypt(entropy));
             const now = new Date();
             const timestamp = (now.getUTCFullYear() + "-" +
@@ -16429,8077 +16429,6 @@ const wordlists = {
 
 /***/ }),
 
-/***/ "./src/components/molecules/ContractCard.tsx":
-/*!***************************************************!*\
-  !*** ./src/components/molecules/ContractCard.tsx ***!
-  \***************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @shoelace-style/shoelace/dist/react */ "@shoelace-style/shoelace/dist/react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _lib_hooks_useDeployFacet__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../lib/hooks/useDeployFacet */ "./src/lib/hooks/useDeployFacet.ts");
-/* harmony import */ var _lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../lib/stores/dapplet */ "./src/lib/stores/dapplet.ts");
-
-
-
-// import { useFacetDeployed } from '../../hooks/useFacetDeployed';
-
-function ContractCard(_ref) {
-  var name = _ref.name,
-    value = _ref.value;
-  var deploy = (0,_lib_hooks_useDeployFacet__WEBPACK_IMPORTED_MODULE_2__.useDeployFacet)(name, value);
-  var deployed = (0,_lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_3__.useFacetDeployed)(name);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlCard, null, value && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
-    className: "flex flex-row items-center justify-between"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlButton, {
-    variant: deployed ? 'default' : 'success',
-    outline: !deployed,
-    size: "small",
-    onClick: function onClick() {
-      return deploy();
-    }
-  }, deployed ? 'Re-deploy' : 'Deploy'))));
-}
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ContractCard);
-
-/***/ }),
-
-/***/ "./src/components/molecules/FacetCard.tsx":
-/*!************************************************!*\
-  !*** ./src/components/molecules/FacetCard.tsx ***!
-  \************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @shoelace-style/shoelace/dist/react */ "@shoelace-style/shoelace/dist/react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _lib_hooks_useDeployFacet__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../lib/hooks/useDeployFacet */ "./src/lib/hooks/useDeployFacet.ts");
-/* harmony import */ var _lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../lib/stores/dapplet */ "./src/lib/stores/dapplet.ts");
-
-
-
-// import { useFacetDeployed } from '../../hooks/useFacetDeployed';
-
-function FacetCard(_ref) {
-  var name = _ref.name,
-    facet = _ref.facet;
-  var deploy = (0,_lib_hooks_useDeployFacet__WEBPACK_IMPORTED_MODULE_2__.useDeployFacet)(name, facet);
-  var deployed = (0,_lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_3__.useFacetDeployed)(name);
-  var fns = facet.abi.map(function (fn) {
-    var _a;
-    if (fn.type !== 'receive' && fn.type !== 'fallback' && fn.type !== 'event' && fn.type !== 'error' && fn.type !== 'constructor') {
-      return fn.name + '(' + ((_a = fn.inputs) === null || _a === void 0 ? void 0 : _a.map(function (input) {
-        return input.type;
-      }).join(',')) + ')';
-    }
-  }).filter(function (fn) {
-    return fn !== undefined;
-  });
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlCard, null, facet && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
-    slot: "header",
-    className: "flex flex-row items-center justify-between"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, name)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
-    className: "flex flex-col gap-4"
-  }, fns === null || fns === void 0 ? void 0 : fns.map(function (fn, i) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
-      className: "flex flex-row items-center justify-between"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
-      className: "flex flex-row items-center gap-3"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlIcon, {
-      name: "arrow-return-right"
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
-      key: i
-    }, fn)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlSwitch, {
-      checked: true,
-      disabled: true
-    }));
-  }))));
-}
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FacetCard);
-
-/***/ }),
-
-/***/ "./src/components/molecules/InitializerCard.tsx":
-/*!******************************************************!*\
-  !*** ./src/components/molecules/InitializerCard.tsx ***!
-  \******************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @shoelace-style/shoelace/dist/react */ "@shoelace-style/shoelace/dist/react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _lib_hooks_useDeployInitializer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../lib/hooks/useDeployInitializer */ "./src/lib/hooks/useDeployInitializer.ts");
-/* harmony import */ var _lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../lib/stores/dapplet */ "./src/lib/stores/dapplet.ts");
-
-
-
-
-function InitializerCard() {
-  var _a;
-  var store = (0,_lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_3__.useDappletStore)();
-  var initializer = (_a = store === null || store === void 0 ? void 0 : store.upgrade) === null || _a === void 0 ? void 0 : _a.initializer;
-  console.log('asdfs initializer', initializer);
-  var name = Object.keys(initializer)[0];
-  var values = initializer[name];
-  var deploy = (0,_lib_hooks_useDeployInitializer__WEBPACK_IMPORTED_MODULE_2__.useDeployInitializer)(values);
-  var deployed = (0,_lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_3__.useInitializerDeployed)();
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, Object.keys(initializer).length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlCard, {
-    className: "w-full"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
-    slot: "header",
-    className: "flex flex-row items-center justify-between"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlButton, {
-    variant: deployed ? 'default' : 'success',
-    outline: !deployed,
-    size: "small",
-    onClick: function onClick() {
-      return deploy();
-    }
-  }, deployed ? 'Re-deploy' : 'Deploy')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("ul", {
-    className: "fn-list"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("li", null, values["function"]))));
-}
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (InitializerCard);
-
-/***/ }),
-
-/***/ "./src/components/molecules/PkgCard.tsx":
-/*!**********************************************!*\
-  !*** ./src/components/molecules/PkgCard.tsx ***!
-  \**********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @shoelace-style/shoelace/dist/react */ "@shoelace-style/shoelace/dist/react");
-/* harmony import */ var _usedapp_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @usedapp/core */ "@usedapp/core");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _lib_hooks_useInstallPkg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../lib/hooks/useInstallPkg */ "./src/lib/hooks/useInstallPkg.tsx");
-/* harmony import */ var _lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../lib/stores/dapplet */ "./src/lib/stores/dapplet.ts");
-
-
-
-
-
-function PkgCard(_ref) {
-  var pkg = _ref.pkg,
-    local = _ref.local;
-  var _a;
-  var get = (0,_lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_4__.useGetPkg)(pkg);
-  var _useInstallPkg = (0,_lib_hooks_useInstallPkg__WEBPACK_IMPORTED_MODULE_3__.useInstallPkg)(),
-    install = _useInstallPkg.send;
-  var _useUninstallPkg = (0,_lib_hooks_useInstallPkg__WEBPACK_IMPORTED_MODULE_3__.useUninstallPkg)(),
-    uninstall = _useUninstallPkg.send;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlCard, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
-    className: "flex flex-row items-center justify-between gap-2",
-    slot: "header"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlIcon, {
-    name: "box"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", null, pkg && (0,_usedapp_core__WEBPACK_IMPORTED_MODULE_1__.shortenAddress)(pkg)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlButton, {
-    variant: local ? 'success' : 'danger',
-    outline: true,
-    size: "small",
-    onClick: function onClick() {
-      return local ? install() : uninstall(pkg);
-    }
-  }, local ? 'Install' : 'Uninstall')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
-    className: "flex flex-col gap-5"
-  }, (_a = get === null || get === void 0 ? void 0 : get.cuts) === null || _a === void 0 ? void 0 : _a.map(function (cut, i) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlCard, {
-      key: i
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
-      className: "flex flex-row items-center gap-4",
-      slot: "header"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlIcon, {
-      name: "gem"
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", null, cut.target && (0,_usedapp_core__WEBPACK_IMPORTED_MODULE_1__.shortenAddress)(cut.target))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", null, cut.selectors.map(function (selector, j) {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
-        className: "flex flex-row items-center gap-2",
-        key: j
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlIcon, {
-        name: "arrow-return-right"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", null, selector));
-    })));
-  })));
-}
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PkgCard);
-
-/***/ }),
-
-/***/ "./src/components/organisms/Contracts.tsx":
-/*!************************************************!*\
-  !*** ./src/components/organisms/Contracts.tsx ***!
-  \************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @shoelace-style/shoelace/dist/react */ "@shoelace-style/shoelace/dist/react");
-/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ethers */ "ethers");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../lib/stores/dapplet */ "./src/lib/stores/dapplet.ts");
-/* harmony import */ var _molecules_ContractCard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../molecules/ContractCard */ "./src/components/molecules/ContractCard.tsx");
-/* harmony import */ var _molecules_InitializerCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../molecules/InitializerCard */ "./src/components/molecules/InitializerCard.tsx");
-
-
-
-
-
-
-function Contracts() {
-  var _a, _b;
-  var store = (0,_lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_3__.useDappletStore)();
-  var facets = (_a = store === null || store === void 0 ? void 0 : store.upgrade) === null || _a === void 0 ? void 0 : _a.facets;
-  var facetNames = facets.map(function (f) {
-    return Object.keys(f)[0];
-  });
-  var facetValues = facets.map(function (f) {
-    return Object.values(f)[0];
-  });
-  var initializer = (_b = store === null || store === void 0 ? void 0 : store.upgrade) === null || _b === void 0 ? void 0 : _b.initializer;
-  var initializerIsDeployed = (initializer === null || initializer === void 0 ? void 0 : initializer.target) !== ethers__WEBPACK_IMPORTED_MODULE_1__.ethers.constants.AddressZero && (initializer === null || initializer === void 0 ? void 0 : initializer.isDeployed);
-  var facetsRemaining = facetValues.length - facetValues.filter(function (f) {
-    return f.isDeployed;
-  }).length;
-  var remaining = initializerIsDeployed ? facetsRemaining + 1 : facetsRemaining;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlDetails, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
-    slot: "summary",
-    className: "flex flex-row items-center justify-between w-full"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", null, "Contracts"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlBadge, {
-    variant: remaining > 0 ? 'success' : 'neutral',
-    pill: true,
-    pulse: remaining > 0,
-    style: {
-      marginRight: '1rem'
-    }
-  }, remaining > 0 ? "".concat(remaining) : 'deployed')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
-    className: "flex flex-col gap-2 text-left"
-  }, facetNames.map(function (name, i) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_molecules_ContractCard__WEBPACK_IMPORTED_MODULE_4__["default"], {
-      name: name,
-      value: facetValues[i]
-    });
-  })), (initializer === null || initializer === void 0 ? void 0 : initializer.target) && (initializer === null || initializer === void 0 ? void 0 : initializer.target) !== ethers__WEBPACK_IMPORTED_MODULE_1__.ethers.constants.AddressZero && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(react__WEBPACK_IMPORTED_MODULE_2__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlDivider, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
-    className: "flex flex-col gap-2 text-left"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_molecules_InitializerCard__WEBPACK_IMPORTED_MODULE_5__["default"], null))));
-}
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Contracts);
-
-/***/ }),
-
-/***/ "./src/components/organisms/Installation.tsx":
-/*!***************************************************!*\
-  !*** ./src/components/organisms/Installation.tsx ***!
-  \***************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @shoelace-style/shoelace/dist/react */ "@shoelace-style/shoelace/dist/react");
-/* harmony import */ var _usedapp_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @usedapp/core */ "@usedapp/core");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _lib_hooks_useInstallPkg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../lib/hooks/useInstallPkg */ "./src/lib/hooks/useInstallPkg.tsx");
-/* harmony import */ var _lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../lib/stores/dapplet */ "./src/lib/stores/dapplet.ts");
-/* harmony import */ var _molecules_PkgCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../molecules/PkgCard */ "./src/components/molecules/PkgCard.tsx");
-
-
-
-
-
-
-function Installation() {
-  var installs = (0,_lib_hooks_useInstallPkg__WEBPACK_IMPORTED_MODULE_3__.useInstalledBy)();
-  console.log('asdf installs', installs);
-  var installed = (0,_lib_hooks_useInstallPkg__WEBPACK_IMPORTED_MODULE_3__.useIsInstalled)();
-  console.log('asdf installed', installed);
-  var created = (0,_lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_4__.useUpgradeAddressDeployed)();
-  var waiting = !created;
-  var _useDappletStore = (0,_lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_4__.useDappletStore)(),
-    client = _useDappletStore.client,
-    upgrade = _useDappletStore.upgrade;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(react__WEBPACK_IMPORTED_MODULE_2__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlDetails, {
-    disabled: waiting
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
-    className: "flex flex-row items-center justify-between w-full",
-    slot: "summary"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", null, "Installation"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlBadge, {
-    variant: installed ? 'neutral' : !created ? 'warning' : 'success',
-    pill: true,
-    style: {
-      marginRight: '1rem'
-    },
-    pulse: !installed && created
-  }, installed ? 'installed' : !created ? 'waiting' : 'ready')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlCard, {
-    className: "w-full"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
-    slot: "header",
-    className: "flex flex-row items-center gap-3"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlIcon, {
-    name: "app-indicator"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", null, client.address && (0,_usedapp_core__WEBPACK_IMPORTED_MODULE_1__.shortenAddress)(client.address))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
-    className: "flex flex-col gap-5"
-  }, created && !installed && upgrade.address && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_molecules_PkgCard__WEBPACK_IMPORTED_MODULE_5__["default"], {
-    pkg: upgrade.address,
-    local: true
-  }), installs === null || installs === void 0 ? void 0 : installs.map(function (pkg, i) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_molecules_PkgCard__WEBPACK_IMPORTED_MODULE_5__["default"], {
-      pkg: pkg,
-      local: false,
-      key: i
-    });
-  })))));
-}
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Installation);
-
-/***/ }),
-
-/***/ "./src/components/organisms/LiveDeploy.tsx":
-/*!*************************************************!*\
-  !*** ./src/components/organisms/LiveDeploy.tsx ***!
-  \*************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @shoelace-style/shoelace/dist/react */ "@shoelace-style/shoelace/dist/react");
-/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ethers */ "ethers");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../lib/stores/dapplet */ "./src/lib/stores/dapplet.ts");
-/* harmony import */ var _molecules_ContractCard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../molecules/ContractCard */ "./src/components/molecules/ContractCard.tsx");
-/* harmony import */ var _molecules_InitializerCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../molecules/InitializerCard */ "./src/components/molecules/InitializerCard.tsx");
-
-
-
-
-
-
-function LiveDeploy() {
-  var _a, _b;
-  var store = (0,_lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_3__.useDappletStore)();
-  var facets = (_a = store === null || store === void 0 ? void 0 : store.upgrade) === null || _a === void 0 ? void 0 : _a.facets;
-  var facetNames = facets.map(function (f) {
-    return Object.keys(f)[0];
-  });
-  var facetValues = facets.map(function (f) {
-    return Object.values(f)[0];
-  });
-  var initializer = (_b = store === null || store === void 0 ? void 0 : store.upgrade) === null || _b === void 0 ? void 0 : _b.initializer;
-  var initializerIsDeployed = (initializer === null || initializer === void 0 ? void 0 : initializer.target) !== ethers__WEBPACK_IMPORTED_MODULE_1__.ethers.constants.AddressZero && (initializer === null || initializer === void 0 ? void 0 : initializer.isDeployed);
-  var facetsRemaining = facetValues.length - facetValues.filter(function (f) {
-    return f.isDeployed;
-  }).length;
-  var remaining = initializerIsDeployed ? facetsRemaining + 1 : facetsRemaining;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlDetails, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
-    slot: "summary",
-    className: "flex flex-row items-center justify-between w-full"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", null, "Contracts (live)"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlBadge, {
-    variant: remaining > 0 ? 'success' : 'neutral',
-    pill: true,
-    pulse: remaining > 0,
-    style: {
-      marginRight: '1rem'
-    }
-  }, remaining > 0 ? "".concat(remaining) : 'deployed')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
-    className: "flex flex-col gap-2 text-left"
-  }, facetNames.map(function (name, i) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_molecules_ContractCard__WEBPACK_IMPORTED_MODULE_4__["default"], {
-      name: name,
-      value: facetValues[i]
-    });
-  })), (initializer === null || initializer === void 0 ? void 0 : initializer.target) && (initializer === null || initializer === void 0 ? void 0 : initializer.target) !== ethers__WEBPACK_IMPORTED_MODULE_1__.ethers.constants.AddressZero && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(react__WEBPACK_IMPORTED_MODULE_2__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlDivider, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
-    className: "flex flex-col gap-2 text-left"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_molecules_InitializerCard__WEBPACK_IMPORTED_MODULE_5__["default"], null))));
-}
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LiveDeploy);
-
-/***/ }),
-
-/***/ "./src/components/organisms/LiveRegister.tsx":
-/*!***************************************************!*\
-  !*** ./src/components/organisms/LiveRegister.tsx ***!
-  \***************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @shoelace-style/shoelace/dist/react */ "@shoelace-style/shoelace/dist/react");
-/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ethers */ "ethers");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _lib_hooks_useCreatePkg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../lib/hooks/useCreatePkg */ "./src/lib/hooks/useCreatePkg.tsx");
-/* harmony import */ var _lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../lib/stores/dapplet */ "./src/lib/stores/dapplet.ts");
-/* harmony import */ var _molecules_FacetCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../molecules/FacetCard */ "./src/components/molecules/FacetCard.tsx");
-
-
-
-
-
-
-function LiveRegister() {
-  var _a, _b;
-  var store = (0,_lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_4__.useDappletStore)();
-  var facets = (_a = store === null || store === void 0 ? void 0 : store.upgrade) === null || _a === void 0 ? void 0 : _a.facets;
-  var facetNames = facets.map(function (f) {
-    return Object.keys(f)[0];
-  });
-  var facetValues = facets.map(function (f) {
-    return Object.values(f)[0];
-  });
-  var initializer = (_b = store === null || store === void 0 ? void 0 : store.upgrade) === null || _b === void 0 ? void 0 : _b.initializer;
-  var name = store === null || store === void 0 ? void 0 : store.name;
-  var waiting = facetValues.filter(function (f) {
-    return !f.isDeployed;
-  }).length > 0 || (initializer === null || initializer === void 0 ? void 0 : initializer.target) !== ethers__WEBPACK_IMPORTED_MODULE_1__.ethers.constants.AddressZero && !(initializer === null || initializer === void 0 ? void 0 : initializer.isDeployed);
-  var _useCreatePkg = (0,_lib_hooks_useCreatePkg__WEBPACK_IMPORTED_MODULE_3__.useCreatePkg)(),
-    create = _useCreatePkg.send;
-  var created = (0,_lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_4__.useUpgradeAddressDeployed)();
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(react__WEBPACK_IMPORTED_MODULE_2__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlDetails, {
-    disabled: waiting
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
-    className: "flex flex-row items-center justify-between w-full",
-    slot: "summary"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", null, "Registration (live)"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlBadge, {
-    variant: waiting ? 'warning' : created ? 'neutral' : 'success',
-    pill: true,
-    style: {
-      marginRight: '1rem'
-    },
-    pulse: !created && !waiting
-  }, waiting ? 'waiting' : created ? 'created' : 'ready')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlCard, {
-    className: "w-full creation-card"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
-    slot: "header",
-    className: "flex flex-row items-center justify-between"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", null, name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlButton, {
-    variant: created ? 'default' : 'success',
-    outline: !created,
-    size: "small",
-    onClick: function onClick() {
-      return create();
-    }
-  }, created ? 'Re-create' : 'Create')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlInput, {
-    className: "w-full",
-    value: store === null || store === void 0 ? void 0 : store.CID,
-    placeholder: "Qm...",
-    helpText: "Add IPFS hash if publishing to live network",
-    onSlInput: function onSlInput(e) {
-      store === null || store === void 0 ? void 0 : store.setCID(e.target.value);
-    }
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
-    className: "w-full flex flex-col gap-5"
-  }, facetNames.map(function (name, i) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_molecules_FacetCard__WEBPACK_IMPORTED_MODULE_5__["default"], {
-      name: name,
-      facet: facetValues[i]
-    });
-  })))));
-}
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LiveRegister);
-
-/***/ }),
-
-/***/ "./src/components/organisms/Registration.tsx":
-/*!***************************************************!*\
-  !*** ./src/components/organisms/Registration.tsx ***!
-  \***************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @shoelace-style/shoelace/dist/react */ "@shoelace-style/shoelace/dist/react");
-/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ethers */ "ethers");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _lib_hooks_useCreatePkg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../lib/hooks/useCreatePkg */ "./src/lib/hooks/useCreatePkg.tsx");
-/* harmony import */ var _lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../lib/stores/dapplet */ "./src/lib/stores/dapplet.ts");
-/* harmony import */ var _molecules_FacetCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../molecules/FacetCard */ "./src/components/molecules/FacetCard.tsx");
-
-
-
-
-
-
-function Registration() {
-  var _a, _b;
-  var store = (0,_lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_4__.useDappletStore)();
-  var facets = (_a = store === null || store === void 0 ? void 0 : store.upgrade) === null || _a === void 0 ? void 0 : _a.facets;
-  var facetNames = facets.map(function (f) {
-    return Object.keys(f)[0];
-  });
-  var facetValues = facets.map(function (f) {
-    return Object.values(f)[0];
-  });
-  var initializer = (_b = store === null || store === void 0 ? void 0 : store.upgrade) === null || _b === void 0 ? void 0 : _b.initializer;
-  var name = store === null || store === void 0 ? void 0 : store.name;
-  var waiting = facetValues.filter(function (f) {
-    return !f.isDeployed;
-  }).length > 0 || (initializer === null || initializer === void 0 ? void 0 : initializer.target) !== ethers__WEBPACK_IMPORTED_MODULE_1__.ethers.constants.AddressZero && !(initializer === null || initializer === void 0 ? void 0 : initializer.isDeployed);
-  var _useCreatePkg = (0,_lib_hooks_useCreatePkg__WEBPACK_IMPORTED_MODULE_3__.useCreatePkg)(),
-    create = _useCreatePkg.send;
-  var created = (0,_lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_4__.useUpgradeAddressDeployed)();
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(react__WEBPACK_IMPORTED_MODULE_2__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlDetails, {
-    disabled: waiting
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
-    className: "flex flex-row items-center justify-between w-full",
-    slot: "summary"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", null, "Registration"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlBadge, {
-    variant: waiting ? 'warning' : created ? 'neutral' : 'success',
-    pill: true,
-    style: {
-      marginRight: '1rem'
-    },
-    pulse: !created && !waiting
-  }, waiting ? 'waiting' : created ? 'created' : 'ready')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlCard, {
-    className: "w-full creation-card"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
-    slot: "header",
-    className: "flex flex-row items-center justify-between"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", null, name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlButton, {
-    variant: created ? 'default' : 'success',
-    outline: !created,
-    size: "small",
-    onClick: function onClick() {
-      return create();
-    }
-  }, created ? 'Re-create' : 'Create')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlInput, {
-    className: "w-full",
-    value: store === null || store === void 0 ? void 0 : store.CID,
-    placeholder: "Qm...",
-    helpText: "Add IPFS hash if publishing to live network",
-    onSlInput: function onSlInput(e) {
-      store === null || store === void 0 ? void 0 : store.setCID(e.target.value);
-    }
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
-    className: "w-full flex flex-col gap-5"
-  }, facetNames.map(function (name, i) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_molecules_FacetCard__WEBPACK_IMPORTED_MODULE_5__["default"], {
-      name: name,
-      facet: facetValues[i]
-    });
-  })))));
-}
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Registration);
-
-/***/ }),
-
-/***/ "./src/components/templates/Assistant.tsx":
-/*!************************************************!*\
-  !*** ./src/components/templates/Assistant.tsx ***!
-  \************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ Assistant)
-/* harmony export */ });
-/* harmony import */ var _shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @shoelace-style/shoelace/dist/react */ "@shoelace-style/shoelace/dist/react");
-/* harmony import */ var _usedapp_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @usedapp/core */ "@usedapp/core");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _lib_hooks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../lib/hooks */ "./src/lib/hooks/index.tsx");
-/* harmony import */ var _lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../lib/stores/dapplet */ "./src/lib/stores/dapplet.ts");
-/* harmony import */ var _organisms_Contracts__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../organisms/Contracts */ "./src/components/organisms/Contracts.tsx");
-/* harmony import */ var _organisms_Installation__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../organisms/Installation */ "./src/components/organisms/Installation.tsx");
-/* harmony import */ var _organisms_LiveDeploy__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../organisms/LiveDeploy */ "./src/components/organisms/LiveDeploy.tsx");
-/* harmony import */ var _organisms_LiveRegister__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../organisms/LiveRegister */ "./src/components/organisms/LiveRegister.tsx");
-/* harmony import */ var _organisms_Registration__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../organisms/Registration */ "./src/components/organisms/Registration.tsx");
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-
-
-
-
-
-
-
-
-
-function Assistant() {
-  var store = (0,_lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_4__.useDappletStore)();
-  console.log('asdf store', store);
-  var _useEthers = (0,_usedapp_core__WEBPACK_IMPORTED_MODULE_1__.useEthers)(),
-    account = _useEthers.account,
-    chainId = _useEthers.chainId,
-    library = _useEthers.library,
-    activateBrowserWallet = _useEthers.activateBrowserWallet,
-    deactivate = _useEthers.deactivate;
-  (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
-    store.loading && store.load();
-  }, []);
-  (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
-    !store.loading && localStorage.setItem(_lib_hooks__WEBPACK_IMPORTED_MODULE_3__.storage_key, JSON.stringify(store));
-  }, [store]);
-  // const { value: owner } = useOwnershipFacet.owner(store?.client, []) || {};
-  // console.log(owner?.[0] === account ? '✅ IS OWNER' : '🚫 ERR: IS NOT OWNER');
-  ////////////////////// for debugging
-  (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
-    var l = localStorage.getItem(_lib_hooks__WEBPACK_IMPORTED_MODULE_3__.storage_key);
-    l && console.log('asdf localStorage', JSON.parse(l));
-  }, [store]);
-  //////////////////////
-  var dialog = (0,react__WEBPACK_IMPORTED_MODULE_2__.useRef)(null);
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(true),
-    _useState2 = _slicedToArray(_useState, 2),
-    open = _useState2[0],
-    setOpen = _useState2[1];
-  function handleRequestClose(event) {
-    if (event.detail.source === 'overlay') {
-      event.preventDefault();
-      setOpen(false);
-    }
-  }
-  function handleHide(e) {
-    if (e.target === dialog.current) {
-      setOpen(false);
-    }
-  }
-  function handleReset() {
-    store.reset().then(function () {
-      store.load();
-    });
-  }
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(react__WEBPACK_IMPORTED_MODULE_2__["default"].Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlDialog, {
-    onSlRequestClose: handleRequestClose,
-    open: /* chainId.toString() === config.chainId &&  */open,
-    onSlAfterHide: handleHide,
-    ref: dialog
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement("div", {
-    slot: "label",
-    className: "flex flex-row items-center justify-between"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement("div", null, "Dapplet Dev Assistant")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement("div", {
-    slot: "header-actions",
-    className: "flex items-center"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlTooltip, {
-    content: "Logout",
-    placement: "top"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlIconButton, {
-    name: "box-arrow-right",
-    onClick: deactivate
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement("div", {
-    slot: "header-actions",
-    className: "flex items-center"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlTooltip, {
-    content: "Reset",
-    placement: "top"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlIconButton, {
-    name: "arrow-clockwise",
-    onClick: handleReset
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(react__WEBPACK_IMPORTED_MODULE_2__["default"].Fragment, null, account ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(react__WEBPACK_IMPORTED_MODULE_2__["default"].Fragment, null, store ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(_organisms_Contracts__WEBPACK_IMPORTED_MODULE_5__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(_organisms_Registration__WEBPACK_IMPORTED_MODULE_9__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(_organisms_Installation__WEBPACK_IMPORTED_MODULE_6__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(_organisms_LiveDeploy__WEBPACK_IMPORTED_MODULE_7__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(_organisms_LiveRegister__WEBPACK_IMPORTED_MODULE_8__["default"], null)) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlAlert, {
-    variant: "warning",
-    open: true
-  }, "dapplet.json not found")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement("div", {
-    className: "flex flex-col gap-4"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlButton, {
-    variant: "primary",
-    onClick: function onClick() {
-      return activateBrowserWallet();
-    }
-  }, "CONNECT")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlTooltip, {
-    content: "Development Setup",
-    placement: "bottom"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlIconButton, {
-    name: "gem",
-    label: "Edit",
-    style: {
-      fontSize: '2.5rem',
-      color: 'var(--sl-color-primary-500)'
-    },
-    onClick: function onClick() {
-      return setOpen(true);
-    }
-  })));
-}
-
-/***/ }),
-
-/***/ "./src/lib/actions/createPkg.tsx":
-/*!***************************************!*\
-  !*** ./src/lib/actions/createPkg.tsx ***!
-  \***************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   createPkg: () => (/* binding */ createPkg)
-/* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "tslib");
-/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ethers */ "ethers");
-/* harmony import */ var ethers_lib_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ethers/lib/utils */ "./node_modules/ethers/lib/utils.js");
-/* harmony import */ var ethers_lib_utils__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(ethers_lib_utils__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../constants */ "./src/lib/constants/index.ts");
-/* harmony import */ var _contracts_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../contracts/types */ "./src/lib/contracts/types/index.ts");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-
-
-
-
-
-function createPkg(client, cut, cid, signer) {
-  return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    var Installer, tx, receipt, iface, _iterator, _step, log, event;
-    return _regeneratorRuntime().wrap(function _callee$(_context) {
-      while (1) switch (_context.prev = _context.next) {
-        case 0:
-          Installer = new ethers__WEBPACK_IMPORTED_MODULE_1__.Contract(client, _contracts_types__WEBPACK_IMPORTED_MODULE_3__.Installer__factory.abi, signer);
-          _context.next = 3;
-          return Installer.create(cut, cid, {
-            value: _constants__WEBPACK_IMPORTED_MODULE_2__.costOf.createPkg,
-            gasLimit: 1000000
-          });
-        case 3:
-          tx = _context.sent;
-          _context.next = 6;
-          return tx.wait();
-        case 6:
-          receipt = _context.sent;
-          iface = new ethers_lib_utils__WEBPACK_IMPORTED_MODULE_4__.Interface(_contracts_types__WEBPACK_IMPORTED_MODULE_3__.OperatorFacet__factory.abi);
-          _iterator = _createForOfIteratorHelper(receipt.logs);
-          _context.prev = 9;
-          _iterator.s();
-        case 11:
-          if ((_step = _iterator.n()).done) {
-            _context.next = 18;
-            break;
-          }
-          log = _step.value;
-          event = iface.parseLog(log);
-          if (!(event.name === 'PackageCreated')) {
-            _context.next = 16;
-            break;
-          }
-          return _context.abrupt("return", event.args.pkg);
-        case 16:
-          _context.next = 11;
-          break;
-        case 18:
-          _context.next = 23;
-          break;
-        case 20:
-          _context.prev = 20;
-          _context.t0 = _context["catch"](9);
-          _iterator.e(_context.t0);
-        case 23:
-          _context.prev = 23;
-          _iterator.f();
-          return _context.finish(23);
-        case 26:
-        case "end":
-          return _context.stop();
-      }
-    }, _callee, null, [[9, 20, 23, 26]]);
-  }));
-}
-
-/***/ }),
-
-/***/ "./src/lib/actions/deployContract.tsx":
-/*!********************************************!*\
-  !*** ./src/lib/actions/deployContract.tsx ***!
-  \********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   deployContract: () => (/* binding */ deployContract),
-/* harmony export */   deployFacet: () => (/* binding */ deployFacet),
-/* harmony export */   deployInitializer: () => (/* binding */ deployInitializer)
-/* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "tslib");
-/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ethers */ "ethers");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-
-
-function deployContract(artifact, signer, args) {
-  return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    var factory, contract;
-    return _regeneratorRuntime().wrap(function _callee$(_context) {
-      while (1) switch (_context.prev = _context.next) {
-        case 0:
-          factory = new ethers__WEBPACK_IMPORTED_MODULE_1__.ethers.ContractFactory(artifact.abi, artifact.bytecode, signer);
-          _context.next = 3;
-          return factory.deploy.apply(factory, _toConsumableArray(args));
-        case 3:
-          contract = _context.sent;
-          _context.next = 6;
-          return contract.deployed();
-        case 6:
-          return _context.abrupt("return", contract);
-        case 7:
-        case "end":
-          return _context.stop();
-      }
-    }, _callee);
-  }));
-}
-function deployFacet(facet, signer) {
-  return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-    var cut, selectors, bytecode, abi, fns, constructorArgs, contract;
-    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-      while (1) switch (_context2.prev = _context2.next) {
-        case 0:
-          cut = {
-            target: ethers__WEBPACK_IMPORTED_MODULE_1__.ethers.constants.AddressZero,
-            action: 0,
-            selectors: []
-          };
-          selectors = [];
-          bytecode = facet.bytecode;
-          abi = facet.abi;
-          fns = facet.functions;
-          constructorArgs = facet.constructorArgs || [];
-          _context2.next = 8;
-          return deployContract({
-            abi: abi,
-            bytecode: bytecode
-          }, signer, constructorArgs);
-        case 8:
-          contract = _context2.sent;
-          Object.keys(contract["interface"].functions).forEach(function (fn) {
-            if (contract["interface"].functions[fn]) {
-              var sighash = contract["interface"].getSighash(fn);
-              selectors.push(sighash);
-            }
-          });
-          contract && (cut = {
-            target: contract.address,
-            action: 0,
-            selectors: selectors
-          });
-          return _context2.abrupt("return", cut);
-        case 12:
-        case "end":
-          return _context2.stop();
-      }
-    }, _callee2);
-  }));
-}
-function deployInitializer(initializer, signer) {
-  return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-    var selector, target, abi, bytecode, fn, constructorArgs, contract;
-    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-      while (1) switch (_context3.prev = _context3.next) {
-        case 0:
-          selector = '0x00000000';
-          target = ethers__WEBPACK_IMPORTED_MODULE_1__.ethers.constants.AddressZero;
-          abi = initializer === null || initializer === void 0 ? void 0 : initializer.abi;
-          bytecode = initializer === null || initializer === void 0 ? void 0 : initializer.bytecode;
-          fn = initializer === null || initializer === void 0 ? void 0 : initializer["function"];
-          constructorArgs = (initializer === null || initializer === void 0 ? void 0 : initializer.constructorArgs) || [];
-          _context3.next = 8;
-          return deployContract({
-            abi: abi,
-            bytecode: bytecode
-          }, signer, constructorArgs);
-        case 8:
-          contract = _context3.sent;
-          if (contract["interface"].functions[fn]) {
-            selector = contract["interface"].getSighash(fn);
-            target = contract.address;
-          }
-          return _context3.abrupt("return", {
-            selector: selector,
-            target: target
-          });
-        case 11:
-        case "end":
-          return _context3.stop();
-      }
-    }, _callee3);
-  }));
-}
-
-/***/ }),
-
-/***/ "./src/lib/actions/installPkg.tsx":
-/*!****************************************!*\
-  !*** ./src/lib/actions/installPkg.tsx ***!
-  \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   installPkg: () => (/* binding */ installPkg),
-/* harmony export */   uninstallPkg: () => (/* binding */ uninstallPkg)
-/* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "tslib");
-/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ethers */ "ethers");
-/* harmony import */ var ethers_lib_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ethers/lib/utils */ "./node_modules/ethers/lib/utils.js");
-/* harmony import */ var ethers_lib_utils__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(ethers_lib_utils__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../constants */ "./src/lib/constants/index.ts");
-/* harmony import */ var _contracts_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../contracts/types */ "./src/lib/contracts/types/index.ts");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-
-// import deployments.json
-
-
-
-
-function installPkg(client, pkg, signer, data) {
-  return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    var Installer, tx, receipt, iface, _iterator, _step, log, event;
-    return _regeneratorRuntime().wrap(function _callee$(_context) {
-      while (1) switch (_context.prev = _context.next) {
-        case 0:
-          Installer = new ethers__WEBPACK_IMPORTED_MODULE_1__.Contract(client, _contracts_types__WEBPACK_IMPORTED_MODULE_3__.Installer__factory.abi, signer);
-          console.log('Installer', Installer);
-          _context.next = 4;
-          return Installer.install(pkg, data, {
-            value: _constants__WEBPACK_IMPORTED_MODULE_2__.costOf.install,
-            gasLimit: 1000000
-          });
-        case 4:
-          tx = _context.sent;
-          console.log('tx', tx);
-          _context.next = 8;
-          return tx.wait();
-        case 8:
-          receipt = _context.sent;
-          console.log('receipt', receipt);
-          iface = new ethers_lib_utils__WEBPACK_IMPORTED_MODULE_4__.Interface(_contracts_types__WEBPACK_IMPORTED_MODULE_3__.OperatorFacet__factory.abi);
-          _iterator = _createForOfIteratorHelper(receipt.logs);
-          _context.prev = 12;
-          _iterator.s();
-        case 14:
-          if ((_step = _iterator.n()).done) {
-            _context.next = 26;
-            break;
-          }
-          log = _step.value;
-          event = iface.parseLog(log);
-          console.log('event', event);
-          if (!(event.name === 'ClientUpgraded')) {
-            _context.next = 24;
-            break;
-          }
-          if (!(event.args.pkg === pkg)) {
-            _context.next = 23;
-            break;
-          }
-          return _context.abrupt("return", true);
-        case 23:
-          throw new Error('ClientUpgraded event pkg does not match');
-        case 24:
-          _context.next = 14;
-          break;
-        case 26:
-          _context.next = 31;
-          break;
-        case 28:
-          _context.prev = 28;
-          _context.t0 = _context["catch"](12);
-          _iterator.e(_context.t0);
-        case 31:
-          _context.prev = 31;
-          _iterator.f();
-          return _context.finish(31);
-        case 34:
-        case "end":
-          return _context.stop();
-      }
-    }, _callee, null, [[12, 28, 31, 34]]);
-  }));
-}
-function uninstallPkg(client, pkg, signer, data) {
-  return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-    var Installer, tx, receipt, iface, _iterator2, _step2, log, event;
-    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-      while (1) switch (_context2.prev = _context2.next) {
-        case 0:
-          Installer = new ethers__WEBPACK_IMPORTED_MODULE_1__.Contract(client, _contracts_types__WEBPACK_IMPORTED_MODULE_3__.Installer__factory.abi, signer);
-          console.log('Installer', Installer);
-          _context2.next = 4;
-          return Installer.uninstall(pkg, data, {
-            gasLimit: 1000000
-          });
-        case 4:
-          tx = _context2.sent;
-          console.log('tx', tx);
-          _context2.next = 8;
-          return tx.wait();
-        case 8:
-          receipt = _context2.sent;
-          console.log('receipt', receipt);
-          iface = new ethers_lib_utils__WEBPACK_IMPORTED_MODULE_4__.Interface(_contracts_types__WEBPACK_IMPORTED_MODULE_3__.OperatorFacet__factory.abi);
-          _iterator2 = _createForOfIteratorHelper(receipt.logs);
-          _context2.prev = 12;
-          _iterator2.s();
-        case 14:
-          if ((_step2 = _iterator2.n()).done) {
-            _context2.next = 25;
-            break;
-          }
-          log = _step2.value;
-          event = iface.parseLog(log);
-          if (!(event.name === 'ClientUpgraded')) {
-            _context2.next = 23;
-            break;
-          }
-          if (!(event.args.pkg === pkg)) {
-            _context2.next = 22;
-            break;
-          }
-          return _context2.abrupt("return", true);
-        case 22:
-          throw new Error('ClientUpgraded event pkg does not match');
-        case 23:
-          _context2.next = 14;
-          break;
-        case 25:
-          _context2.next = 30;
-          break;
-        case 27:
-          _context2.prev = 27;
-          _context2.t0 = _context2["catch"](12);
-          _iterator2.e(_context2.t0);
-        case 30:
-          _context2.prev = 30;
-          _iterator2.f();
-          return _context2.finish(30);
-        case 33:
-        case "end":
-          return _context2.stop();
-      }
-    }, _callee2, null, [[12, 27, 30, 33]]);
-  }));
-}
-
-/***/ }),
-
-/***/ "./src/lib/constants/index.ts":
-/*!************************************!*\
-  !*** ./src/lib/constants/index.ts ***!
-  \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   costOf: () => (/* binding */ costOf),
-/* harmony export */   gateways: () => (/* binding */ gateways)
-/* harmony export */ });
-/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
-
-var costOf = {
-  createPkg: ethers__WEBPACK_IMPORTED_MODULE_0__.ethers.utils.parseEther('0.01'),
-  createClient: ethers__WEBPACK_IMPORTED_MODULE_0__.ethers.utils.parseEther('0.01'),
-  install: ethers__WEBPACK_IMPORTED_MODULE_0__.ethers.utils.parseEther('0.001')
-};
-var gateways = [{
-  prefix: 'https://',
-  suffix: '.ipfs.w3s.link/'
-}, {
-  prefix: 'https://ipfs.io/ipfs/',
-  suffix: ''
-}, {
-  prefix: 'https://gateway.ipfs.io/ipfs/',
-  suffix: ''
-}];
-
-/***/ }),
-
-/***/ "./src/lib/contracts/hooks/Initializer.ts":
-/*!************************************************!*\
-  !*** ./src/lib/contracts/hooks/Initializer.ts ***!
-  \************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   useInitializer: () => (/* binding */ useInitializer),
-/* harmony export */   useInitializer_cost: () => (/* binding */ useInitializer_cost),
-/* harmony export */   useInitializer_init: () => (/* binding */ useInitializer_init),
-/* harmony export */   useInitializer_owner: () => (/* binding */ useInitializer_owner)
-/* harmony export */ });
-/* harmony import */ var _usedapp_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @usedapp/core */ "@usedapp/core");
-/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ethers */ "ethers");
-/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../types */ "./src/lib/contracts/types/index.ts");
-
-
-
-var InitializerInterface = new ethers__WEBPACK_IMPORTED_MODULE_1__.utils.Interface(_types__WEBPACK_IMPORTED_MODULE_2__.Initializer__factory.abi);
-var useInitializer_cost = function useInitializer_cost(contractAddress, args) {
-  var queryParams = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-  return (0,_usedapp_core__WEBPACK_IMPORTED_MODULE_0__.useCall)(contractAddress && args && {
-    contract: new ethers__WEBPACK_IMPORTED_MODULE_1__.Contract(contractAddress, InitializerInterface),
-    method: 'cost',
-    args: args
-  }, queryParams);
-};
-var useInitializer_init = function useInitializer_init(contractAddress, options) {
-  return (0,_usedapp_core__WEBPACK_IMPORTED_MODULE_0__.useContractFunction)(contractAddress && new ethers__WEBPACK_IMPORTED_MODULE_1__.Contract(contractAddress, InitializerInterface), 'init', options);
-};
-var useInitializer_owner = function useInitializer_owner(contractAddress, args) {
-  var queryParams = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-  return (0,_usedapp_core__WEBPACK_IMPORTED_MODULE_0__.useCall)(contractAddress && args && {
-    contract: new ethers__WEBPACK_IMPORTED_MODULE_1__.Contract(contractAddress, InitializerInterface),
-    method: 'owner',
-    args: args
-  }, queryParams);
-};
-var useInitializer = {
-  cost: useInitializer_cost,
-  init: useInitializer_init,
-  owner: useInitializer_owner,
-  events: {}
-};
-
-/***/ }),
-
-/***/ "./src/lib/contracts/index.tsx":
-/*!*************************************!*\
-  !*** ./src/lib/contracts/index.tsx ***!
-  \*************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-var _contracts_deployments_json__WEBPACK_IMPORTED_MODULE_0___namespace_cache;
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   deployment: () => (/* binding */ deployment),
-/* harmony export */   rootName: () => (/* binding */ rootName)
-/* harmony export */ });
-/* harmony import */ var _contracts_deployments_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../contracts/deployments.json */ "./src/lib/contracts/deployments.json");
- //weird behavior
-var rootName = 'dapptest.eth';
-function deployment(contractName, chainId) {
-  var _a;
-  var contract = (_a = /*#__PURE__*/ (_contracts_deployments_json__WEBPACK_IMPORTED_MODULE_0___namespace_cache || (_contracts_deployments_json__WEBPACK_IMPORTED_MODULE_0___namespace_cache = __webpack_require__.t(_contracts_deployments_json__WEBPACK_IMPORTED_MODULE_0__, 2)))[chainId]) === null || _a === void 0 ? void 0 : _a[contractName];
-  return contract;
-}
-//useInterface -- fetch from typechain files
-// export function useDeployments(contractName: string) {
-//   const chainId = useEthers().chainId || (config.readOnlyChainId as number);
-//   return (deployments as IDeployments)[chainId as keyof IDeployments]?.[
-//     contractName
-//   ];
-// }
-// export function useFacet(contractName: string) {
-//   return new ethers.Contract(
-//     useDeployments(contractName)?.abi,
-//     useDeployments('Diamond')?.address,
-//     useEthers().library
-//   );
-// }
-
-/***/ }),
-
-/***/ "./src/lib/contracts/types/factories/DappletsFacet__factory.ts":
-/*!*********************************************************************!*\
-  !*** ./src/lib/contracts/types/factories/DappletsFacet__factory.ts ***!
-  \*********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   DappletsFacet__factory: () => (/* binding */ DappletsFacet__factory)
-/* harmony export */ });
-/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-/* Autogenerated file. Do not edit manually. */
-/* tslint:disable */
-/* eslint-disable */
-
-var _abi = [{
-  inputs: [],
-  name: "ERC20Base__ApproveFromZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__ApproveToZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__BurnExceedsBalance",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__BurnFromZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__InsufficientAllowance",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__MintToZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__TransferExceedsBalance",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__TransferFromZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__TransferToZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "EnumerableMap__IndexOutOfBounds",
-  type: "error"
-}, {
-  inputs: [],
-  name: "EnumerableMap__NonExistentKey",
-  type: "error"
-}, {
-  inputs: [],
-  name: "EnumerableSet__IndexOutOfBounds",
-  type: "error"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "owner",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "spender",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "uint256",
-    name: "value",
-    type: "uint256"
-  }],
-  name: "Approval",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "pkg",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "account",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "uint256",
-    name: "amount",
-    type: "uint256"
-  }],
-  name: "Stake",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "from",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "to",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "uint256",
-    name: "value",
-    type: "uint256"
-  }],
-  name: "Transfer",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "pkg",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "account",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "uint256",
-    name: "amount",
-    type: "uint256"
-  }],
-  name: "Unstake",
-  type: "event"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "holder",
-    type: "address"
-  }, {
-    internalType: "address",
-    name: "spender",
-    type: "address"
-  }],
-  name: "allowance",
-  outputs: [{
-    internalType: "uint256",
-    name: "",
-    type: "uint256"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "spender",
-    type: "address"
-  }, {
-    internalType: "uint256",
-    name: "amount",
-    type: "uint256"
-  }],
-  name: "approve",
-  outputs: [{
-    internalType: "bool",
-    name: "",
-    type: "bool"
-  }],
-  stateMutability: "nonpayable",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "account",
-    type: "address"
-  }],
-  name: "balanceOf",
-  outputs: [{
-    internalType: "uint256",
-    name: "",
-    type: "uint256"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [],
-  name: "decimals",
-  outputs: [{
-    internalType: "uint8",
-    name: "",
-    type: "uint8"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "account",
-    type: "address"
-  }],
-  name: "installedBy",
-  outputs: [{
-    internalType: "address[]",
-    name: "pkgs",
-    type: "address[]"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "pkg",
-    type: "address"
-  }],
-  name: "installersOf",
-  outputs: [{
-    internalType: "address[]",
-    name: "installers",
-    type: "address[]"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "pkg",
-    type: "address"
-  }],
-  name: "isPkg",
-  outputs: [{
-    internalType: "bool",
-    name: "",
-    type: "bool"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address[]",
-    name: "pkgs",
-    type: "address[]"
-  }],
-  name: "metadataOf",
-  outputs: [{
-    internalType: "string[]",
-    name: "metadata",
-    type: "string[]"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [],
-  name: "name",
-  outputs: [{
-    internalType: "string",
-    name: "",
-    type: "string"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "account",
-    type: "address"
-  }],
-  name: "ownedBy",
-  outputs: [{
-    internalType: "address[]",
-    name: "pkgs",
-    type: "address[]"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "pkg",
-    type: "address"
-  }],
-  name: "ownerOf",
-  outputs: [{
-    internalType: "address",
-    name: "owner",
-    type: "address"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "account",
-    type: "address"
-  }],
-  name: "receivedStakeOf",
-  outputs: [{
-    internalType: "address[]",
-    name: "pkgs",
-    type: "address[]"
-  }, {
-    internalType: "uint256[]",
-    name: "amounts",
-    type: "uint256[]"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "account",
-    type: "address"
-  }],
-  name: "sentStakeOf",
-  outputs: [{
-    internalType: "address[]",
-    name: "pkgs",
-    type: "address[]"
-  }, {
-    internalType: "uint256[]",
-    name: "amounts",
-    type: "uint256[]"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "pkg",
-    type: "address"
-  }],
-  name: "stake",
-  outputs: [],
-  stateMutability: "payable",
-  type: "function"
-}, {
-  inputs: [],
-  name: "symbol",
-  outputs: [{
-    internalType: "string",
-    name: "",
-    type: "string"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [],
-  name: "totalSupply",
-  outputs: [{
-    internalType: "uint256",
-    name: "",
-    type: "uint256"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "recipient",
-    type: "address"
-  }, {
-    internalType: "uint256",
-    name: "amount",
-    type: "uint256"
-  }],
-  name: "transfer",
-  outputs: [{
-    internalType: "bool",
-    name: "",
-    type: "bool"
-  }],
-  stateMutability: "nonpayable",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "holder",
-    type: "address"
-  }, {
-    internalType: "address",
-    name: "recipient",
-    type: "address"
-  }, {
-    internalType: "uint256",
-    name: "amount",
-    type: "uint256"
-  }],
-  name: "transferFrom",
-  outputs: [{
-    internalType: "bool",
-    name: "",
-    type: "bool"
-  }],
-  stateMutability: "nonpayable",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "pkg",
-    type: "address"
-  }, {
-    internalType: "uint256",
-    name: "amount",
-    type: "uint256"
-  }],
-  name: "unstake",
-  outputs: [],
-  stateMutability: "nonpayable",
-  type: "function"
-}];
-var DappletsFacet__factory = /*#__PURE__*/function () {
-  function DappletsFacet__factory() {
-    _classCallCheck(this, DappletsFacet__factory);
-  }
-  _createClass(DappletsFacet__factory, null, [{
-    key: "createInterface",
-    value: function createInterface() {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
-    }
-  }, {
-    key: "connect",
-    value: function connect(address, signerOrProvider) {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
-    }
-  }]);
-  return DappletsFacet__factory;
-}();
-DappletsFacet__factory.abi = _abi;
-
-/***/ }),
-
-/***/ "./src/lib/contracts/types/factories/DappsFacet__factory.ts":
-/*!******************************************************************!*\
-  !*** ./src/lib/contracts/types/factories/DappsFacet__factory.ts ***!
-  \******************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   DappsFacet__factory: () => (/* binding */ DappsFacet__factory)
-/* harmony export */ });
-/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-/* Autogenerated file. Do not edit manually. */
-/* tslint:disable */
-/* eslint-disable */
-
-var _abi = [{
-  inputs: [],
-  name: "ERC20Base__ApproveFromZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__ApproveToZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__BurnExceedsBalance",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__BurnFromZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__InsufficientAllowance",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__MintToZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__TransferExceedsBalance",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__TransferFromZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__TransferToZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "Ownable__NotOwner",
-  type: "error"
-}, {
-  inputs: [],
-  name: "Ownable__NotTransitiveOwner",
-  type: "error"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "owner",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "spender",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "uint256",
-    name: "value",
-    type: "uint256"
-  }],
-  name: "Approval",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "recipient",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "sender",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "uint256",
-    name: "amount",
-    type: "uint256"
-  }],
-  name: "FeePaid",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "previousOwner",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "newOwner",
-    type: "address"
-  }],
-  name: "OwnershipTransferred",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "bytes32",
-    name: "role",
-    type: "bytes32"
-  }, {
-    indexed: true,
-    internalType: "bytes32",
-    name: "previousAdminRole",
-    type: "bytes32"
-  }, {
-    indexed: true,
-    internalType: "bytes32",
-    name: "newAdminRole",
-    type: "bytes32"
-  }],
-  name: "RoleAdminChanged",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "bytes32",
-    name: "role",
-    type: "bytes32"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "account",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "sender",
-    type: "address"
-  }],
-  name: "RoleGranted",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "bytes32",
-    name: "role",
-    type: "bytes32"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "account",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "sender",
-    type: "address"
-  }],
-  name: "RoleRevoked",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "from",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "to",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "uint256",
-    name: "value",
-    type: "uint256"
-  }],
-  name: "Transfer",
-  type: "event"
-}, {
-  inputs: [],
-  name: "createClient",
-  outputs: [{
-    internalType: "address",
-    name: "client",
-    type: "address"
-  }],
-  stateMutability: "payable",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "string",
-    name: "_title",
-    type: "string"
-  }],
-  name: "getClientUpgrade",
-  outputs: [{
-    components: [{
-      internalType: "address",
-      name: "target",
-      type: "address"
-    }, {
-      internalType: "enum IDiamondWritableInternal.FacetCutAction",
-      name: "action",
-      type: "uint8"
-    }, {
-      internalType: "bytes4[]",
-      name: "selectors",
-      type: "bytes4[]"
-    }],
-    internalType: "struct IDiamondWritableInternal.FacetCut[]",
-    name: "cuts",
-    type: "tuple[]"
-  }, {
-    internalType: "address",
-    name: "target",
-    type: "address"
-  }, {
-    internalType: "bytes",
-    name: "data",
-    type: "bytes"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "string",
-    name: "_title",
-    type: "string"
-  }, {
-    components: [{
-      internalType: "address",
-      name: "target",
-      type: "address"
-    }, {
-      internalType: "enum IDiamondWritableInternal.FacetCutAction",
-      name: "action",
-      type: "uint8"
-    }, {
-      internalType: "bytes4[]",
-      name: "selectors",
-      type: "bytes4[]"
-    }],
-    internalType: "struct IDiamondWritableInternal.FacetCut[]",
-    name: "_cuts",
-    type: "tuple[]"
-  }, {
-    internalType: "address",
-    name: "_target",
-    type: "address"
-  }, {
-    internalType: "bytes4",
-    name: "_selector",
-    type: "bytes4"
-  }],
-  name: "setClientUpgrade",
-  outputs: [],
-  stateMutability: "nonpayable",
-  type: "function"
-}];
-var DappsFacet__factory = /*#__PURE__*/function () {
-  function DappsFacet__factory() {
-    _classCallCheck(this, DappsFacet__factory);
-  }
-  _createClass(DappsFacet__factory, null, [{
-    key: "createInterface",
-    value: function createInterface() {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
-    }
-  }, {
-    key: "connect",
-    value: function connect(address, signerOrProvider) {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
-    }
-  }]);
-  return DappsFacet__factory;
-}();
-DappsFacet__factory.abi = _abi;
-
-/***/ }),
-
-/***/ "./src/lib/contracts/types/factories/DiamondBase__factory.ts":
-/*!*******************************************************************!*\
-  !*** ./src/lib/contracts/types/factories/DiamondBase__factory.ts ***!
-  \*******************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   DiamondBase__factory: () => (/* binding */ DiamondBase__factory)
-/* harmony export */ });
-/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-/* Autogenerated file. Do not edit manually. */
-/* tslint:disable */
-/* eslint-disable */
-
-var _abi = [{
-  inputs: [],
-  name: "Proxy__ImplementationIsNotContract",
-  type: "error"
-}, {
-  stateMutability: "payable",
-  type: "fallback"
-}];
-var DiamondBase__factory = /*#__PURE__*/function () {
-  function DiamondBase__factory() {
-    _classCallCheck(this, DiamondBase__factory);
-  }
-  _createClass(DiamondBase__factory, null, [{
-    key: "createInterface",
-    value: function createInterface() {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
-    }
-  }, {
-    key: "connect",
-    value: function connect(address, signerOrProvider) {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
-    }
-  }]);
-  return DiamondBase__factory;
-}();
-DiamondBase__factory.abi = _abi;
-
-/***/ }),
-
-/***/ "./src/lib/contracts/types/factories/DiamondCutFacet__factory.ts":
-/*!***********************************************************************!*\
-  !*** ./src/lib/contracts/types/factories/DiamondCutFacet__factory.ts ***!
-  \***********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   DiamondCutFacet__factory: () => (/* binding */ DiamondCutFacet__factory)
-/* harmony export */ });
-/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-/* Autogenerated file. Do not edit manually. */
-/* tslint:disable */
-/* eslint-disable */
-
-var _abi = [{
-  inputs: [],
-  name: "DiamondWritable__InvalidInitializationParameters",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__RemoveTargetNotZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__ReplaceTargetIsIdentical",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorAlreadyAdded",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorIsImmutable",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorNotFound",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorNotSpecified",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__TargetHasNoCode",
-  type: "error"
-}, {
-  inputs: [],
-  name: "Ownable__NotOwner",
-  type: "error"
-}, {
-  inputs: [],
-  name: "Ownable__NotTransitiveOwner",
-  type: "error"
-}, {
-  anonymous: false,
-  inputs: [{
-    components: [{
-      internalType: "address",
-      name: "target",
-      type: "address"
-    }, {
-      internalType: "enum IDiamondWritableInternal.FacetCutAction",
-      name: "action",
-      type: "uint8"
-    }, {
-      internalType: "bytes4[]",
-      name: "selectors",
-      type: "bytes4[]"
-    }],
-    indexed: false,
-    internalType: "struct IDiamondWritableInternal.FacetCut[]",
-    name: "facetCuts",
-    type: "tuple[]"
-  }, {
-    indexed: false,
-    internalType: "address",
-    name: "target",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "bytes",
-    name: "data",
-    type: "bytes"
-  }],
-  name: "DiamondCut",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "previousOwner",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "newOwner",
-    type: "address"
-  }],
-  name: "OwnershipTransferred",
-  type: "event"
-}, {
-  inputs: [{
-    components: [{
-      internalType: "address",
-      name: "target",
-      type: "address"
-    }, {
-      internalType: "enum IDiamondWritableInternal.FacetCutAction",
-      name: "action",
-      type: "uint8"
-    }, {
-      internalType: "bytes4[]",
-      name: "selectors",
-      type: "bytes4[]"
-    }],
-    internalType: "struct IDiamondWritableInternal.FacetCut[]",
-    name: "facetCuts",
-    type: "tuple[]"
-  }, {
-    internalType: "address",
-    name: "target",
-    type: "address"
-  }, {
-    internalType: "bytes",
-    name: "data",
-    type: "bytes"
-  }],
-  name: "diamondCut",
-  outputs: [],
-  stateMutability: "nonpayable",
-  type: "function"
-}];
-var DiamondCutFacet__factory = /*#__PURE__*/function () {
-  function DiamondCutFacet__factory() {
-    _classCallCheck(this, DiamondCutFacet__factory);
-  }
-  _createClass(DiamondCutFacet__factory, null, [{
-    key: "createInterface",
-    value: function createInterface() {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
-    }
-  }, {
-    key: "connect",
-    value: function connect(address, signerOrProvider) {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
-    }
-  }]);
-  return DiamondCutFacet__factory;
-}();
-DiamondCutFacet__factory.abi = _abi;
-
-/***/ }),
-
-/***/ "./src/lib/contracts/types/factories/DiamondLoupeFacet__factory.ts":
-/*!*************************************************************************!*\
-  !*** ./src/lib/contracts/types/factories/DiamondLoupeFacet__factory.ts ***!
-  \*************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   DiamondLoupeFacet__factory: () => (/* binding */ DiamondLoupeFacet__factory)
-/* harmony export */ });
-/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-/* Autogenerated file. Do not edit manually. */
-/* tslint:disable */
-/* eslint-disable */
-
-var _abi = [{
-  inputs: [{
-    internalType: "bytes4",
-    name: "selector",
-    type: "bytes4"
-  }],
-  name: "facetAddress",
-  outputs: [{
-    internalType: "address",
-    name: "facet",
-    type: "address"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [],
-  name: "facetAddresses",
-  outputs: [{
-    internalType: "address[]",
-    name: "addresses",
-    type: "address[]"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "facet",
-    type: "address"
-  }],
-  name: "facetFunctionSelectors",
-  outputs: [{
-    internalType: "bytes4[]",
-    name: "selectors",
-    type: "bytes4[]"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [],
-  name: "facets",
-  outputs: [{
-    components: [{
-      internalType: "address",
-      name: "target",
-      type: "address"
-    }, {
-      internalType: "bytes4[]",
-      name: "selectors",
-      type: "bytes4[]"
-    }],
-    internalType: "struct IDiamondReadable.Facet[]",
-    name: "diamondFacets",
-    type: "tuple[]"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  stateMutability: "payable",
-  type: "receive"
-}];
-var DiamondLoupeFacet__factory = /*#__PURE__*/function () {
-  function DiamondLoupeFacet__factory() {
-    _classCallCheck(this, DiamondLoupeFacet__factory);
-  }
-  _createClass(DiamondLoupeFacet__factory, null, [{
-    key: "createInterface",
-    value: function createInterface() {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
-    }
-  }, {
-    key: "connect",
-    value: function connect(address, signerOrProvider) {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
-    }
-  }]);
-  return DiamondLoupeFacet__factory;
-}();
-DiamondLoupeFacet__factory.abi = _abi;
-
-/***/ }),
-
-/***/ "./src/lib/contracts/types/factories/DiamondReadable__factory.ts":
-/*!***********************************************************************!*\
-  !*** ./src/lib/contracts/types/factories/DiamondReadable__factory.ts ***!
-  \***********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   DiamondReadable__factory: () => (/* binding */ DiamondReadable__factory)
-/* harmony export */ });
-/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-/* Autogenerated file. Do not edit manually. */
-/* tslint:disable */
-/* eslint-disable */
-
-var _abi = [{
-  inputs: [{
-    internalType: "bytes4",
-    name: "selector",
-    type: "bytes4"
-  }],
-  name: "facetAddress",
-  outputs: [{
-    internalType: "address",
-    name: "facet",
-    type: "address"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [],
-  name: "facetAddresses",
-  outputs: [{
-    internalType: "address[]",
-    name: "addresses",
-    type: "address[]"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "facet",
-    type: "address"
-  }],
-  name: "facetFunctionSelectors",
-  outputs: [{
-    internalType: "bytes4[]",
-    name: "selectors",
-    type: "bytes4[]"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [],
-  name: "facets",
-  outputs: [{
-    components: [{
-      internalType: "address",
-      name: "target",
-      type: "address"
-    }, {
-      internalType: "bytes4[]",
-      name: "selectors",
-      type: "bytes4[]"
-    }],
-    internalType: "struct IDiamondReadable.Facet[]",
-    name: "diamondFacets",
-    type: "tuple[]"
-  }],
-  stateMutability: "view",
-  type: "function"
-}];
-var DiamondReadable__factory = /*#__PURE__*/function () {
-  function DiamondReadable__factory() {
-    _classCallCheck(this, DiamondReadable__factory);
-  }
-  _createClass(DiamondReadable__factory, null, [{
-    key: "createInterface",
-    value: function createInterface() {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
-    }
-  }, {
-    key: "connect",
-    value: function connect(address, signerOrProvider) {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
-    }
-  }]);
-  return DiamondReadable__factory;
-}();
-DiamondReadable__factory.abi = _abi;
-
-/***/ }),
-
-/***/ "./src/lib/contracts/types/factories/DiamondWritableInternal__factory.ts":
-/*!*******************************************************************************!*\
-  !*** ./src/lib/contracts/types/factories/DiamondWritableInternal__factory.ts ***!
-  \*******************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   DiamondWritableInternal__factory: () => (/* binding */ DiamondWritableInternal__factory)
-/* harmony export */ });
-/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-/* Autogenerated file. Do not edit manually. */
-/* tslint:disable */
-/* eslint-disable */
-
-var _abi = [{
-  inputs: [],
-  name: "DiamondWritable__InvalidInitializationParameters",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__RemoveTargetNotZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__ReplaceTargetIsIdentical",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorAlreadyAdded",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorIsImmutable",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorNotFound",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorNotSpecified",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__TargetHasNoCode",
-  type: "error"
-}, {
-  anonymous: false,
-  inputs: [{
-    components: [{
-      internalType: "address",
-      name: "target",
-      type: "address"
-    }, {
-      internalType: "enum IDiamondWritableInternal.FacetCutAction",
-      name: "action",
-      type: "uint8"
-    }, {
-      internalType: "bytes4[]",
-      name: "selectors",
-      type: "bytes4[]"
-    }],
-    indexed: false,
-    internalType: "struct IDiamondWritableInternal.FacetCut[]",
-    name: "facetCuts",
-    type: "tuple[]"
-  }, {
-    indexed: false,
-    internalType: "address",
-    name: "target",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "bytes",
-    name: "data",
-    type: "bytes"
-  }],
-  name: "DiamondCut",
-  type: "event"
-}];
-var DiamondWritableInternal__factory = /*#__PURE__*/function () {
-  function DiamondWritableInternal__factory() {
-    _classCallCheck(this, DiamondWritableInternal__factory);
-  }
-  _createClass(DiamondWritableInternal__factory, null, [{
-    key: "createInterface",
-    value: function createInterface() {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
-    }
-  }, {
-    key: "connect",
-    value: function connect(address, signerOrProvider) {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
-    }
-  }]);
-  return DiamondWritableInternal__factory;
-}();
-DiamondWritableInternal__factory.abi = _abi;
-
-/***/ }),
-
-/***/ "./src/lib/contracts/types/factories/DiamondWritable__factory.ts":
-/*!***********************************************************************!*\
-  !*** ./src/lib/contracts/types/factories/DiamondWritable__factory.ts ***!
-  \***********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   DiamondWritable__factory: () => (/* binding */ DiamondWritable__factory)
-/* harmony export */ });
-/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-/* Autogenerated file. Do not edit manually. */
-/* tslint:disable */
-/* eslint-disable */
-
-var _abi = [{
-  inputs: [],
-  name: "DiamondWritable__InvalidInitializationParameters",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__RemoveTargetNotZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__ReplaceTargetIsIdentical",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorAlreadyAdded",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorIsImmutable",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorNotFound",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorNotSpecified",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__TargetHasNoCode",
-  type: "error"
-}, {
-  inputs: [],
-  name: "Ownable__NotOwner",
-  type: "error"
-}, {
-  inputs: [],
-  name: "Ownable__NotTransitiveOwner",
-  type: "error"
-}, {
-  anonymous: false,
-  inputs: [{
-    components: [{
-      internalType: "address",
-      name: "target",
-      type: "address"
-    }, {
-      internalType: "enum IDiamondWritableInternal.FacetCutAction",
-      name: "action",
-      type: "uint8"
-    }, {
-      internalType: "bytes4[]",
-      name: "selectors",
-      type: "bytes4[]"
-    }],
-    indexed: false,
-    internalType: "struct IDiamondWritableInternal.FacetCut[]",
-    name: "facetCuts",
-    type: "tuple[]"
-  }, {
-    indexed: false,
-    internalType: "address",
-    name: "target",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "bytes",
-    name: "data",
-    type: "bytes"
-  }],
-  name: "DiamondCut",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "previousOwner",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "newOwner",
-    type: "address"
-  }],
-  name: "OwnershipTransferred",
-  type: "event"
-}, {
-  inputs: [{
-    components: [{
-      internalType: "address",
-      name: "target",
-      type: "address"
-    }, {
-      internalType: "enum IDiamondWritableInternal.FacetCutAction",
-      name: "action",
-      type: "uint8"
-    }, {
-      internalType: "bytes4[]",
-      name: "selectors",
-      type: "bytes4[]"
-    }],
-    internalType: "struct IDiamondWritableInternal.FacetCut[]",
-    name: "facetCuts",
-    type: "tuple[]"
-  }, {
-    internalType: "address",
-    name: "target",
-    type: "address"
-  }, {
-    internalType: "bytes",
-    name: "data",
-    type: "bytes"
-  }],
-  name: "diamondCut",
-  outputs: [],
-  stateMutability: "nonpayable",
-  type: "function"
-}];
-var DiamondWritable__factory = /*#__PURE__*/function () {
-  function DiamondWritable__factory() {
-    _classCallCheck(this, DiamondWritable__factory);
-  }
-  _createClass(DiamondWritable__factory, null, [{
-    key: "createInterface",
-    value: function createInterface() {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
-    }
-  }, {
-    key: "connect",
-    value: function connect(address, signerOrProvider) {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
-    }
-  }]);
-  return DiamondWritable__factory;
-}();
-DiamondWritable__factory.abi = _abi;
-
-/***/ }),
-
-/***/ "./src/lib/contracts/types/factories/Diamond__factory.ts":
-/*!***************************************************************!*\
-  !*** ./src/lib/contracts/types/factories/Diamond__factory.ts ***!
-  \***************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Diamond__factory: () => (/* binding */ Diamond__factory)
-/* harmony export */ });
-/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-/* Autogenerated file. Do not edit manually. */
-/* tslint:disable */
-/* eslint-disable */
-
-var _abi = [{
-  inputs: [{
-    internalType: "address",
-    name: "_creator",
-    type: "address"
-  }, {
-    components: [{
-      internalType: "address",
-      name: "target",
-      type: "address"
-    }, {
-      internalType: "enum IDiamondWritableInternal.FacetCutAction",
-      name: "action",
-      type: "uint8"
-    }, {
-      internalType: "bytes4[]",
-      name: "selectors",
-      type: "bytes4[]"
-    }],
-    internalType: "struct IDiamondWritableInternal.FacetCut[]",
-    name: "_cuts",
-    type: "tuple[]"
-  }, {
-    internalType: "address",
-    name: "_target",
-    type: "address"
-  }, {
-    internalType: "bytes",
-    name: "_data",
-    type: "bytes"
-  }],
-  stateMutability: "nonpayable",
-  type: "constructor"
-}, {
-  inputs: [],
-  name: "DiamondWritable__InvalidInitializationParameters",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__RemoveTargetNotZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__ReplaceTargetIsIdentical",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorAlreadyAdded",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorIsImmutable",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorNotFound",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorNotSpecified",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__TargetHasNoCode",
-  type: "error"
-}, {
-  inputs: [],
-  name: "Ownable__NotOwner",
-  type: "error"
-}, {
-  inputs: [],
-  name: "Ownable__NotTransitiveOwner",
-  type: "error"
-}, {
-  inputs: [],
-  name: "Proxy__ImplementationIsNotContract",
-  type: "error"
-}, {
-  anonymous: false,
-  inputs: [{
-    components: [{
-      internalType: "address",
-      name: "target",
-      type: "address"
-    }, {
-      internalType: "enum IDiamondWritableInternal.FacetCutAction",
-      name: "action",
-      type: "uint8"
-    }, {
-      internalType: "bytes4[]",
-      name: "selectors",
-      type: "bytes4[]"
-    }],
-    indexed: false,
-    internalType: "struct IDiamondWritableInternal.FacetCut[]",
-    name: "facetCuts",
-    type: "tuple[]"
-  }, {
-    indexed: false,
-    internalType: "address",
-    name: "target",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "bytes",
-    name: "data",
-    type: "bytes"
-  }],
-  name: "DiamondCut",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "previousOwner",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "newOwner",
-    type: "address"
-  }],
-  name: "OwnershipTransferred",
-  type: "event"
-}, {
-  stateMutability: "payable",
-  type: "fallback"
-}, {
-  stateMutability: "payable",
-  type: "receive"
-}];
-var Diamond__factory = /*#__PURE__*/function () {
-  function Diamond__factory() {
-    _classCallCheck(this, Diamond__factory);
-  }
-  _createClass(Diamond__factory, null, [{
-    key: "createInterface",
-    value: function createInterface() {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
-    }
-  }, {
-    key: "connect",
-    value: function connect(address, signerOrProvider) {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
-    }
-  }]);
-  return Diamond__factory;
-}();
-Diamond__factory.abi = _abi;
-
-/***/ }),
-
-/***/ "./src/lib/contracts/types/factories/ERC165Facet__factory.ts":
-/*!*******************************************************************!*\
-  !*** ./src/lib/contracts/types/factories/ERC165Facet__factory.ts ***!
-  \*******************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   ERC165Facet__factory: () => (/* binding */ ERC165Facet__factory)
-/* harmony export */ });
-/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-/* Autogenerated file. Do not edit manually. */
-/* tslint:disable */
-/* eslint-disable */
-
-var _abi = [{
-  inputs: [],
-  name: "ERC165Base__InvalidInterfaceId",
-  type: "error"
-}, {
-  inputs: [{
-    internalType: "bytes4",
-    name: "interfaceId",
-    type: "bytes4"
-  }],
-  name: "supportsInterface",
-  outputs: [{
-    internalType: "bool",
-    name: "",
-    type: "bool"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  stateMutability: "payable",
-  type: "receive"
-}];
-var ERC165Facet__factory = /*#__PURE__*/function () {
-  function ERC165Facet__factory() {
-    _classCallCheck(this, ERC165Facet__factory);
-  }
-  _createClass(ERC165Facet__factory, null, [{
-    key: "createInterface",
-    value: function createInterface() {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
-    }
-  }, {
-    key: "connect",
-    value: function connect(address, signerOrProvider) {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
-    }
-  }]);
-  return ERC165Facet__factory;
-}();
-ERC165Facet__factory.abi = _abi;
-
-/***/ }),
-
-/***/ "./src/lib/contracts/types/factories/IDiamondBase__factory.ts":
-/*!********************************************************************!*\
-  !*** ./src/lib/contracts/types/factories/IDiamondBase__factory.ts ***!
-  \********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   IDiamondBase__factory: () => (/* binding */ IDiamondBase__factory)
-/* harmony export */ });
-/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-/* Autogenerated file. Do not edit manually. */
-/* tslint:disable */
-/* eslint-disable */
-
-var _abi = [{
-  inputs: [],
-  name: "Proxy__ImplementationIsNotContract",
-  type: "error"
-}, {
-  stateMutability: "payable",
-  type: "fallback"
-}];
-var IDiamondBase__factory = /*#__PURE__*/function () {
-  function IDiamondBase__factory() {
-    _classCallCheck(this, IDiamondBase__factory);
-  }
-  _createClass(IDiamondBase__factory, null, [{
-    key: "createInterface",
-    value: function createInterface() {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
-    }
-  }, {
-    key: "connect",
-    value: function connect(address, signerOrProvider) {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
-    }
-  }]);
-  return IDiamondBase__factory;
-}();
-IDiamondBase__factory.abi = _abi;
-
-/***/ }),
-
-/***/ "./src/lib/contracts/types/factories/IDiamondReadable__factory.ts":
-/*!************************************************************************!*\
-  !*** ./src/lib/contracts/types/factories/IDiamondReadable__factory.ts ***!
-  \************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   IDiamondReadable__factory: () => (/* binding */ IDiamondReadable__factory)
-/* harmony export */ });
-/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-/* Autogenerated file. Do not edit manually. */
-/* tslint:disable */
-/* eslint-disable */
-
-var _abi = [{
-  inputs: [{
-    internalType: "bytes4",
-    name: "selector",
-    type: "bytes4"
-  }],
-  name: "facetAddress",
-  outputs: [{
-    internalType: "address",
-    name: "facet",
-    type: "address"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [],
-  name: "facetAddresses",
-  outputs: [{
-    internalType: "address[]",
-    name: "addresses",
-    type: "address[]"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "facet",
-    type: "address"
-  }],
-  name: "facetFunctionSelectors",
-  outputs: [{
-    internalType: "bytes4[]",
-    name: "selectors",
-    type: "bytes4[]"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [],
-  name: "facets",
-  outputs: [{
-    components: [{
-      internalType: "address",
-      name: "target",
-      type: "address"
-    }, {
-      internalType: "bytes4[]",
-      name: "selectors",
-      type: "bytes4[]"
-    }],
-    internalType: "struct IDiamondReadable.Facet[]",
-    name: "diamondFacets",
-    type: "tuple[]"
-  }],
-  stateMutability: "view",
-  type: "function"
-}];
-var IDiamondReadable__factory = /*#__PURE__*/function () {
-  function IDiamondReadable__factory() {
-    _classCallCheck(this, IDiamondReadable__factory);
-  }
-  _createClass(IDiamondReadable__factory, null, [{
-    key: "createInterface",
-    value: function createInterface() {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
-    }
-  }, {
-    key: "connect",
-    value: function connect(address, signerOrProvider) {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
-    }
-  }]);
-  return IDiamondReadable__factory;
-}();
-IDiamondReadable__factory.abi = _abi;
-
-/***/ }),
-
-/***/ "./src/lib/contracts/types/factories/IDiamondWritableInternal__factory.ts":
-/*!********************************************************************************!*\
-  !*** ./src/lib/contracts/types/factories/IDiamondWritableInternal__factory.ts ***!
-  \********************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   IDiamondWritableInternal__factory: () => (/* binding */ IDiamondWritableInternal__factory)
-/* harmony export */ });
-/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-/* Autogenerated file. Do not edit manually. */
-/* tslint:disable */
-/* eslint-disable */
-
-var _abi = [{
-  inputs: [],
-  name: "DiamondWritable__InvalidInitializationParameters",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__RemoveTargetNotZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__ReplaceTargetIsIdentical",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorAlreadyAdded",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorIsImmutable",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorNotFound",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorNotSpecified",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__TargetHasNoCode",
-  type: "error"
-}, {
-  anonymous: false,
-  inputs: [{
-    components: [{
-      internalType: "address",
-      name: "target",
-      type: "address"
-    }, {
-      internalType: "enum IDiamondWritableInternal.FacetCutAction",
-      name: "action",
-      type: "uint8"
-    }, {
-      internalType: "bytes4[]",
-      name: "selectors",
-      type: "bytes4[]"
-    }],
-    indexed: false,
-    internalType: "struct IDiamondWritableInternal.FacetCut[]",
-    name: "facetCuts",
-    type: "tuple[]"
-  }, {
-    indexed: false,
-    internalType: "address",
-    name: "target",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "bytes",
-    name: "data",
-    type: "bytes"
-  }],
-  name: "DiamondCut",
-  type: "event"
-}];
-var IDiamondWritableInternal__factory = /*#__PURE__*/function () {
-  function IDiamondWritableInternal__factory() {
-    _classCallCheck(this, IDiamondWritableInternal__factory);
-  }
-  _createClass(IDiamondWritableInternal__factory, null, [{
-    key: "createInterface",
-    value: function createInterface() {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
-    }
-  }, {
-    key: "connect",
-    value: function connect(address, signerOrProvider) {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
-    }
-  }]);
-  return IDiamondWritableInternal__factory;
-}();
-IDiamondWritableInternal__factory.abi = _abi;
-
-/***/ }),
-
-/***/ "./src/lib/contracts/types/factories/IDiamondWritable__factory.ts":
-/*!************************************************************************!*\
-  !*** ./src/lib/contracts/types/factories/IDiamondWritable__factory.ts ***!
-  \************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   IDiamondWritable__factory: () => (/* binding */ IDiamondWritable__factory)
-/* harmony export */ });
-/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-/* Autogenerated file. Do not edit manually. */
-/* tslint:disable */
-/* eslint-disable */
-
-var _abi = [{
-  inputs: [],
-  name: "DiamondWritable__InvalidInitializationParameters",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__RemoveTargetNotZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__ReplaceTargetIsIdentical",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorAlreadyAdded",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorIsImmutable",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorNotFound",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorNotSpecified",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__TargetHasNoCode",
-  type: "error"
-}, {
-  anonymous: false,
-  inputs: [{
-    components: [{
-      internalType: "address",
-      name: "target",
-      type: "address"
-    }, {
-      internalType: "enum IDiamondWritableInternal.FacetCutAction",
-      name: "action",
-      type: "uint8"
-    }, {
-      internalType: "bytes4[]",
-      name: "selectors",
-      type: "bytes4[]"
-    }],
-    indexed: false,
-    internalType: "struct IDiamondWritableInternal.FacetCut[]",
-    name: "facetCuts",
-    type: "tuple[]"
-  }, {
-    indexed: false,
-    internalType: "address",
-    name: "target",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "bytes",
-    name: "data",
-    type: "bytes"
-  }],
-  name: "DiamondCut",
-  type: "event"
-}, {
-  inputs: [{
-    components: [{
-      internalType: "address",
-      name: "target",
-      type: "address"
-    }, {
-      internalType: "enum IDiamondWritableInternal.FacetCutAction",
-      name: "action",
-      type: "uint8"
-    }, {
-      internalType: "bytes4[]",
-      name: "selectors",
-      type: "bytes4[]"
-    }],
-    internalType: "struct IDiamondWritableInternal.FacetCut[]",
-    name: "facetCuts",
-    type: "tuple[]"
-  }, {
-    internalType: "address",
-    name: "target",
-    type: "address"
-  }, {
-    internalType: "bytes",
-    name: "data",
-    type: "bytes"
-  }],
-  name: "diamondCut",
-  outputs: [],
-  stateMutability: "nonpayable",
-  type: "function"
-}];
-var IDiamondWritable__factory = /*#__PURE__*/function () {
-  function IDiamondWritable__factory() {
-    _classCallCheck(this, IDiamondWritable__factory);
-  }
-  _createClass(IDiamondWritable__factory, null, [{
-    key: "createInterface",
-    value: function createInterface() {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
-    }
-  }, {
-    key: "connect",
-    value: function connect(address, signerOrProvider) {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
-    }
-  }]);
-  return IDiamondWritable__factory;
-}();
-IDiamondWritable__factory.abi = _abi;
-
-/***/ }),
-
-/***/ "./src/lib/contracts/types/factories/IInstaller__factory.ts":
-/*!******************************************************************!*\
-  !*** ./src/lib/contracts/types/factories/IInstaller__factory.ts ***!
-  \******************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   IInstaller__factory: () => (/* binding */ IInstaller__factory)
-/* harmony export */ });
-/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-/* Autogenerated file. Do not edit manually. */
-/* tslint:disable */
-/* eslint-disable */
-
-var _abi = [{
-  inputs: [],
-  name: "DiamondWritable__InvalidInitializationParameters",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__RemoveTargetNotZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__ReplaceTargetIsIdentical",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorAlreadyAdded",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorIsImmutable",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorNotFound",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorNotSpecified",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__TargetHasNoCode",
-  type: "error"
-}, {
-  anonymous: false,
-  inputs: [{
-    components: [{
-      internalType: "address",
-      name: "target",
-      type: "address"
-    }, {
-      internalType: "enum IDiamondWritableInternal.FacetCutAction",
-      name: "action",
-      type: "uint8"
-    }, {
-      internalType: "bytes4[]",
-      name: "selectors",
-      type: "bytes4[]"
-    }],
-    indexed: false,
-    internalType: "struct IDiamondWritableInternal.FacetCut[]",
-    name: "facetCuts",
-    type: "tuple[]"
-  }, {
-    indexed: false,
-    internalType: "address",
-    name: "target",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "bytes",
-    name: "data",
-    type: "bytes"
-  }],
-  name: "DiamondCut",
-  type: "event"
-}, {
-  inputs: [{
-    components: [{
-      components: [{
-        internalType: "address",
-        name: "target",
-        type: "address"
-      }, {
-        internalType: "enum IDiamondWritableInternal.FacetCutAction",
-        name: "action",
-        type: "uint8"
-      }, {
-        internalType: "bytes4[]",
-        name: "selectors",
-        type: "bytes4[]"
-      }],
-      internalType: "struct IDiamondWritableInternal.FacetCut[]",
-      name: "cuts",
-      type: "tuple[]"
-    }, {
-      internalType: "address",
-      name: "target",
-      type: "address"
-    }, {
-      internalType: "bytes4",
-      name: "selector",
-      type: "bytes4"
-    }],
-    internalType: "struct IPKG.UPGRADE",
-    name: "_pkg",
-    type: "tuple"
-  }, {
-    internalType: "string",
-    name: "_ipfsCid",
-    type: "string"
-  }],
-  name: "create",
-  outputs: [{
-    internalType: "address",
-    name: "pkg",
-    type: "address"
-  }],
-  stateMutability: "payable",
-  type: "function"
-}, {
-  inputs: [{
-    components: [{
-      internalType: "address",
-      name: "target",
-      type: "address"
-    }, {
-      internalType: "enum IDiamondWritableInternal.FacetCutAction",
-      name: "action",
-      type: "uint8"
-    }, {
-      internalType: "bytes4[]",
-      name: "selectors",
-      type: "bytes4[]"
-    }],
-    internalType: "struct IDiamondWritableInternal.FacetCut[]",
-    name: "facetCuts",
-    type: "tuple[]"
-  }, {
-    internalType: "address",
-    name: "target",
-    type: "address"
-  }, {
-    internalType: "bytes",
-    name: "data",
-    type: "bytes"
-  }],
-  name: "diamondCut",
-  outputs: [],
-  stateMutability: "nonpayable",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "_pkg",
-    type: "address"
-  }, {
-    internalType: "bytes",
-    name: "_data",
-    type: "bytes"
-  }],
-  name: "install",
-  outputs: [],
-  stateMutability: "payable",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "_pkg",
-    type: "address"
-  }, {
-    internalType: "bytes",
-    name: "_data",
-    type: "bytes"
-  }],
-  name: "uninstall",
-  outputs: [],
-  stateMutability: "nonpayable",
-  type: "function"
-}];
-var IInstaller__factory = /*#__PURE__*/function () {
-  function IInstaller__factory() {
-    _classCallCheck(this, IInstaller__factory);
-  }
-  _createClass(IInstaller__factory, null, [{
-    key: "createInterface",
-    value: function createInterface() {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
-    }
-  }, {
-    key: "connect",
-    value: function connect(address, signerOrProvider) {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
-    }
-  }]);
-  return IInstaller__factory;
-}();
-IInstaller__factory.abi = _abi;
-
-/***/ }),
-
-/***/ "./src/lib/contracts/types/factories/IPKG__factory.ts":
-/*!************************************************************!*\
-  !*** ./src/lib/contracts/types/factories/IPKG__factory.ts ***!
-  \************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   IPKG__factory: () => (/* binding */ IPKG__factory)
-/* harmony export */ });
-/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-/* Autogenerated file. Do not edit manually. */
-/* tslint:disable */
-/* eslint-disable */
-
-var _abi = [{
-  inputs: [{
-    internalType: "enum IPKG.VARIANT",
-    name: "action",
-    type: "uint8"
-  }],
-  name: "get",
-  outputs: [{
-    components: [{
-      internalType: "address",
-      name: "target",
-      type: "address"
-    }, {
-      internalType: "enum IDiamondWritableInternal.FacetCutAction",
-      name: "action",
-      type: "uint8"
-    }, {
-      internalType: "bytes4[]",
-      name: "selectors",
-      type: "bytes4[]"
-    }],
-    internalType: "struct IDiamondWritableInternal.FacetCut[]",
-    name: "",
-    type: "tuple[]"
-  }, {
-    internalType: "address",
-    name: "",
-    type: "address"
-  }, {
-    internalType: "bytes4",
-    name: "",
-    type: "bytes4"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "_token",
-    type: "address"
-  }, {
-    components: [{
-      internalType: "address",
-      name: "target",
-      type: "address"
-    }, {
-      internalType: "enum IDiamondWritableInternal.FacetCutAction",
-      name: "action",
-      type: "uint8"
-    }, {
-      internalType: "bytes4[]",
-      name: "selectors",
-      type: "bytes4[]"
-    }],
-    internalType: "struct IDiamondWritableInternal.FacetCut[]",
-    name: "_cuts",
-    type: "tuple[]"
-  }, {
-    internalType: "address",
-    name: "_target",
-    type: "address"
-  }, {
-    internalType: "bytes4",
-    name: "_selector",
-    type: "bytes4"
-  }],
-  name: "set",
-  outputs: [],
-  stateMutability: "nonpayable",
-  type: "function"
-}];
-var IPKG__factory = /*#__PURE__*/function () {
-  function IPKG__factory() {
-    _classCallCheck(this, IPKG__factory);
-  }
-  _createClass(IPKG__factory, null, [{
-    key: "createInterface",
-    value: function createInterface() {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
-    }
-  }, {
-    key: "connect",
-    value: function connect(address, signerOrProvider) {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
-    }
-  }]);
-  return IPKG__factory;
-}();
-IPKG__factory.abi = _abi;
-
-/***/ }),
-
-/***/ "./src/lib/contracts/types/factories/Initializer__factory.ts":
-/*!*******************************************************************!*\
-  !*** ./src/lib/contracts/types/factories/Initializer__factory.ts ***!
-  \*******************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Initializer__factory: () => (/* binding */ Initializer__factory)
-/* harmony export */ });
-/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-/* Autogenerated file. Do not edit manually. */
-/* tslint:disable */
-/* eslint-disable */
-
-var _abi = [{
-  inputs: [],
-  name: "cost",
-  outputs: [{
-    internalType: "uint256",
-    name: "",
-    type: "uint256"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [],
-  name: "init",
-  outputs: [],
-  stateMutability: "payable",
-  type: "function"
-}, {
-  inputs: [],
-  name: "owner",
-  outputs: [{
-    internalType: "address",
-    name: "",
-    type: "address"
-  }],
-  stateMutability: "view",
-  type: "function"
-}];
-var Initializer__factory = /*#__PURE__*/function () {
-  function Initializer__factory() {
-    _classCallCheck(this, Initializer__factory);
-  }
-  _createClass(Initializer__factory, null, [{
-    key: "createInterface",
-    value: function createInterface() {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
-    }
-  }, {
-    key: "connect",
-    value: function connect(address, signerOrProvider) {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
-    }
-  }]);
-  return Initializer__factory;
-}();
-Initializer__factory.abi = _abi;
-
-/***/ }),
-
-/***/ "./src/lib/contracts/types/factories/Installer__factory.ts":
-/*!*****************************************************************!*\
-  !*** ./src/lib/contracts/types/factories/Installer__factory.ts ***!
-  \*****************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Installer__factory: () => (/* binding */ Installer__factory)
-/* harmony export */ });
-/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-/* Autogenerated file. Do not edit manually. */
-/* tslint:disable */
-/* eslint-disable */
-
-var _abi = [{
-  inputs: [{
-    internalType: "address",
-    name: "_sys",
-    type: "address"
-  }],
-  stateMutability: "nonpayable",
-  type: "constructor"
-}, {
-  inputs: [],
-  name: "DiamondWritable__InvalidInitializationParameters",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__RemoveTargetNotZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__ReplaceTargetIsIdentical",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorAlreadyAdded",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorIsImmutable",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorNotFound",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorNotSpecified",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__TargetHasNoCode",
-  type: "error"
-}, {
-  inputs: [],
-  name: "Ownable__NotOwner",
-  type: "error"
-}, {
-  inputs: [],
-  name: "Ownable__NotTransitiveOwner",
-  type: "error"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "pkg",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "bool",
-    name: "install",
-    type: "bool"
-  }],
-  name: "DappletUpgrade",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    components: [{
-      internalType: "address",
-      name: "target",
-      type: "address"
-    }, {
-      internalType: "enum IDiamondWritableInternal.FacetCutAction",
-      name: "action",
-      type: "uint8"
-    }, {
-      internalType: "bytes4[]",
-      name: "selectors",
-      type: "bytes4[]"
-    }],
-    indexed: false,
-    internalType: "struct IDiamondWritableInternal.FacetCut[]",
-    name: "facetCuts",
-    type: "tuple[]"
-  }, {
-    indexed: false,
-    internalType: "address",
-    name: "target",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "bytes",
-    name: "data",
-    type: "bytes"
-  }],
-  name: "DiamondCut",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "previousOwner",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "newOwner",
-    type: "address"
-  }],
-  name: "OwnershipTransferred",
-  type: "event"
-}, {
-  inputs: [{
-    components: [{
-      components: [{
-        internalType: "address",
-        name: "target",
-        type: "address"
-      }, {
-        internalType: "enum IDiamondWritableInternal.FacetCutAction",
-        name: "action",
-        type: "uint8"
-      }, {
-        internalType: "bytes4[]",
-        name: "selectors",
-        type: "bytes4[]"
-      }],
-      internalType: "struct IDiamondWritableInternal.FacetCut[]",
-      name: "cuts",
-      type: "tuple[]"
-    }, {
-      internalType: "address",
-      name: "target",
-      type: "address"
-    }, {
-      internalType: "bytes4",
-      name: "selector",
-      type: "bytes4"
-    }],
-    internalType: "struct IPKG.UPGRADE",
-    name: "_pkg",
-    type: "tuple"
-  }, {
-    internalType: "string",
-    name: "_ipfsCid",
-    type: "string"
-  }],
-  name: "create",
-  outputs: [{
-    internalType: "address",
-    name: "pkg",
-    type: "address"
-  }],
-  stateMutability: "payable",
-  type: "function"
-}, {
-  inputs: [{
-    components: [{
-      internalType: "address",
-      name: "target",
-      type: "address"
-    }, {
-      internalType: "enum IDiamondWritableInternal.FacetCutAction",
-      name: "action",
-      type: "uint8"
-    }, {
-      internalType: "bytes4[]",
-      name: "selectors",
-      type: "bytes4[]"
-    }],
-    internalType: "struct IDiamondWritableInternal.FacetCut[]",
-    name: "facetCuts",
-    type: "tuple[]"
-  }, {
-    internalType: "address",
-    name: "target",
-    type: "address"
-  }, {
-    internalType: "bytes",
-    name: "data",
-    type: "bytes"
-  }],
-  name: "diamondCut",
-  outputs: [],
-  stateMutability: "nonpayable",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "_pkg",
-    type: "address"
-  }, {
-    internalType: "bytes",
-    name: "data",
-    type: "bytes"
-  }],
-  name: "install",
-  outputs: [],
-  stateMutability: "payable",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "_pkg",
-    type: "address"
-  }, {
-    internalType: "bytes",
-    name: "data",
-    type: "bytes"
-  }],
-  name: "uninstall",
-  outputs: [],
-  stateMutability: "nonpayable",
-  type: "function"
-}];
-var Installer__factory = /*#__PURE__*/function () {
-  function Installer__factory() {
-    _classCallCheck(this, Installer__factory);
-  }
-  _createClass(Installer__factory, null, [{
-    key: "createInterface",
-    value: function createInterface() {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
-    }
-  }, {
-    key: "connect",
-    value: function connect(address, signerOrProvider) {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
-    }
-  }]);
-  return Installer__factory;
-}();
-Installer__factory.abi = _abi;
-
-/***/ }),
-
-/***/ "./src/lib/contracts/types/factories/OperatorFacet__factory.ts":
-/*!*********************************************************************!*\
-  !*** ./src/lib/contracts/types/factories/OperatorFacet__factory.ts ***!
-  \*********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   OperatorFacet__factory: () => (/* binding */ OperatorFacet__factory)
-/* harmony export */ });
-/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-/* Autogenerated file. Do not edit manually. */
-/* tslint:disable */
-/* eslint-disable */
-
-var _abi = [{
-  inputs: [],
-  stateMutability: "nonpayable",
-  type: "constructor"
-}, {
-  inputs: [],
-  name: "ERC20Base__ApproveFromZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__ApproveToZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__BurnExceedsBalance",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__BurnFromZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__InsufficientAllowance",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__MintToZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__TransferExceedsBalance",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__TransferFromZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__TransferToZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "Factory__FailedDeployment",
-  type: "error"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "owner",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "spender",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "uint256",
-    name: "value",
-    type: "uint256"
-  }],
-  name: "Approval",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "pkg",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "client",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "caller",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "bool",
-    name: "install",
-    type: "bool"
-  }],
-  name: "ClientUpgraded",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "recipient",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "sender",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "uint256",
-    name: "amount",
-    type: "uint256"
-  }],
-  name: "FeePaid",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "pkg",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "creator",
-    type: "address"
-  }],
-  name: "PackageCreated",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "bytes32",
-    name: "role",
-    type: "bytes32"
-  }, {
-    indexed: true,
-    internalType: "bytes32",
-    name: "previousAdminRole",
-    type: "bytes32"
-  }, {
-    indexed: true,
-    internalType: "bytes32",
-    name: "newAdminRole",
-    type: "bytes32"
-  }],
-  name: "RoleAdminChanged",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "bytes32",
-    name: "role",
-    type: "bytes32"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "account",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "sender",
-    type: "address"
-  }],
-  name: "RoleGranted",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "bytes32",
-    name: "role",
-    type: "bytes32"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "account",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "sender",
-    type: "address"
-  }],
-  name: "RoleRevoked",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "from",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "to",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "uint256",
-    name: "value",
-    type: "uint256"
-  }],
-  name: "Transfer",
-  type: "event"
-}, {
-  inputs: [{
-    components: [{
-      components: [{
-        internalType: "address",
-        name: "target",
-        type: "address"
-      }, {
-        internalType: "enum IDiamondWritableInternal.FacetCutAction",
-        name: "action",
-        type: "uint8"
-      }, {
-        internalType: "bytes4[]",
-        name: "selectors",
-        type: "bytes4[]"
-      }],
-      internalType: "struct IDiamondWritableInternal.FacetCut[]",
-      name: "cuts",
-      type: "tuple[]"
-    }, {
-      internalType: "address",
-      name: "target",
-      type: "address"
-    }, {
-      internalType: "bytes4",
-      name: "selector",
-      type: "bytes4"
-    }],
-    internalType: "struct IPKG.UPGRADE",
-    name: "_pkg",
-    type: "tuple"
-  }, {
-    internalType: "string",
-    name: "_ipfsCid",
-    type: "string"
-  }, {
-    internalType: "address",
-    name: "_caller",
-    type: "address"
-  }],
-  name: "createPkg",
-  outputs: [{
-    internalType: "address",
-    name: "",
-    type: "address"
-  }],
-  stateMutability: "payable",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "_pkg",
-    type: "address"
-  }, {
-    internalType: "address",
-    name: "_caller",
-    type: "address"
-  }, {
-    internalType: "bytes4",
-    name: "initFn",
-    type: "bytes4"
-  }, {
-    internalType: "bytes",
-    name: "data",
-    type: "bytes"
-  }],
-  name: "installPkg",
-  outputs: [],
-  stateMutability: "payable",
-  type: "function"
-}, {
-  inputs: [],
-  name: "model",
-  outputs: [{
-    internalType: "address",
-    name: "",
-    type: "address"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "_pkg",
-    type: "address"
-  }, {
-    internalType: "address",
-    name: "_caller",
-    type: "address"
-  }, {
-    internalType: "bytes4",
-    name: "initFn",
-    type: "bytes4"
-  }, {
-    internalType: "bytes",
-    name: "data",
-    type: "bytes"
-  }],
-  name: "uninstallPkg",
-  outputs: [],
-  stateMutability: "nonpayable",
-  type: "function"
-}];
-var OperatorFacet__factory = /*#__PURE__*/function () {
-  function OperatorFacet__factory() {
-    _classCallCheck(this, OperatorFacet__factory);
-  }
-  _createClass(OperatorFacet__factory, null, [{
-    key: "createInterface",
-    value: function createInterface() {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
-    }
-  }, {
-    key: "connect",
-    value: function connect(address, signerOrProvider) {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
-    }
-  }]);
-  return OperatorFacet__factory;
-}();
-OperatorFacet__factory.abi = _abi;
-
-/***/ }),
-
-/***/ "./src/lib/contracts/types/factories/OwnershipFacet__factory.ts":
-/*!**********************************************************************!*\
-  !*** ./src/lib/contracts/types/factories/OwnershipFacet__factory.ts ***!
-  \**********************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   OwnershipFacet__factory: () => (/* binding */ OwnershipFacet__factory)
-/* harmony export */ });
-/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-/* Autogenerated file. Do not edit manually. */
-/* tslint:disable */
-/* eslint-disable */
-
-var _abi = [{
-  inputs: [],
-  name: "Ownable__NotOwner",
-  type: "error"
-}, {
-  inputs: [],
-  name: "Ownable__NotTransitiveOwner",
-  type: "error"
-}, {
-  inputs: [],
-  name: "SafeOwnable__NotNomineeOwner",
-  type: "error"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "previousOwner",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "newOwner",
-    type: "address"
-  }],
-  name: "OwnershipTransferred",
-  type: "event"
-}, {
-  inputs: [],
-  name: "acceptOwnership",
-  outputs: [],
-  stateMutability: "nonpayable",
-  type: "function"
-}, {
-  inputs: [],
-  name: "nomineeOwner",
-  outputs: [{
-    internalType: "address",
-    name: "",
-    type: "address"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [],
-  name: "owner",
-  outputs: [{
-    internalType: "address",
-    name: "",
-    type: "address"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "account",
-    type: "address"
-  }],
-  name: "transferOwnership",
-  outputs: [],
-  stateMutability: "nonpayable",
-  type: "function"
-}, {
-  stateMutability: "payable",
-  type: "receive"
-}];
-var OwnershipFacet__factory = /*#__PURE__*/function () {
-  function OwnershipFacet__factory() {
-    _classCallCheck(this, OwnershipFacet__factory);
-  }
-  _createClass(OwnershipFacet__factory, null, [{
-    key: "createInterface",
-    value: function createInterface() {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
-    }
-  }, {
-    key: "connect",
-    value: function connect(address, signerOrProvider) {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
-    }
-  }]);
-  return OwnershipFacet__factory;
-}();
-OwnershipFacet__factory.abi = _abi;
-
-/***/ }),
-
-/***/ "./src/lib/contracts/types/factories/PKG__factory.ts":
-/*!***********************************************************!*\
-  !*** ./src/lib/contracts/types/factories/PKG__factory.ts ***!
-  \***********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   PKG__factory: () => (/* binding */ PKG__factory)
-/* harmony export */ });
-/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-/* Autogenerated file. Do not edit manually. */
-/* tslint:disable */
-/* eslint-disable */
-
-var _abi = [{
-  inputs: [],
-  name: "AddressUtils__NotContract",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__InvalidInitializationParameters",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__RemoveTargetNotZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__ReplaceTargetIsIdentical",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorAlreadyAdded",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorIsImmutable",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorNotFound",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorNotSpecified",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__TargetHasNoCode",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__ApproveFromZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__ApproveToZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__BurnExceedsBalance",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__BurnFromZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__InsufficientAllowance",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__MintToZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__TransferExceedsBalance",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__TransferFromZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__TransferToZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC4626Base__AllowanceExceeded",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC4626Base__MaximumAmountExceeded",
-  type: "error"
-}, {
-  inputs: [],
-  name: "SafeERC20__OperationFailed",
-  type: "error"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "owner",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "spender",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "uint256",
-    name: "value",
-    type: "uint256"
-  }],
-  name: "Approval",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "caller",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "owner",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "uint256",
-    name: "assets",
-    type: "uint256"
-  }, {
-    indexed: false,
-    internalType: "uint256",
-    name: "shares",
-    type: "uint256"
-  }],
-  name: "Deposit",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    components: [{
-      internalType: "address",
-      name: "target",
-      type: "address"
-    }, {
-      internalType: "enum IDiamondWritableInternal.FacetCutAction",
-      name: "action",
-      type: "uint8"
-    }, {
-      internalType: "bytes4[]",
-      name: "selectors",
-      type: "bytes4[]"
-    }],
-    indexed: false,
-    internalType: "struct IDiamondWritableInternal.FacetCut[]",
-    name: "facetCuts",
-    type: "tuple[]"
-  }, {
-    indexed: false,
-    internalType: "address",
-    name: "target",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "bytes",
-    name: "data",
-    type: "bytes"
-  }],
-  name: "DiamondCut",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "from",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "to",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "uint256",
-    name: "value",
-    type: "uint256"
-  }],
-  name: "Transfer",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "caller",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "receiver",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "owner",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "uint256",
-    name: "assets",
-    type: "uint256"
-  }, {
-    indexed: false,
-    internalType: "uint256",
-    name: "shares",
-    type: "uint256"
-  }],
-  name: "Withdraw",
-  type: "event"
-}, {
-  inputs: [],
-  name: "asset",
-  outputs: [{
-    internalType: "address",
-    name: "",
-    type: "address"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "account",
-    type: "address"
-  }],
-  name: "balanceOf",
-  outputs: [{
-    internalType: "uint256",
-    name: "",
-    type: "uint256"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "uint256",
-    name: "shareAmount",
-    type: "uint256"
-  }],
-  name: "convertToAssets",
-  outputs: [{
-    internalType: "uint256",
-    name: "assetAmount",
-    type: "uint256"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "uint256",
-    name: "assetAmount",
-    type: "uint256"
-  }],
-  name: "convertToShares",
-  outputs: [{
-    internalType: "uint256",
-    name: "shareAmount",
-    type: "uint256"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "uint256",
-    name: "assetAmount",
-    type: "uint256"
-  }, {
-    internalType: "address",
-    name: "receiver",
-    type: "address"
-  }],
-  name: "deposit",
-  outputs: [{
-    internalType: "uint256",
-    name: "shareAmount",
-    type: "uint256"
-  }],
-  stateMutability: "nonpayable",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "enum IPKG.VARIANT",
-    name: "action",
-    type: "uint8"
-  }],
-  name: "get",
-  outputs: [{
-    components: [{
-      internalType: "address",
-      name: "target",
-      type: "address"
-    }, {
-      internalType: "enum IDiamondWritableInternal.FacetCutAction",
-      name: "action",
-      type: "uint8"
-    }, {
-      internalType: "bytes4[]",
-      name: "selectors",
-      type: "bytes4[]"
-    }],
-    internalType: "struct IDiamondWritableInternal.FacetCut[]",
-    name: "cuts",
-    type: "tuple[]"
-  }, {
-    internalType: "address",
-    name: "target",
-    type: "address"
-  }, {
-    internalType: "bytes4",
-    name: "selector",
-    type: "bytes4"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "receiver",
-    type: "address"
-  }],
-  name: "maxDeposit",
-  outputs: [{
-    internalType: "uint256",
-    name: "maxAssets",
-    type: "uint256"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "receiver",
-    type: "address"
-  }],
-  name: "maxMint",
-  outputs: [{
-    internalType: "uint256",
-    name: "maxShares",
-    type: "uint256"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "owner",
-    type: "address"
-  }],
-  name: "maxRedeem",
-  outputs: [{
-    internalType: "uint256",
-    name: "maxShares",
-    type: "uint256"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "owner",
-    type: "address"
-  }],
-  name: "maxWithdraw",
-  outputs: [{
-    internalType: "uint256",
-    name: "maxAssets",
-    type: "uint256"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "uint256",
-    name: "shareAmount",
-    type: "uint256"
-  }, {
-    internalType: "address",
-    name: "receiver",
-    type: "address"
-  }],
-  name: "mint",
-  outputs: [{
-    internalType: "uint256",
-    name: "assetAmount",
-    type: "uint256"
-  }],
-  stateMutability: "nonpayable",
-  type: "function"
-}, {
-  inputs: [],
-  name: "pkg",
-  outputs: [{
-    internalType: "address",
-    name: "target",
-    type: "address"
-  }, {
-    internalType: "bytes4",
-    name: "selector",
-    type: "bytes4"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "uint256",
-    name: "assetAmount",
-    type: "uint256"
-  }],
-  name: "previewDeposit",
-  outputs: [{
-    internalType: "uint256",
-    name: "shareAmount",
-    type: "uint256"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "uint256",
-    name: "shareAmount",
-    type: "uint256"
-  }],
-  name: "previewMint",
-  outputs: [{
-    internalType: "uint256",
-    name: "assetAmount",
-    type: "uint256"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "uint256",
-    name: "shareAmount",
-    type: "uint256"
-  }],
-  name: "previewRedeem",
-  outputs: [{
-    internalType: "uint256",
-    name: "assetAmount",
-    type: "uint256"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "uint256",
-    name: "assetAmount",
-    type: "uint256"
-  }],
-  name: "previewWithdraw",
-  outputs: [{
-    internalType: "uint256",
-    name: "shareAmount",
-    type: "uint256"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "uint256",
-    name: "shareAmount",
-    type: "uint256"
-  }, {
-    internalType: "address",
-    name: "receiver",
-    type: "address"
-  }, {
-    internalType: "address",
-    name: "owner",
-    type: "address"
-  }],
-  name: "redeem",
-  outputs: [{
-    internalType: "uint256",
-    name: "assetAmount",
-    type: "uint256"
-  }],
-  stateMutability: "nonpayable",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "_system",
-    type: "address"
-  }, {
-    components: [{
-      internalType: "address",
-      name: "target",
-      type: "address"
-    }, {
-      internalType: "enum IDiamondWritableInternal.FacetCutAction",
-      name: "action",
-      type: "uint8"
-    }, {
-      internalType: "bytes4[]",
-      name: "selectors",
-      type: "bytes4[]"
-    }],
-    internalType: "struct IDiamondWritableInternal.FacetCut[]",
-    name: "_cuts",
-    type: "tuple[]"
-  }, {
-    internalType: "address",
-    name: "_target",
-    type: "address"
-  }, {
-    internalType: "bytes4",
-    name: "_selector",
-    type: "bytes4"
-  }],
-  name: "set",
-  outputs: [],
-  stateMutability: "nonpayable",
-  type: "function"
-}, {
-  inputs: [],
-  name: "totalAssets",
-  outputs: [{
-    internalType: "uint256",
-    name: "",
-    type: "uint256"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [],
-  name: "totalSupply",
-  outputs: [{
-    internalType: "uint256",
-    name: "",
-    type: "uint256"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "uint256",
-    name: "assetAmount",
-    type: "uint256"
-  }, {
-    internalType: "address",
-    name: "receiver",
-    type: "address"
-  }, {
-    internalType: "address",
-    name: "owner",
-    type: "address"
-  }],
-  name: "withdraw",
-  outputs: [{
-    internalType: "uint256",
-    name: "shareAmount",
-    type: "uint256"
-  }],
-  stateMutability: "nonpayable",
-  type: "function"
-}];
-var PKG__factory = /*#__PURE__*/function () {
-  function PKG__factory() {
-    _classCallCheck(this, PKG__factory);
-  }
-  _createClass(PKG__factory, null, [{
-    key: "createInterface",
-    value: function createInterface() {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
-    }
-  }, {
-    key: "connect",
-    value: function connect(address, signerOrProvider) {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
-    }
-  }]);
-  return PKG__factory;
-}();
-PKG__factory.abi = _abi;
-
-/***/ }),
-
-/***/ "./src/lib/contracts/types/factories/System__factory.ts":
-/*!**************************************************************!*\
-  !*** ./src/lib/contracts/types/factories/System__factory.ts ***!
-  \**************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   System__factory: () => (/* binding */ System__factory)
-/* harmony export */ });
-/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-/* Autogenerated file. Do not edit manually. */
-/* tslint:disable */
-/* eslint-disable */
-
-var _abi = [{
-  inputs: [{
-    internalType: "bytes4",
-    name: "selector",
-    type: "bytes4"
-  }],
-  name: "facetAddress",
-  outputs: [{
-    internalType: "address",
-    name: "facet",
-    type: "address"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [],
-  name: "facetAddresses",
-  outputs: [{
-    internalType: "address[]",
-    name: "addresses",
-    type: "address[]"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "facet",
-    type: "address"
-  }],
-  name: "facetFunctionSelectors",
-  outputs: [{
-    internalType: "bytes4[]",
-    name: "selectors",
-    type: "bytes4[]"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [],
-  name: "facets",
-  outputs: [{
-    components: [{
-      internalType: "address",
-      name: "target",
-      type: "address"
-    }, {
-      internalType: "bytes4[]",
-      name: "selectors",
-      type: "bytes4[]"
-    }],
-    internalType: "struct IDiamondReadable.Facet[]",
-    name: "diamondFacets",
-    type: "tuple[]"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [],
-  name: "ERC165Base__InvalidInterfaceId",
-  type: "error"
-}, {
-  inputs: [{
-    internalType: "bytes4",
-    name: "interfaceId",
-    type: "bytes4"
-  }],
-  name: "supportsInterface",
-  outputs: [{
-    internalType: "bool",
-    name: "",
-    type: "bool"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [],
-  name: "Ownable__NotOwner",
-  type: "error"
-}, {
-  inputs: [],
-  name: "Ownable__NotTransitiveOwner",
-  type: "error"
-}, {
-  inputs: [],
-  name: "SafeOwnable__NotNomineeOwner",
-  type: "error"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "previousOwner",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "newOwner",
-    type: "address"
-  }],
-  name: "OwnershipTransferred",
-  type: "event"
-}, {
-  inputs: [],
-  name: "acceptOwnership",
-  outputs: [],
-  stateMutability: "nonpayable",
-  type: "function"
-}, {
-  inputs: [],
-  name: "nomineeOwner",
-  outputs: [{
-    internalType: "address",
-    name: "",
-    type: "address"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [],
-  name: "owner",
-  outputs: [{
-    internalType: "address",
-    name: "",
-    type: "address"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "account",
-    type: "address"
-  }],
-  name: "transferOwnership",
-  outputs: [],
-  stateMutability: "nonpayable",
-  type: "function"
-}, {
-  inputs: [],
-  name: "ERC20Base__ApproveFromZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__ApproveToZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__BurnExceedsBalance",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__BurnFromZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__InsufficientAllowance",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__MintToZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__TransferExceedsBalance",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__TransferFromZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__TransferToZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "EnumerableMap__IndexOutOfBounds",
-  type: "error"
-}, {
-  inputs: [],
-  name: "EnumerableMap__NonExistentKey",
-  type: "error"
-}, {
-  inputs: [],
-  name: "EnumerableSet__IndexOutOfBounds",
-  type: "error"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "owner",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "spender",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "uint256",
-    name: "value",
-    type: "uint256"
-  }],
-  name: "Approval",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "pkg",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "account",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "uint256",
-    name: "amount",
-    type: "uint256"
-  }],
-  name: "Stake",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "from",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "to",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "uint256",
-    name: "value",
-    type: "uint256"
-  }],
-  name: "Transfer",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "pkg",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "account",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "uint256",
-    name: "amount",
-    type: "uint256"
-  }],
-  name: "Unstake",
-  type: "event"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "holder",
-    type: "address"
-  }, {
-    internalType: "address",
-    name: "spender",
-    type: "address"
-  }],
-  name: "allowance",
-  outputs: [{
-    internalType: "uint256",
-    name: "",
-    type: "uint256"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "spender",
-    type: "address"
-  }, {
-    internalType: "uint256",
-    name: "amount",
-    type: "uint256"
-  }],
-  name: "approve",
-  outputs: [{
-    internalType: "bool",
-    name: "",
-    type: "bool"
-  }],
-  stateMutability: "nonpayable",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "account",
-    type: "address"
-  }],
-  name: "balanceOf",
-  outputs: [{
-    internalType: "uint256",
-    name: "",
-    type: "uint256"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [],
-  name: "decimals",
-  outputs: [{
-    internalType: "uint8",
-    name: "",
-    type: "uint8"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "account",
-    type: "address"
-  }],
-  name: "installedBy",
-  outputs: [{
-    internalType: "address[]",
-    name: "pkgs",
-    type: "address[]"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "pkg",
-    type: "address"
-  }],
-  name: "installersOf",
-  outputs: [{
-    internalType: "address[]",
-    name: "installers",
-    type: "address[]"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "pkg",
-    type: "address"
-  }],
-  name: "isPkg",
-  outputs: [{
-    internalType: "bool",
-    name: "",
-    type: "bool"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address[]",
-    name: "pkgs",
-    type: "address[]"
-  }],
-  name: "metadataOf",
-  outputs: [{
-    internalType: "string[]",
-    name: "metadata",
-    type: "string[]"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [],
-  name: "name",
-  outputs: [{
-    internalType: "string",
-    name: "",
-    type: "string"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "account",
-    type: "address"
-  }],
-  name: "ownedBy",
-  outputs: [{
-    internalType: "address[]",
-    name: "pkgs",
-    type: "address[]"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "pkg",
-    type: "address"
-  }],
-  name: "ownerOf",
-  outputs: [{
-    internalType: "address",
-    name: "owner",
-    type: "address"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "account",
-    type: "address"
-  }],
-  name: "receivedStakeOf",
-  outputs: [{
-    internalType: "address[]",
-    name: "pkgs",
-    type: "address[]"
-  }, {
-    internalType: "uint256[]",
-    name: "amounts",
-    type: "uint256[]"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "account",
-    type: "address"
-  }],
-  name: "sentStakeOf",
-  outputs: [{
-    internalType: "address[]",
-    name: "pkgs",
-    type: "address[]"
-  }, {
-    internalType: "uint256[]",
-    name: "amounts",
-    type: "uint256[]"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "pkg",
-    type: "address"
-  }],
-  name: "stake",
-  outputs: [],
-  stateMutability: "payable",
-  type: "function"
-}, {
-  inputs: [],
-  name: "symbol",
-  outputs: [{
-    internalType: "string",
-    name: "",
-    type: "string"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [],
-  name: "totalSupply",
-  outputs: [{
-    internalType: "uint256",
-    name: "",
-    type: "uint256"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "recipient",
-    type: "address"
-  }, {
-    internalType: "uint256",
-    name: "amount",
-    type: "uint256"
-  }],
-  name: "transfer",
-  outputs: [{
-    internalType: "bool",
-    name: "",
-    type: "bool"
-  }],
-  stateMutability: "nonpayable",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "holder",
-    type: "address"
-  }, {
-    internalType: "address",
-    name: "recipient",
-    type: "address"
-  }, {
-    internalType: "uint256",
-    name: "amount",
-    type: "uint256"
-  }],
-  name: "transferFrom",
-  outputs: [{
-    internalType: "bool",
-    name: "",
-    type: "bool"
-  }],
-  stateMutability: "nonpayable",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "pkg",
-    type: "address"
-  }, {
-    internalType: "uint256",
-    name: "amount",
-    type: "uint256"
-  }],
-  name: "unstake",
-  outputs: [],
-  stateMutability: "nonpayable",
-  type: "function"
-}, {
-  inputs: [],
-  name: "ERC20Base__ApproveFromZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__ApproveToZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__BurnExceedsBalance",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__BurnFromZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__InsufficientAllowance",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__MintToZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__TransferExceedsBalance",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__TransferFromZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__TransferToZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "Ownable__NotOwner",
-  type: "error"
-}, {
-  inputs: [],
-  name: "Ownable__NotTransitiveOwner",
-  type: "error"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "owner",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "spender",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "uint256",
-    name: "value",
-    type: "uint256"
-  }],
-  name: "Approval",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "recipient",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "sender",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "uint256",
-    name: "amount",
-    type: "uint256"
-  }],
-  name: "FeePaid",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "previousOwner",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "newOwner",
-    type: "address"
-  }],
-  name: "OwnershipTransferred",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "bytes32",
-    name: "role",
-    type: "bytes32"
-  }, {
-    indexed: true,
-    internalType: "bytes32",
-    name: "previousAdminRole",
-    type: "bytes32"
-  }, {
-    indexed: true,
-    internalType: "bytes32",
-    name: "newAdminRole",
-    type: "bytes32"
-  }],
-  name: "RoleAdminChanged",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "bytes32",
-    name: "role",
-    type: "bytes32"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "account",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "sender",
-    type: "address"
-  }],
-  name: "RoleGranted",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "bytes32",
-    name: "role",
-    type: "bytes32"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "account",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "sender",
-    type: "address"
-  }],
-  name: "RoleRevoked",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "from",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "to",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "uint256",
-    name: "value",
-    type: "uint256"
-  }],
-  name: "Transfer",
-  type: "event"
-}, {
-  inputs: [],
-  name: "createClient",
-  outputs: [{
-    internalType: "address",
-    name: "client",
-    type: "address"
-  }],
-  stateMutability: "payable",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "string",
-    name: "_title",
-    type: "string"
-  }],
-  name: "getClientUpgrade",
-  outputs: [{
-    components: [{
-      internalType: "address",
-      name: "target",
-      type: "address"
-    }, {
-      internalType: "enum IDiamondWritableInternal.FacetCutAction",
-      name: "action",
-      type: "uint8"
-    }, {
-      internalType: "bytes4[]",
-      name: "selectors",
-      type: "bytes4[]"
-    }],
-    internalType: "struct IDiamondWritableInternal.FacetCut[]",
-    name: "cuts",
-    type: "tuple[]"
-  }, {
-    internalType: "address",
-    name: "target",
-    type: "address"
-  }, {
-    internalType: "bytes",
-    name: "data",
-    type: "bytes"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "string",
-    name: "_title",
-    type: "string"
-  }, {
-    components: [{
-      internalType: "address",
-      name: "target",
-      type: "address"
-    }, {
-      internalType: "enum IDiamondWritableInternal.FacetCutAction",
-      name: "action",
-      type: "uint8"
-    }, {
-      internalType: "bytes4[]",
-      name: "selectors",
-      type: "bytes4[]"
-    }],
-    internalType: "struct IDiamondWritableInternal.FacetCut[]",
-    name: "_cuts",
-    type: "tuple[]"
-  }, {
-    internalType: "address",
-    name: "_target",
-    type: "address"
-  }, {
-    internalType: "bytes4",
-    name: "_selector",
-    type: "bytes4"
-  }],
-  name: "setClientUpgrade",
-  outputs: [],
-  stateMutability: "nonpayable",
-  type: "function"
-}, {
-  inputs: [],
-  name: "DiamondWritable__InvalidInitializationParameters",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__RemoveTargetNotZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__ReplaceTargetIsIdentical",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorAlreadyAdded",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorIsImmutable",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorNotFound",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__SelectorNotSpecified",
-  type: "error"
-}, {
-  inputs: [],
-  name: "DiamondWritable__TargetHasNoCode",
-  type: "error"
-}, {
-  inputs: [],
-  name: "Ownable__NotOwner",
-  type: "error"
-}, {
-  inputs: [],
-  name: "Ownable__NotTransitiveOwner",
-  type: "error"
-}, {
-  anonymous: false,
-  inputs: [{
-    components: [{
-      internalType: "address",
-      name: "target",
-      type: "address"
-    }, {
-      internalType: "enum IDiamondWritableInternal.FacetCutAction",
-      name: "action",
-      type: "uint8"
-    }, {
-      internalType: "bytes4[]",
-      name: "selectors",
-      type: "bytes4[]"
-    }],
-    indexed: false,
-    internalType: "struct IDiamondWritableInternal.FacetCut[]",
-    name: "facetCuts",
-    type: "tuple[]"
-  }, {
-    indexed: false,
-    internalType: "address",
-    name: "target",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "bytes",
-    name: "data",
-    type: "bytes"
-  }],
-  name: "DiamondCut",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "previousOwner",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "newOwner",
-    type: "address"
-  }],
-  name: "OwnershipTransferred",
-  type: "event"
-}, {
-  inputs: [{
-    components: [{
-      internalType: "address",
-      name: "target",
-      type: "address"
-    }, {
-      internalType: "enum IDiamondWritableInternal.FacetCutAction",
-      name: "action",
-      type: "uint8"
-    }, {
-      internalType: "bytes4[]",
-      name: "selectors",
-      type: "bytes4[]"
-    }],
-    internalType: "struct IDiamondWritableInternal.FacetCut[]",
-    name: "facetCuts",
-    type: "tuple[]"
-  }, {
-    internalType: "address",
-    name: "target",
-    type: "address"
-  }, {
-    internalType: "bytes",
-    name: "data",
-    type: "bytes"
-  }],
-  name: "diamondCut",
-  outputs: [],
-  stateMutability: "nonpayable",
-  type: "function"
-}, {
-  inputs: [],
-  name: "ERC20Base__ApproveFromZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__ApproveToZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__BurnExceedsBalance",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__BurnFromZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__InsufficientAllowance",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__MintToZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__TransferExceedsBalance",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__TransferFromZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "ERC20Base__TransferToZeroAddress",
-  type: "error"
-}, {
-  inputs: [],
-  name: "Factory__FailedDeployment",
-  type: "error"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "owner",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "spender",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "uint256",
-    name: "value",
-    type: "uint256"
-  }],
-  name: "Approval",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "pkg",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "client",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "caller",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "bool",
-    name: "install",
-    type: "bool"
-  }],
-  name: "ClientUpgraded",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "recipient",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "sender",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "uint256",
-    name: "amount",
-    type: "uint256"
-  }],
-  name: "FeePaid",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "pkg",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "creator",
-    type: "address"
-  }],
-  name: "PackageCreated",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "bytes32",
-    name: "role",
-    type: "bytes32"
-  }, {
-    indexed: true,
-    internalType: "bytes32",
-    name: "previousAdminRole",
-    type: "bytes32"
-  }, {
-    indexed: true,
-    internalType: "bytes32",
-    name: "newAdminRole",
-    type: "bytes32"
-  }],
-  name: "RoleAdminChanged",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "bytes32",
-    name: "role",
-    type: "bytes32"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "account",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "sender",
-    type: "address"
-  }],
-  name: "RoleGranted",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "bytes32",
-    name: "role",
-    type: "bytes32"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "account",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "sender",
-    type: "address"
-  }],
-  name: "RoleRevoked",
-  type: "event"
-}, {
-  anonymous: false,
-  inputs: [{
-    indexed: true,
-    internalType: "address",
-    name: "from",
-    type: "address"
-  }, {
-    indexed: true,
-    internalType: "address",
-    name: "to",
-    type: "address"
-  }, {
-    indexed: false,
-    internalType: "uint256",
-    name: "value",
-    type: "uint256"
-  }],
-  name: "Transfer",
-  type: "event"
-}, {
-  inputs: [{
-    components: [{
-      components: [{
-        internalType: "address",
-        name: "target",
-        type: "address"
-      }, {
-        internalType: "enum IDiamondWritableInternal.FacetCutAction",
-        name: "action",
-        type: "uint8"
-      }, {
-        internalType: "bytes4[]",
-        name: "selectors",
-        type: "bytes4[]"
-      }],
-      internalType: "struct IDiamondWritableInternal.FacetCut[]",
-      name: "cuts",
-      type: "tuple[]"
-    }, {
-      internalType: "address",
-      name: "target",
-      type: "address"
-    }, {
-      internalType: "bytes4",
-      name: "selector",
-      type: "bytes4"
-    }],
-    internalType: "struct IPKG.UPGRADE",
-    name: "_pkg",
-    type: "tuple"
-  }, {
-    internalType: "string",
-    name: "_ipfsCid",
-    type: "string"
-  }, {
-    internalType: "address",
-    name: "_caller",
-    type: "address"
-  }],
-  name: "createPkg",
-  outputs: [{
-    internalType: "address",
-    name: "",
-    type: "address"
-  }],
-  stateMutability: "payable",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "_pkg",
-    type: "address"
-  }, {
-    internalType: "address",
-    name: "_caller",
-    type: "address"
-  }, {
-    internalType: "bytes4",
-    name: "initFn",
-    type: "bytes4"
-  }, {
-    internalType: "bytes",
-    name: "data",
-    type: "bytes"
-  }],
-  name: "installPkg",
-  outputs: [],
-  stateMutability: "payable",
-  type: "function"
-}, {
-  inputs: [],
-  name: "model",
-  outputs: [{
-    internalType: "address",
-    name: "",
-    type: "address"
-  }],
-  stateMutability: "view",
-  type: "function"
-}, {
-  inputs: [{
-    internalType: "address",
-    name: "_pkg",
-    type: "address"
-  }, {
-    internalType: "address",
-    name: "_caller",
-    type: "address"
-  }, {
-    internalType: "bytes4",
-    name: "initFn",
-    type: "bytes4"
-  }, {
-    internalType: "bytes",
-    name: "data",
-    type: "bytes"
-  }],
-  name: "uninstallPkg",
-  outputs: [],
-  stateMutability: "nonpayable",
-  type: "function"
-}];
-var System__factory = /*#__PURE__*/function () {
-  function System__factory() {
-    _classCallCheck(this, System__factory);
-  }
-  _createClass(System__factory, null, [{
-    key: "createInterface",
-    value: function createInterface() {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
-    }
-  }, {
-    key: "connect",
-    value: function connect(address, signerOrProvider) {
-      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
-    }
-  }]);
-  return System__factory;
-}();
-System__factory.abi = _abi;
-
-/***/ }),
-
-/***/ "./src/lib/contracts/types/factories/index.ts":
-/*!****************************************************!*\
-  !*** ./src/lib/contracts/types/factories/index.ts ***!
-  \****************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   DappletsFacet__factory: () => (/* reexport safe */ _DappletsFacet_factory__WEBPACK_IMPORTED_MODULE_0__.DappletsFacet__factory),
-/* harmony export */   DappsFacet__factory: () => (/* reexport safe */ _DappsFacet_factory__WEBPACK_IMPORTED_MODULE_1__.DappsFacet__factory),
-/* harmony export */   DiamondBase__factory: () => (/* reexport safe */ _DiamondBase_factory__WEBPACK_IMPORTED_MODULE_3__.DiamondBase__factory),
-/* harmony export */   DiamondCutFacet__factory: () => (/* reexport safe */ _DiamondCutFacet_factory__WEBPACK_IMPORTED_MODULE_4__.DiamondCutFacet__factory),
-/* harmony export */   DiamondLoupeFacet__factory: () => (/* reexport safe */ _DiamondLoupeFacet_factory__WEBPACK_IMPORTED_MODULE_5__.DiamondLoupeFacet__factory),
-/* harmony export */   DiamondReadable__factory: () => (/* reexport safe */ _DiamondReadable_factory__WEBPACK_IMPORTED_MODULE_6__.DiamondReadable__factory),
-/* harmony export */   DiamondWritableInternal__factory: () => (/* reexport safe */ _DiamondWritableInternal_factory__WEBPACK_IMPORTED_MODULE_8__.DiamondWritableInternal__factory),
-/* harmony export */   DiamondWritable__factory: () => (/* reexport safe */ _DiamondWritable_factory__WEBPACK_IMPORTED_MODULE_7__.DiamondWritable__factory),
-/* harmony export */   Diamond__factory: () => (/* reexport safe */ _Diamond_factory__WEBPACK_IMPORTED_MODULE_2__.Diamond__factory),
-/* harmony export */   ERC165Facet__factory: () => (/* reexport safe */ _ERC165Facet_factory__WEBPACK_IMPORTED_MODULE_9__.ERC165Facet__factory),
-/* harmony export */   IDiamondBase__factory: () => (/* reexport safe */ _IDiamondBase_factory__WEBPACK_IMPORTED_MODULE_10__.IDiamondBase__factory),
-/* harmony export */   IDiamondReadable__factory: () => (/* reexport safe */ _IDiamondReadable_factory__WEBPACK_IMPORTED_MODULE_11__.IDiamondReadable__factory),
-/* harmony export */   IDiamondWritableInternal__factory: () => (/* reexport safe */ _IDiamondWritableInternal_factory__WEBPACK_IMPORTED_MODULE_13__.IDiamondWritableInternal__factory),
-/* harmony export */   IDiamondWritable__factory: () => (/* reexport safe */ _IDiamondWritable_factory__WEBPACK_IMPORTED_MODULE_12__.IDiamondWritable__factory),
-/* harmony export */   IInstaller__factory: () => (/* reexport safe */ _IInstaller_factory__WEBPACK_IMPORTED_MODULE_14__.IInstaller__factory),
-/* harmony export */   IPKG__factory: () => (/* reexport safe */ _IPKG_factory__WEBPACK_IMPORTED_MODULE_15__.IPKG__factory),
-/* harmony export */   Initializer__factory: () => (/* reexport safe */ _Initializer_factory__WEBPACK_IMPORTED_MODULE_16__.Initializer__factory),
-/* harmony export */   Installer__factory: () => (/* reexport safe */ _Installer_factory__WEBPACK_IMPORTED_MODULE_17__.Installer__factory),
-/* harmony export */   OperatorFacet__factory: () => (/* reexport safe */ _OperatorFacet_factory__WEBPACK_IMPORTED_MODULE_18__.OperatorFacet__factory),
-/* harmony export */   OwnershipFacet__factory: () => (/* reexport safe */ _OwnershipFacet_factory__WEBPACK_IMPORTED_MODULE_19__.OwnershipFacet__factory),
-/* harmony export */   PKG__factory: () => (/* reexport safe */ _PKG_factory__WEBPACK_IMPORTED_MODULE_20__.PKG__factory),
-/* harmony export */   System__factory: () => (/* reexport safe */ _System_factory__WEBPACK_IMPORTED_MODULE_21__.System__factory)
-/* harmony export */ });
-/* harmony import */ var _DappletsFacet_factory__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DappletsFacet__factory */ "./src/lib/contracts/types/factories/DappletsFacet__factory.ts");
-/* harmony import */ var _DappsFacet_factory__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DappsFacet__factory */ "./src/lib/contracts/types/factories/DappsFacet__factory.ts");
-/* harmony import */ var _Diamond_factory__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Diamond__factory */ "./src/lib/contracts/types/factories/Diamond__factory.ts");
-/* harmony import */ var _DiamondBase_factory__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./DiamondBase__factory */ "./src/lib/contracts/types/factories/DiamondBase__factory.ts");
-/* harmony import */ var _DiamondCutFacet_factory__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./DiamondCutFacet__factory */ "./src/lib/contracts/types/factories/DiamondCutFacet__factory.ts");
-/* harmony import */ var _DiamondLoupeFacet_factory__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./DiamondLoupeFacet__factory */ "./src/lib/contracts/types/factories/DiamondLoupeFacet__factory.ts");
-/* harmony import */ var _DiamondReadable_factory__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./DiamondReadable__factory */ "./src/lib/contracts/types/factories/DiamondReadable__factory.ts");
-/* harmony import */ var _DiamondWritable_factory__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./DiamondWritable__factory */ "./src/lib/contracts/types/factories/DiamondWritable__factory.ts");
-/* harmony import */ var _DiamondWritableInternal_factory__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./DiamondWritableInternal__factory */ "./src/lib/contracts/types/factories/DiamondWritableInternal__factory.ts");
-/* harmony import */ var _ERC165Facet_factory__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./ERC165Facet__factory */ "./src/lib/contracts/types/factories/ERC165Facet__factory.ts");
-/* harmony import */ var _IDiamondBase_factory__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./IDiamondBase__factory */ "./src/lib/contracts/types/factories/IDiamondBase__factory.ts");
-/* harmony import */ var _IDiamondReadable_factory__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./IDiamondReadable__factory */ "./src/lib/contracts/types/factories/IDiamondReadable__factory.ts");
-/* harmony import */ var _IDiamondWritable_factory__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./IDiamondWritable__factory */ "./src/lib/contracts/types/factories/IDiamondWritable__factory.ts");
-/* harmony import */ var _IDiamondWritableInternal_factory__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./IDiamondWritableInternal__factory */ "./src/lib/contracts/types/factories/IDiamondWritableInternal__factory.ts");
-/* harmony import */ var _IInstaller_factory__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./IInstaller__factory */ "./src/lib/contracts/types/factories/IInstaller__factory.ts");
-/* harmony import */ var _IPKG_factory__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./IPKG__factory */ "./src/lib/contracts/types/factories/IPKG__factory.ts");
-/* harmony import */ var _Initializer_factory__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./Initializer__factory */ "./src/lib/contracts/types/factories/Initializer__factory.ts");
-/* harmony import */ var _Installer_factory__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./Installer__factory */ "./src/lib/contracts/types/factories/Installer__factory.ts");
-/* harmony import */ var _OperatorFacet_factory__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./OperatorFacet__factory */ "./src/lib/contracts/types/factories/OperatorFacet__factory.ts");
-/* harmony import */ var _OwnershipFacet_factory__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./OwnershipFacet__factory */ "./src/lib/contracts/types/factories/OwnershipFacet__factory.ts");
-/* harmony import */ var _PKG_factory__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./PKG__factory */ "./src/lib/contracts/types/factories/PKG__factory.ts");
-/* harmony import */ var _System_factory__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./System__factory */ "./src/lib/contracts/types/factories/System__factory.ts");
-/* Autogenerated file. Do not edit manually. */
-/* tslint:disable */
-/* eslint-disable */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/***/ }),
-
-/***/ "./src/lib/contracts/types/index.ts":
-/*!******************************************!*\
-  !*** ./src/lib/contracts/types/index.ts ***!
-  \******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   DappletsFacet__factory: () => (/* reexport safe */ _factories_DappletsFacet_factory__WEBPACK_IMPORTED_MODULE_1__.DappletsFacet__factory),
-/* harmony export */   DappsFacet__factory: () => (/* reexport safe */ _factories_DappsFacet_factory__WEBPACK_IMPORTED_MODULE_2__.DappsFacet__factory),
-/* harmony export */   DiamondBase__factory: () => (/* reexport safe */ _factories_DiamondBase_factory__WEBPACK_IMPORTED_MODULE_4__.DiamondBase__factory),
-/* harmony export */   DiamondCutFacet__factory: () => (/* reexport safe */ _factories_DiamondCutFacet_factory__WEBPACK_IMPORTED_MODULE_5__.DiamondCutFacet__factory),
-/* harmony export */   DiamondLoupeFacet__factory: () => (/* reexport safe */ _factories_DiamondLoupeFacet_factory__WEBPACK_IMPORTED_MODULE_6__.DiamondLoupeFacet__factory),
-/* harmony export */   DiamondReadable__factory: () => (/* reexport safe */ _factories_DiamondReadable_factory__WEBPACK_IMPORTED_MODULE_7__.DiamondReadable__factory),
-/* harmony export */   DiamondWritableInternal__factory: () => (/* reexport safe */ _factories_DiamondWritableInternal_factory__WEBPACK_IMPORTED_MODULE_9__.DiamondWritableInternal__factory),
-/* harmony export */   DiamondWritable__factory: () => (/* reexport safe */ _factories_DiamondWritable_factory__WEBPACK_IMPORTED_MODULE_8__.DiamondWritable__factory),
-/* harmony export */   Diamond__factory: () => (/* reexport safe */ _factories_Diamond_factory__WEBPACK_IMPORTED_MODULE_3__.Diamond__factory),
-/* harmony export */   ERC165Facet__factory: () => (/* reexport safe */ _factories_ERC165Facet_factory__WEBPACK_IMPORTED_MODULE_10__.ERC165Facet__factory),
-/* harmony export */   IDiamondBase__factory: () => (/* reexport safe */ _factories_IDiamondBase_factory__WEBPACK_IMPORTED_MODULE_11__.IDiamondBase__factory),
-/* harmony export */   IDiamondReadable__factory: () => (/* reexport safe */ _factories_IDiamondReadable_factory__WEBPACK_IMPORTED_MODULE_12__.IDiamondReadable__factory),
-/* harmony export */   IDiamondWritableInternal__factory: () => (/* reexport safe */ _factories_IDiamondWritableInternal_factory__WEBPACK_IMPORTED_MODULE_14__.IDiamondWritableInternal__factory),
-/* harmony export */   IDiamondWritable__factory: () => (/* reexport safe */ _factories_IDiamondWritable_factory__WEBPACK_IMPORTED_MODULE_13__.IDiamondWritable__factory),
-/* harmony export */   IInstaller__factory: () => (/* reexport safe */ _factories_IInstaller_factory__WEBPACK_IMPORTED_MODULE_15__.IInstaller__factory),
-/* harmony export */   IPKG__factory: () => (/* reexport safe */ _factories_IPKG_factory__WEBPACK_IMPORTED_MODULE_18__.IPKG__factory),
-/* harmony export */   Initializer__factory: () => (/* reexport safe */ _factories_Initializer_factory__WEBPACK_IMPORTED_MODULE_16__.Initializer__factory),
-/* harmony export */   Installer__factory: () => (/* reexport safe */ _factories_Installer_factory__WEBPACK_IMPORTED_MODULE_17__.Installer__factory),
-/* harmony export */   OperatorFacet__factory: () => (/* reexport safe */ _factories_OperatorFacet_factory__WEBPACK_IMPORTED_MODULE_19__.OperatorFacet__factory),
-/* harmony export */   OwnershipFacet__factory: () => (/* reexport safe */ _factories_OwnershipFacet_factory__WEBPACK_IMPORTED_MODULE_20__.OwnershipFacet__factory),
-/* harmony export */   PKG__factory: () => (/* reexport safe */ _factories_PKG_factory__WEBPACK_IMPORTED_MODULE_21__.PKG__factory),
-/* harmony export */   System__factory: () => (/* reexport safe */ _factories_System_factory__WEBPACK_IMPORTED_MODULE_22__.System__factory),
-/* harmony export */   factories: () => (/* reexport module object */ _factories__WEBPACK_IMPORTED_MODULE_0__)
-/* harmony export */ });
-/* harmony import */ var _factories__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./factories */ "./src/lib/contracts/types/factories/index.ts");
-/* harmony import */ var _factories_DappletsFacet_factory__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./factories/DappletsFacet__factory */ "./src/lib/contracts/types/factories/DappletsFacet__factory.ts");
-/* harmony import */ var _factories_DappsFacet_factory__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./factories/DappsFacet__factory */ "./src/lib/contracts/types/factories/DappsFacet__factory.ts");
-/* harmony import */ var _factories_Diamond_factory__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./factories/Diamond__factory */ "./src/lib/contracts/types/factories/Diamond__factory.ts");
-/* harmony import */ var _factories_DiamondBase_factory__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./factories/DiamondBase__factory */ "./src/lib/contracts/types/factories/DiamondBase__factory.ts");
-/* harmony import */ var _factories_DiamondCutFacet_factory__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./factories/DiamondCutFacet__factory */ "./src/lib/contracts/types/factories/DiamondCutFacet__factory.ts");
-/* harmony import */ var _factories_DiamondLoupeFacet_factory__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./factories/DiamondLoupeFacet__factory */ "./src/lib/contracts/types/factories/DiamondLoupeFacet__factory.ts");
-/* harmony import */ var _factories_DiamondReadable_factory__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./factories/DiamondReadable__factory */ "./src/lib/contracts/types/factories/DiamondReadable__factory.ts");
-/* harmony import */ var _factories_DiamondWritable_factory__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./factories/DiamondWritable__factory */ "./src/lib/contracts/types/factories/DiamondWritable__factory.ts");
-/* harmony import */ var _factories_DiamondWritableInternal_factory__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./factories/DiamondWritableInternal__factory */ "./src/lib/contracts/types/factories/DiamondWritableInternal__factory.ts");
-/* harmony import */ var _factories_ERC165Facet_factory__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./factories/ERC165Facet__factory */ "./src/lib/contracts/types/factories/ERC165Facet__factory.ts");
-/* harmony import */ var _factories_IDiamondBase_factory__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./factories/IDiamondBase__factory */ "./src/lib/contracts/types/factories/IDiamondBase__factory.ts");
-/* harmony import */ var _factories_IDiamondReadable_factory__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./factories/IDiamondReadable__factory */ "./src/lib/contracts/types/factories/IDiamondReadable__factory.ts");
-/* harmony import */ var _factories_IDiamondWritable_factory__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./factories/IDiamondWritable__factory */ "./src/lib/contracts/types/factories/IDiamondWritable__factory.ts");
-/* harmony import */ var _factories_IDiamondWritableInternal_factory__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./factories/IDiamondWritableInternal__factory */ "./src/lib/contracts/types/factories/IDiamondWritableInternal__factory.ts");
-/* harmony import */ var _factories_IInstaller_factory__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./factories/IInstaller__factory */ "./src/lib/contracts/types/factories/IInstaller__factory.ts");
-/* harmony import */ var _factories_Initializer_factory__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./factories/Initializer__factory */ "./src/lib/contracts/types/factories/Initializer__factory.ts");
-/* harmony import */ var _factories_Installer_factory__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./factories/Installer__factory */ "./src/lib/contracts/types/factories/Installer__factory.ts");
-/* harmony import */ var _factories_IPKG_factory__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./factories/IPKG__factory */ "./src/lib/contracts/types/factories/IPKG__factory.ts");
-/* harmony import */ var _factories_OperatorFacet_factory__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./factories/OperatorFacet__factory */ "./src/lib/contracts/types/factories/OperatorFacet__factory.ts");
-/* harmony import */ var _factories_OwnershipFacet_factory__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./factories/OwnershipFacet__factory */ "./src/lib/contracts/types/factories/OwnershipFacet__factory.ts");
-/* harmony import */ var _factories_PKG_factory__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./factories/PKG__factory */ "./src/lib/contracts/types/factories/PKG__factory.ts");
-/* harmony import */ var _factories_System_factory__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./factories/System__factory */ "./src/lib/contracts/types/factories/System__factory.ts");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/***/ }),
-
-/***/ "./src/lib/hooks/index.tsx":
-/*!*********************************!*\
-  !*** ./src/lib/hooks/index.tsx ***!
-  \*********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   getInterface: () => (/* binding */ getInterface),
-/* harmony export */   isLiveAddress: () => (/* binding */ isLiveAddress),
-/* harmony export */   matchFunctionsWithSelectors: () => (/* binding */ matchFunctionsWithSelectors),
-/* harmony export */   storage_key: () => (/* binding */ storage_key),
-/* harmony export */   useInterface: () => (/* binding */ useInterface),
-/* harmony export */   useIsLiveAddress: () => (/* binding */ useIsLiveAddress),
-/* harmony export */   useMatchABIFunctionsWithSelectors: () => (/* binding */ useMatchABIFunctionsWithSelectors),
-/* harmony export */   useMatchFunctionsWithABI: () => (/* binding */ useMatchFunctionsWithABI),
-/* harmony export */   useMatchSelectors: () => (/* binding */ useMatchSelectors),
-/* harmony export */   useSelectors: () => (/* binding */ useSelectors),
-/* harmony export */   useSigner: () => (/* binding */ useSigner),
-/* harmony export */   useSystem: () => (/* binding */ useSystem)
-/* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "tslib");
-/* harmony import */ var _usedapp_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @usedapp/core */ "@usedapp/core");
-/* harmony import */ var ethers_lib_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ethers/lib/utils */ "./node_modules/ethers/lib/utils.js");
-/* harmony import */ var ethers_lib_utils__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(ethers_lib_utils__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _contracts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../contracts */ "./src/lib/contracts/index.tsx");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
-
-
-
-
-
-var storage_key = 'local_dapplet_store';
-function getInterface(abi) {
-  return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    return _regeneratorRuntime().wrap(function _callee$(_context) {
-      while (1) switch (_context.prev = _context.next) {
-        case 0:
-          return _context.abrupt("return", new ethers_lib_utils__WEBPACK_IMPORTED_MODULE_4__.Interface(abi));
-        case 1:
-        case "end":
-          return _context.stop();
-      }
-    }, _callee);
-  }));
-}
-function useInterface(abi) {
-  var _this = this;
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(),
-    _useState2 = _slicedToArray(_useState, 2),
-    iface = _useState2[0],
-    setIface = _useState2[1];
-  (0,react__WEBPACK_IMPORTED_MODULE_2__.useMemo)(function () {
-    return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(_this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-        while (1) switch (_context2.prev = _context2.next) {
-          case 0:
-            if (!abi) {
-              _context2.next = 6;
-              break;
-            }
-            _context2.t0 = setIface;
-            _context2.next = 4;
-            return getInterface(abi);
-          case 4:
-            _context2.t1 = _context2.sent;
-            (0, _context2.t0)(_context2.t1);
-          case 6:
-          case "end":
-            return _context2.stop();
-        }
-      }, _callee2);
-    }));
-  }, [abi]);
-  return iface;
-}
-function useMatchSelectors(iface, selectors) {
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
-    _useState4 = _slicedToArray(_useState3, 2),
-    fragments = _useState4[0],
-    setFragments = _useState4[1];
-  (0,react__WEBPACK_IMPORTED_MODULE_2__.useMemo)(function () {
-    if (iface && selectors) {
-      var f = selectors.map(function (selector) {
-        return iface.getFunction(selector);
-      });
-      setFragments(f);
-    }
-  }, [iface, selectors]);
-  return fragments;
-}
-function useMatchABIFunctionsWithSelectors(abi, selectors) {
-  var iface = useInterface(abi);
-  var fragments = useMatchSelectors(iface, selectors);
-  return {
-    fragments: fragments,
-    iface: iface
-  };
-}
-function useSelectors(iface) {
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
-    _useState6 = _slicedToArray(_useState5, 2),
-    selectors = _useState6[0],
-    setSelectors = _useState6[1];
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(),
-    _useState8 = _slicedToArray(_useState7, 2),
-    fragments = _useState8[0],
-    setFragments = _useState8[1];
-  (0,react__WEBPACK_IMPORTED_MODULE_2__.useMemo)(function () {
-    if (iface) {
-      var functions = iface.fragments.filter(function (fragment) {
-        return fragment.type === 'function';
-      });
-      setSelectors(functions.map(function (fragment) {
-        return iface.getSighash(fragment);
-      }));
-      setFragments(functions);
-    }
-  }, [iface]);
-  return {
-    selectors: selectors,
-    fragments: fragments
-  };
-}
-function matchFunctionsWithSelectors(humanReadableFunctions, iface, selectors) {
-  var functions = humanReadableFunctions[0] === '*' ? iface.fragments.filter(function (fragment) {
-    return fragment.type === 'function';
-  }).map(function (fragment) {
-    return iface.getSighash(fragment);
-  }) : humanReadableFunctions.map(function (functionName) {
-    return iface.getSighash(functionName);
-  });
-  return {
-    selectors: selectors,
-    functions: functions
-  };
-}
-function useMatchFunctionsWithABI(abi, humanReadableFunctions) {
-  var iface = useInterface(abi);
-  var _useSelectors = useSelectors(iface),
-    selectors = _useSelectors.selectors;
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
-    _useState10 = _slicedToArray(_useState9, 2),
-    functions = _useState10[0],
-    setFunctions = _useState10[1];
-  (0,react__WEBPACK_IMPORTED_MODULE_2__.useMemo)(function () {
-    if (iface && selectors && humanReadableFunctions) {
-      var fns = matchFunctionsWithSelectors(humanReadableFunctions, iface, selectors).functions;
-      setFunctions(fns);
-    }
-  }, [iface, selectors, humanReadableFunctions]);
-  return {
-    selectors: selectors,
-    functions: functions
-  };
-}
-// OK: was this the source of the problem? -- using library uses localhost, not the forked chain????
-function isLiveAddress(address, library) {
-  return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-    var code;
-    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-      while (1) switch (_context3.prev = _context3.next) {
-        case 0:
-          if (!(typeof address === 'string' && (0,ethers_lib_utils__WEBPACK_IMPORTED_MODULE_4__.isAddress)(address))) {
-            _context3.next = 7;
-            break;
-          }
-          _context3.next = 3;
-          return library.getCode(address);
-        case 3:
-          code = _context3.sent;
-          return _context3.abrupt("return", code !== '0x');
-        case 7:
-          return _context3.abrupt("return", false);
-        case 8:
-        case "end":
-          return _context3.stop();
-      }
-    }, _callee3);
-  }));
-}
-function useIsLiveAddress(address) {
-  var _useEthers = (0,_usedapp_core__WEBPACK_IMPORTED_MODULE_1__.useEthers)(),
-    library = _useEthers.library;
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
-    _useState12 = _slicedToArray(_useState11, 2),
-    live = _useState12[0],
-    setLive = _useState12[1];
-  (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
-    if (library && address) {
-      isLiveAddress(address, library).then(function (isLive) {
-        if (isLive) {
-          setLive(true);
-        }
-      });
-    }
-  }, [library, address]);
-  return live;
-}
-function useSigner() {
-  var _useEthers2 = (0,_usedapp_core__WEBPACK_IMPORTED_MODULE_1__.useEthers)(),
-    account = _useEthers2.account,
-    library = _useEthers2.library;
-  var signer = (0,react__WEBPACK_IMPORTED_MODULE_2__.useMemo)(function () {
-    if (library && 'getSigner' in library) {
-      return library.getSigner(account);
-    }
-  }, [account, library]);
-  return signer;
-}
-function useSystem() {
-  var _useEthers3 = (0,_usedapp_core__WEBPACK_IMPORTED_MODULE_1__.useEthers)(),
-    chainId = _useEthers3.chainId;
-  var obj = (0,_contracts__WEBPACK_IMPORTED_MODULE_3__.deployment)('Diamond', chainId);
-  return obj;
-}
-
-/***/ }),
-
-/***/ "./src/lib/hooks/useCreatePkg.tsx":
-/*!****************************************!*\
-  !*** ./src/lib/hooks/useCreatePkg.tsx ***!
-  \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   useCreatePkg: () => (/* binding */ useCreatePkg)
-/* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "tslib");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! . */ "./src/lib/hooks/index.tsx");
-/* harmony import */ var _actions_createPkg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/createPkg */ "./src/lib/actions/createPkg.tsx");
-/* harmony import */ var _stores_dapplet__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../stores/dapplet */ "./src/lib/stores/dapplet.ts");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-
-
-
-
-function useCreatePkg() {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(),
-    _useState2 = _slicedToArray(_useState, 2),
-    error = _useState2[0],
-    setError = _useState2[1];
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
-    _useState4 = _slicedToArray(_useState3, 2),
-    loading = _useState4[0],
-    setLoading = _useState4[1];
-  console.log('error', error);
-  var store = (0,_stores_dapplet__WEBPACK_IMPORTED_MODULE_4__.useDappletStore)();
-  var signer = (0,___WEBPACK_IMPORTED_MODULE_2__.useSigner)();
-  function compileUpgrade() {
-    var _a, _b, _c, _d, _e;
-    var cuts = (_a = store === null || store === void 0 ? void 0 : store.upgrade) === null || _a === void 0 ? void 0 : _a.facets.map(function (f, i) {
-      var _a;
-      return (_a = Object.values(f)[0]) === null || _a === void 0 ? void 0 : _a.cut;
-    });
-    var target = (_c = (_b = store === null || store === void 0 ? void 0 : store.upgrade) === null || _b === void 0 ? void 0 : _b.initializer) === null || _c === void 0 ? void 0 : _c.target;
-    var selector = (_e = (_d = store === null || store === void 0 ? void 0 : store.upgrade) === null || _d === void 0 ? void 0 : _d.initializer) === null || _e === void 0 ? void 0 : _e.selector;
-    return {
-      cuts: cuts,
-      target: target,
-      selector: selector
-    };
-  }
-  function send() {
-    var _a;
-    return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-      var upgrade, client, cid, pkg;
-      return _regeneratorRuntime().wrap(function _callee$(_context) {
-        while (1) switch (_context.prev = _context.next) {
-          case 0:
-            setLoading(true);
-            _context.prev = 1;
-            if (signer) {
-              _context.next = 4;
-              break;
-            }
-            throw new Error('No signer found');
-          case 4:
-            upgrade = compileUpgrade();
-            client = (_a = store === null || store === void 0 ? void 0 : store.client) === null || _a === void 0 ? void 0 : _a.address;
-            cid = store === null || store === void 0 ? void 0 : store.CID;
-            _context.next = 9;
-            return (0,_actions_createPkg__WEBPACK_IMPORTED_MODULE_3__.createPkg)(client, upgrade, cid, signer);
-          case 9:
-            pkg = _context.sent;
-            console.log('pkg', pkg);
-            pkg && store.addAddress(pkg);
-            _context.next = 17;
-            break;
-          case 14:
-            _context.prev = 14;
-            _context.t0 = _context["catch"](1);
-            setError(_context.t0.message);
-          case 17:
-            _context.prev = 17;
-            setLoading(false);
-            return _context.finish(17);
-          case 20:
-          case "end":
-            return _context.stop();
-        }
-      }, _callee, null, [[1, 14, 17, 20]]);
-    }));
-  }
-  return {
-    send: send,
-    error: error,
-    loading: loading
-  };
-}
-
-/***/ }),
-
-/***/ "./src/lib/hooks/useDeployFacet.ts":
-/*!*****************************************!*\
-  !*** ./src/lib/hooks/useDeployFacet.ts ***!
-  \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   useDeployFacet: () => (/* binding */ useDeployFacet)
-/* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "tslib");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! . */ "./src/lib/hooks/index.tsx");
-/* harmony import */ var _actions_deployContract__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/deployContract */ "./src/lib/actions/deployContract.tsx");
-/* harmony import */ var _stores_dapplet__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../stores/dapplet */ "./src/lib/stores/dapplet.ts");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
-
-
-
-
-
-function useDeployFacet(name, facet) {
-  var store = (0,_stores_dapplet__WEBPACK_IMPORTED_MODULE_4__.useDappletStore)();
-  var signer = (0,___WEBPACK_IMPORTED_MODULE_2__.useSigner)();
-  function deploy() {
-    return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-      var facetCut;
-      return _regeneratorRuntime().wrap(function _callee$(_context) {
-        while (1) switch (_context.prev = _context.next) {
-          case 0:
-            if (signer) {
-              _context.next = 2;
-              break;
-            }
-            throw new Error('No signer found');
-          case 2:
-            _context.next = 4;
-            return (0,_actions_deployContract__WEBPACK_IMPORTED_MODULE_3__.deployFacet)(facet, signer);
-          case 4:
-            facetCut = _context.sent;
-            console.log('facetCut', facetCut);
-            facetCut && store.addFacetCut(name, facetCut);
-          case 7:
-          case "end":
-            return _context.stop();
-        }
-      }, _callee);
-    }));
-  }
-  return (0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)(function () {
-    return deploy;
-  }, [signer]);
-}
-
-/***/ }),
-
-/***/ "./src/lib/hooks/useDeployInitializer.ts":
-/*!***********************************************!*\
-  !*** ./src/lib/hooks/useDeployInitializer.ts ***!
-  \***********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   useDeployInitializer: () => (/* binding */ useDeployInitializer)
-/* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "tslib");
-/* harmony import */ var _usedapp_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @usedapp/core */ "@usedapp/core");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! . */ "./src/lib/hooks/index.tsx");
-/* harmony import */ var _actions_deployContract__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../actions/deployContract */ "./src/lib/actions/deployContract.tsx");
-/* harmony import */ var _stores_dapplet__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../stores/dapplet */ "./src/lib/stores/dapplet.ts");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
-
-
-
-
-
-
-function useDeployInitializer(initializer) {
-  var _useEthers = (0,_usedapp_core__WEBPACK_IMPORTED_MODULE_1__.useEthers)(),
-    library = _useEthers.library;
-  var signer = (0,___WEBPACK_IMPORTED_MODULE_3__.useSigner)();
-  var store = (0,_stores_dapplet__WEBPACK_IMPORTED_MODULE_5__.useDappletStore)();
-  function deploy() {
-    return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-      var init;
-      return _regeneratorRuntime().wrap(function _callee$(_context) {
-        while (1) switch (_context.prev = _context.next) {
-          case 0:
-            if (signer) {
-              _context.next = 2;
-              break;
-            }
-            throw new Error('No signer found');
-          case 2:
-            _context.next = 4;
-            return (0,_actions_deployContract__WEBPACK_IMPORTED_MODULE_4__.deployInitializer)(initializer, signer);
-          case 4:
-            init = _context.sent;
-            init && store.addInitializer(init);
-          case 6:
-          case "end":
-            return _context.stop();
-        }
-      }, _callee);
-    }));
-  }
-  return (0,react__WEBPACK_IMPORTED_MODULE_2__.useMemo)(function () {
-    return deploy;
-  }, [library]);
-}
-
-/***/ }),
-
-/***/ "./src/lib/hooks/useInstallPkg.tsx":
-/*!*****************************************!*\
-  !*** ./src/lib/hooks/useInstallPkg.tsx ***!
-  \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   installedBy: () => (/* binding */ installedBy),
-/* harmony export */   isInstalled: () => (/* binding */ isInstalled),
-/* harmony export */   useInitializerCost: () => (/* binding */ useInitializerCost),
-/* harmony export */   useInstallPkg: () => (/* binding */ useInstallPkg),
-/* harmony export */   useInstalledBy: () => (/* binding */ useInstalledBy),
-/* harmony export */   useIsInstalled: () => (/* binding */ useIsInstalled),
-/* harmony export */   usePkgInstalled: () => (/* binding */ usePkgInstalled),
-/* harmony export */   useUninstallPkg: () => (/* binding */ useUninstallPkg)
-/* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "tslib");
-/* harmony import */ var _usedapp_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @usedapp/core */ "@usedapp/core");
-/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ethers */ "ethers");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! . */ "./src/lib/hooks/index.tsx");
-/* harmony import */ var _actions_installPkg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../actions/installPkg */ "./src/lib/actions/installPkg.tsx");
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../constants */ "./src/lib/constants/index.ts");
-/* harmony import */ var _contracts_hooks_Initializer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../contracts/hooks/Initializer */ "./src/lib/contracts/hooks/Initializer.ts");
-/* harmony import */ var _contracts_types__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../contracts/types */ "./src/lib/contracts/types/index.ts");
-/* harmony import */ var _stores_dapplet__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../stores/dapplet */ "./src/lib/stores/dapplet.ts");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-
-
-
-
-
-
-
-
-
-function useInstallPkg() {
-  var _a, _b, _c;
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(),
-    _useState2 = _slicedToArray(_useState, 2),
-    error = _useState2[0],
-    setError = _useState2[1];
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(false),
-    _useState4 = _slicedToArray(_useState3, 2),
-    loading = _useState4[0],
-    setLoading = _useState4[1];
-  var store = (0,_stores_dapplet__WEBPACK_IMPORTED_MODULE_9__.useDappletStore)();
-  var signer = (0,___WEBPACK_IMPORTED_MODULE_4__.useSigner)();
-  var system = (0,___WEBPACK_IMPORTED_MODULE_4__.useSystem)();
-  //get cost
-  var _ref = _contracts_hooks_Initializer__WEBPACK_IMPORTED_MODULE_7__.useInitializer.cost((_b = (_a = store === null || store === void 0 ? void 0 : store.upgrade) === null || _a === void 0 ? void 0 : _a.initializer) === null || _b === void 0 ? void 0 : _b.target, []) || {},
-    cost = _ref.value;
-  var installCost = (0,react__WEBPACK_IMPORTED_MODULE_3__.useMemo)(function () {
-    var _a;
-    return ((_a = cost === null || cost === void 0 ? void 0 : cost[0]) === null || _a === void 0 ? void 0 : _a.add(_constants__WEBPACK_IMPORTED_MODULE_6__.costOf.install)) || _constants__WEBPACK_IMPORTED_MODULE_6__.costOf.install;
-  }, [cost]);
-  var initializer = Object.values(((_c = store === null || store === void 0 ? void 0 : store.upgrade) === null || _c === void 0 ? void 0 : _c.initializer) || {})[0];
-  function send() {
-    var _a, _b;
-    return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-      var client, iface, fn, args, calldata, addr, installed;
-      return _regeneratorRuntime().wrap(function _callee$(_context) {
-        while (1) switch (_context.prev = _context.next) {
-          case 0:
-            setLoading(true);
-            _context.prev = 1;
-            client = (_a = store === null || store === void 0 ? void 0 : store.client) === null || _a === void 0 ? void 0 : _a.address;
-            _context.t0 = initializer !== ethers__WEBPACK_IMPORTED_MODULE_2__.ethers.constants.AddressZero;
-            if (!_context.t0) {
-              _context.next = 8;
-              break;
-            }
-            _context.next = 7;
-            return (0,___WEBPACK_IMPORTED_MODULE_4__.getInterface)(initializer === null || initializer === void 0 ? void 0 : initializer.abi);
-          case 7:
-            _context.t0 = _context.sent;
-          case 8:
-            iface = _context.t0;
-            fn = iface && iface.getFunction(initializer === null || initializer === void 0 ? void 0 : initializer["function"]);
-            args = fn && initializer.defaultArgs;
-            calldata = initializer && iface && fn ? iface.encodeFunctionData(fn, args) : '0x';
-            addr = (_b = store === null || store === void 0 ? void 0 : store.upgrade) === null || _b === void 0 ? void 0 : _b.address;
-            _context.t1 = addr && calldata;
-            if (!_context.t1) {
-              _context.next = 18;
-              break;
-            }
-            _context.next = 17;
-            return (0,_actions_installPkg__WEBPACK_IMPORTED_MODULE_5__.installPkg)(client, addr, signer, calldata);
-          case 17:
-            _context.t1 = _context.sent;
-          case 18:
-            installed = _context.t1;
-            console.log('asdf installed', installed);
-            installed && store.checkInstalls();
-            //update installs
-            store.updateInstalls(client, system);
-            _context.next = 27;
-            break;
-          case 24:
-            _context.prev = 24;
-            _context.t2 = _context["catch"](1);
-            setError(_context.t2.message);
-          case 27:
-            _context.prev = 27;
-            setLoading(false);
-            return _context.finish(27);
-          case 30:
-          case "end":
-            return _context.stop();
-        }
-      }, _callee, null, [[1, 24, 27, 30]]);
-    }));
-  }
-  return {
-    send: send,
-    error: error,
-    loading: loading
-  };
-}
-function useUninstallPkg() {
-  var _a;
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(),
-    _useState6 = _slicedToArray(_useState5, 2),
-    error = _useState6[0],
-    setError = _useState6[1];
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(false),
-    _useState8 = _slicedToArray(_useState7, 2),
-    loading = _useState8[0],
-    setLoading = _useState8[1];
-  var store = (0,_stores_dapplet__WEBPACK_IMPORTED_MODULE_9__.useDappletStore)();
-  var client = (_a = store === null || store === void 0 ? void 0 : store.client) === null || _a === void 0 ? void 0 : _a.address;
-  var system = (0,___WEBPACK_IMPORTED_MODULE_4__.useSystem)();
-  var signer = (0,___WEBPACK_IMPORTED_MODULE_4__.useSigner)();
-  function send(pkg) {
-    var _a;
-    return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-      var _client, uninstalled;
-      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-        while (1) switch (_context2.prev = _context2.next) {
-          case 0:
-            setLoading(true);
-            _context2.prev = 1;
-            _client = (_a = store === null || store === void 0 ? void 0 : store.client) === null || _a === void 0 ? void 0 : _a.address;
-            _context2.t0 = _client;
-            if (!_context2.t0) {
-              _context2.next = 8;
-              break;
-            }
-            _context2.next = 7;
-            return (0,_actions_installPkg__WEBPACK_IMPORTED_MODULE_5__.uninstallPkg)(_client, pkg, signer, '0x');
-          case 7:
-            _context2.t0 = _context2.sent;
-          case 8:
-            uninstalled = _context2.t0;
-            uninstalled && store.checkInstalls();
-            console.log('asdf uninstalled', uninstalled);
-            // update installs
-            store.updateInstalls(_client, system.address);
-            _context2.next = 17;
-            break;
-          case 14:
-            _context2.prev = 14;
-            _context2.t1 = _context2["catch"](1);
-            setError(_context2.t1.message);
-          case 17:
-            _context2.prev = 17;
-            setLoading(false);
-            return _context2.finish(17);
-          case 20:
-          case "end":
-            return _context2.stop();
-        }
-      }, _callee2, null, [[1, 14, 17, 20]]);
-    }));
-  }
-  return {
-    send: send,
-    error: error,
-    loading: loading
-  };
-}
-function installedBy(client, system) {
-  return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-    var provider, DappletsFacet;
-    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-      while (1) switch (_context3.prev = _context3.next) {
-        case 0:
-          provider = (0,_stores_dapplet__WEBPACK_IMPORTED_MODULE_9__.getProvider)();
-          DappletsFacet = new ethers__WEBPACK_IMPORTED_MODULE_2__.Contract(system, _contracts_types__WEBPACK_IMPORTED_MODULE_8__.DappletsFacet__factory.abi, provider);
-          _context3.next = 4;
-          return DappletsFacet.installedBy(client);
-        case 4:
-          return _context3.abrupt("return", _context3.sent);
-        case 5:
-        case "end":
-          return _context3.stop();
-      }
-    }, _callee3);
-  }));
-}
-function useInstalledBy() {
-  var _a, _b;
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)([]),
-    _useState10 = _slicedToArray(_useState9, 2),
-    installs = _useState10[0],
-    setInstalls = _useState10[1];
-  var store = (0,_stores_dapplet__WEBPACK_IMPORTED_MODULE_9__.useDappletStore)();
-  var storedInstalls = (_a = store === null || store === void 0 ? void 0 : store.client) === null || _a === void 0 ? void 0 : _a.installs;
-  var client = (_b = store === null || store === void 0 ? void 0 : store.client) === null || _b === void 0 ? void 0 : _b.address;
-  var system = (0,___WEBPACK_IMPORTED_MODULE_4__.useSystem)();
-  var block = (0,_usedapp_core__WEBPACK_IMPORTED_MODULE_1__.useBlockNumber)();
-  var _useEthers = (0,_usedapp_core__WEBPACK_IMPORTED_MODULE_1__.useEthers)(),
-    chainId = _useEthers.chainId;
-  (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(function () {
-    function check() {
-      return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-        var installedByClient;
-        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-          while (1) switch (_context4.prev = _context4.next) {
-            case 0:
-              _context4.next = 2;
-              return installedBy(client, system.address);
-            case 2:
-              installedByClient = _context4.sent;
-              setInstalls(installedByClient);
-            case 4:
-            case "end":
-              return _context4.stop();
-          }
-        }, _callee4);
-      }));
-    }
-    client && check();
-  }, [block, storedInstalls, client, chainId]);
-  return installs;
-}
-function isInstalled(upgrade, client, installedByClient) {
-  return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
-    var provider, Loupe, facets, selectors, conflicts;
-    return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-      while (1) switch (_context5.prev = _context5.next) {
-        case 0:
-          provider = (0,_stores_dapplet__WEBPACK_IMPORTED_MODULE_9__.getProvider)();
-          Loupe = new ethers__WEBPACK_IMPORTED_MODULE_2__.Contract(client, _contracts_types__WEBPACK_IMPORTED_MODULE_8__.DiamondLoupeFacet__factory.abi, provider);
-          _context5.next = 4;
-          return Loupe.facets();
-        case 4:
-          facets = _context5.sent;
-          //check if facet selectors are already added
-          selectors = facets.map(function (f) {
-            return f.selectors.map(function (s) {
-              return s.toString();
-            });
-          }).flat();
-          conflicts = false;
-          upgrade === null || upgrade === void 0 ? void 0 : upgrade.facets.map(function (f) {
-            var _a;
-            var facet = Object.values(f)[0];
-            var sels = (_a = facet === null || facet === void 0 ? void 0 : facet.cut) === null || _a === void 0 ? void 0 : _a.selectors;
-            var _iterator = _createForOfIteratorHelper(sels),
-              _step;
-            try {
-              for (_iterator.s(); !(_step = _iterator.n()).done;) {
-                var sel = _step.value;
-                if (selectors.includes(sel)) {
-                  conflicts = true;
-                  break;
-                }
-              }
-            } catch (err) {
-              _iterator.e(err);
-            } finally {
-              _iterator.f();
-            }
-          });
-          if (!conflicts) {
-            _context5.next = 10;
-            break;
-          }
-          return _context5.abrupt("return", installedByClient.includes(upgrade === null || upgrade === void 0 ? void 0 : upgrade.address));
-        case 10:
-          return _context5.abrupt("return", false);
-        case 11:
-        case "end":
-          return _context5.stop();
-      }
-    }, _callee5);
-  }));
-}
-function useIsInstalled() {
-  var _a, _b;
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(false),
-    _useState12 = _slicedToArray(_useState11, 2),
-    installed = _useState12[0],
-    setInstalled = _useState12[1];
-  var installs = useInstalledBy();
-  var store = (0,_stores_dapplet__WEBPACK_IMPORTED_MODULE_9__.useDappletStore)();
-  var client = (_a = store === null || store === void 0 ? void 0 : store.client) === null || _a === void 0 ? void 0 : _a.address;
-  var storedInstalls = (_b = store === null || store === void 0 ? void 0 : store.client) === null || _b === void 0 ? void 0 : _b.installs;
-  var upgrade = store === null || store === void 0 ? void 0 : store.upgrade;
-  var created = (0,_stores_dapplet__WEBPACK_IMPORTED_MODULE_9__.useUpgradeAddressDeployed)();
-  var _useEthers2 = (0,_usedapp_core__WEBPACK_IMPORTED_MODULE_1__.useEthers)(),
-    chainId = _useEthers2.chainId;
-  (0,react__WEBPACK_IMPORTED_MODULE_3__.useMemo)(function () {
-    function check() {
-      return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
-        var installed;
-        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
-          while (1) switch (_context6.prev = _context6.next) {
-            case 0:
-              _context6.next = 2;
-              return isInstalled(upgrade, client, installs);
-            case 2:
-              installed = _context6.sent;
-              setInstalled(installed);
-            case 4:
-            case "end":
-              return _context6.stop();
-          }
-        }, _callee6);
-      }));
-    }
-    created && check();
-  }, [storedInstalls, client, chainId, created, upgrade, installs]);
-  return installed;
-}
-//TODO: trigger this on install/uninstall
-function usePkgInstalled() {
-  var _a, _b;
-  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(false),
-    _useState14 = _slicedToArray(_useState13, 2),
-    installed = _useState14[0],
-    setInstalled = _useState14[1];
-  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)([]),
-    _useState16 = _slicedToArray(_useState15, 2),
-    installs = _useState16[0],
-    setInstalls = _useState16[1];
-  var store = (0,_stores_dapplet__WEBPACK_IMPORTED_MODULE_9__.useDappletStore)();
-  var client = (_a = store === null || store === void 0 ? void 0 : store.client) === null || _a === void 0 ? void 0 : _a.address;
-  var storedInstalls = (_b = store === null || store === void 0 ? void 0 : store.client) === null || _b === void 0 ? void 0 : _b.installs;
-  var upgrade = store === null || store === void 0 ? void 0 : store.upgrade;
-  var created = (0,_stores_dapplet__WEBPACK_IMPORTED_MODULE_9__.useUpgradeAddressDeployed)();
-  var system = (0,___WEBPACK_IMPORTED_MODULE_4__.useSystem)();
-  var _useEthers3 = (0,_usedapp_core__WEBPACK_IMPORTED_MODULE_1__.useEthers)(),
-    chainId = _useEthers3.chainId;
-  (0,react__WEBPACK_IMPORTED_MODULE_3__.useMemo)(function () {
-    function check() {
-      return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
-        var installedByClient, installed;
-        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
-          while (1) switch (_context7.prev = _context7.next) {
-            case 0:
-              _context7.next = 2;
-              return installedBy(client, system.address);
-            case 2:
-              installedByClient = _context7.sent;
-              setInstalls(installedByClient);
-              _context7.next = 6;
-              return isInstalled(upgrade, client, installedByClient);
-            case 6:
-              installed = _context7.sent;
-              setInstalled(installed);
-            case 8:
-            case "end":
-              return _context7.stop();
-          }
-        }, _callee7);
-      }));
-    }
-    created && check();
-  }, [storedInstalls, client, chainId, created, upgrade]);
-  return {
-    installed: installed,
-    installs: installs
-  };
-}
-function useInitializerCost(addr, iface) {
-  var _a;
-  var _ref2 = (_a = (0,_usedapp_core__WEBPACK_IMPORTED_MODULE_1__.useCall)(addr && iface && {
-      contract: new ethers__WEBPACK_IMPORTED_MODULE_2__.Contract(addr, iface),
-      method: 'cost',
-      args: []
-    })) !== null && _a !== void 0 ? _a : {},
-    value = _ref2.value,
-    error = _ref2.error;
-  if (error) {
-    console.error(error.message);
-    return undefined;
-  }
-  return value === null || value === void 0 ? void 0 : value[0];
-}
-
-/***/ }),
-
-/***/ "./src/lib/stores/dapplet.ts":
-/*!***********************************!*\
-  !*** ./src/lib/stores/dapplet.ts ***!
-  \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   getProvider: () => (/* binding */ getProvider),
-/* harmony export */   useDappletStore: () => (/* binding */ useDappletStore),
-/* harmony export */   useFacetDeployed: () => (/* binding */ useFacetDeployed),
-/* harmony export */   useGetPkg: () => (/* binding */ useGetPkg),
-/* harmony export */   useInitializerDeployed: () => (/* binding */ useInitializerDeployed),
-/* harmony export */   useUpgradeAddressDeployed: () => (/* binding */ useUpgradeAddressDeployed)
-/* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "tslib");
-/* harmony import */ var _usedapp_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @usedapp/core */ "@usedapp/core");
-/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ethers */ "ethers");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var zustand__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! zustand */ "zustand");
-/* harmony import */ var _contracts__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../contracts */ "./src/lib/contracts/index.tsx");
-/* harmony import */ var _contracts_types__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../contracts/types */ "./src/lib/contracts/types/index.ts");
-/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../hooks */ "./src/lib/hooks/index.tsx");
-/* harmony import */ var _hooks_useInstallPkg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../hooks/useInstallPkg */ "./src/lib/hooks/useInstallPkg.tsx");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
-
-
-
-
-
-
-
-
-
-var useDappletStore = (0,zustand__WEBPACK_IMPORTED_MODULE_4__["default"])(function (set) {
-  return {
-    name: '',
-    client: {
-      address: '',
-      installs: []
-    },
-    chainId: {},
-    CID: '',
-    upgrade: {
-      address: '',
-      facets: [],
-      initalizer: {}
-    },
-    load: function load() {
-      return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(void 0, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var val, config, name, client, network, cid, upgrade;
-        return _regeneratorRuntime().wrap(function _callee$(_context) {
-          while (1) switch (_context.prev = _context.next) {
-            case 0:
-              val = localStorage.getItem('DAPPLET_CONFIG');
-              config = val && JSON.parse(val);
-              console.log('asdf config', config);
-              name = config.name;
-              _context.next = 6;
-              return getClientFromLocalStorage(config);
-            case 6:
-              client = _context.sent;
-              network = config.chainId;
-              cid = config.CID || '';
-              _context.next = 11;
-              return getUpgradeFromLocalStorage(config);
-            case 11:
-              upgrade = _context.sent;
-              set(function () {
-                return {
-                  name: name,
-                  client: client,
-                  network: network,
-                  CID: cid,
-                  upgrade: upgrade,
-                  loading: false
-                };
-              });
-            case 13:
-            case "end":
-              return _context.stop();
-          }
-        }, _callee);
-      }));
-    },
-    loading: true,
-    error: null,
-    // add
-    reset: function reset() {
-      return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(void 0, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-          while (1) switch (_context2.prev = _context2.next) {
-            case 0:
-              localStorage.setItem(_hooks__WEBPACK_IMPORTED_MODULE_7__.storage_key, null);
-              set(function () {
-                return {
-                  upgrade: {
-                    facets: [],
-                    initalizer: {}
-                  }
-                };
-              });
-            case 2:
-            case "end":
-              return _context2.stop();
-          }
-        }, _callee2);
-      }));
-    },
-    addFacetCut: function addFacetCut(name, cut) {
-      return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(void 0, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
-        var isLive;
-        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-          while (1) switch (_context3.prev = _context3.next) {
-            case 0:
-              _context3.next = 2;
-              return (0,_hooks__WEBPACK_IMPORTED_MODULE_7__.isLiveAddress)(cut.target, getProvider());
-            case 2:
-              isLive = _context3.sent;
-              set(function (state) {
-                var _a, _b, _c, _d;
-                var facet = (_b = (_a = state.upgrade) === null || _a === void 0 ? void 0 : _a.facets) === null || _b === void 0 ? void 0 : _b.find(function (f) {
-                  return Object.keys(f)[0] === name;
-                });
-                if (isLive) {
-                  //overwrite with new cut
-                  var newFacet = _defineProperty({}, name, Object.assign(Object.assign({}, facet === null || facet === void 0 ? void 0 : facet[name]), {
-                    cut: cut
-                  }));
-                  var newFacets = (_d = (_c = state.upgrade) === null || _c === void 0 ? void 0 : _c.facets) === null || _d === void 0 ? void 0 : _d.map(function (f) {
-                    if (Object.keys(f)[0] === name) {
-                      return newFacet;
-                    }
-                    return f;
-                  });
-                  return Object.assign(Object.assign({}, state), {
-                    upgrade: Object.assign(Object.assign({}, state.upgrade), {
-                      facets: newFacets
-                    })
-                  });
-                }
-              });
-            case 4:
-            case "end":
-              return _context3.stop();
-          }
-        }, _callee3);
-      }));
-    },
-    addInitializer: function addInitializer(initializer) {
-      return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(void 0, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-        var isLive;
-        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-          while (1) switch (_context4.prev = _context4.next) {
-            case 0:
-              _context4.next = 2;
-              return (0,_hooks__WEBPACK_IMPORTED_MODULE_7__.isLiveAddress)(initializer.target, getProvider());
-            case 2:
-              isLive = _context4.sent;
-              set(function (state) {
-                if (isLive) {
-                  return Object.assign(Object.assign({}, state), {
-                    upgrade: Object.assign(Object.assign({}, state.upgrade), {
-                      initializer: Object.assign(Object.assign({}, state.upgrade.initializer), {
-                        target: initializer.target,
-                        selector: initializer.selector
-                      })
-                    })
-                  });
-                }
-              });
-            case 4:
-            case "end":
-              return _context4.stop();
-          }
-        }, _callee4);
-      }));
-    },
-    addAddress: function addAddress(address) {
-      return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(void 0, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
-        var isLive;
-        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-          while (1) switch (_context5.prev = _context5.next) {
-            case 0:
-              _context5.next = 2;
-              return (0,_hooks__WEBPACK_IMPORTED_MODULE_7__.isLiveAddress)(address, getProvider());
-            case 2:
-              isLive = _context5.sent;
-              set(function (state) {
-                if (isLive) {
-                  return Object.assign(Object.assign({}, state), {
-                    upgrade: Object.assign(Object.assign({}, state.upgrade), {
-                      address: address
-                    })
-                  });
-                }
-              });
-            case 4:
-            case "end":
-              return _context5.stop();
-          }
-        }, _callee5);
-      }));
-    },
-    setFacetIsDeployed: function setFacetIsDeployed(name, isDeployed) {
-      return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(void 0, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
-        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
-          while (1) switch (_context6.prev = _context6.next) {
-            case 0:
-              set(function (state) {
-                var _a, _b, _c, _d;
-                var facet = (_b = (_a = state.upgrade) === null || _a === void 0 ? void 0 : _a.facets) === null || _b === void 0 ? void 0 : _b.find(function (f) {
-                  return Object.keys(f)[0] === name;
-                });
-                if (facet) {
-                  return Object.assign(Object.assign({}, state), {
-                    upgrade: Object.assign(Object.assign({}, state.upgrade), {
-                      facets: (_d = (_c = state.upgrade) === null || _c === void 0 ? void 0 : _c.facets) === null || _d === void 0 ? void 0 : _d.map(function (f) {
-                        if (Object.keys(f)[0] === name) {
-                          return _defineProperty({}, name, Object.assign(Object.assign({}, facet === null || facet === void 0 ? void 0 : facet[name]), {
-                            isDeployed: isDeployed
-                          }));
-                        }
-                        return f;
-                      })
-                    })
-                  });
-                }
-              });
-            case 1:
-            case "end":
-              return _context6.stop();
-          }
-        }, _callee6);
-      }));
-    },
-    setInitializerIsDeployed: function setInitializerIsDeployed(isDeployed) {
-      return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(void 0, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
-        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
-          while (1) switch (_context7.prev = _context7.next) {
-            case 0:
-              set(function (state) {
-                return Object.assign(Object.assign({}, state), {
-                  upgrade: Object.assign(Object.assign({}, state.upgrade), {
-                    initializer: Object.assign(Object.assign({}, state.upgrade.initializer), {
-                      isDeployed: isDeployed
-                    })
-                  })
-                });
-              });
-            case 1:
-            case "end":
-              return _context7.stop();
-          }
-        }, _callee7);
-      }));
-    },
-    setCID: function setCID(CID) {
-      return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(void 0, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
-        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
-          while (1) switch (_context8.prev = _context8.next) {
-            case 0:
-              set(function (state) {
-                return Object.assign(Object.assign({}, state), {
-                  CID: CID
-                });
-              });
-            case 1:
-            case "end":
-              return _context8.stop();
-          }
-        }, _callee8);
-      }));
-    },
-    checkInstalls: function checkInstalls() {
-      return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(void 0, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
-        var config, client, installs;
-        return _regeneratorRuntime().wrap(function _callee10$(_context10) {
-          while (1) switch (_context10.prev = _context10.next) {
-            case 0:
-              config = JSON.parse("{\"name\":\"assistant\",\"client\":\"0x407d99d3dea54fa55860678dad2d1749afcbca5c\",\"chainId\":{\"dev\":31337,\"prod\":11155111},\"facets\":{\"Greeter\":{\"abi\":[{\"inputs\":[],\"name\":\"Ownable__NotOwner\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"Ownable__NotTransitiveOwner\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"string\",\"name\":\"greeting\",\"type\":\"string\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"GreetingChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"greet\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"_greeting\",\"type\":\"string\"}],\"name\":\"setGreeting\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"}],\"bytecode\":\"608060405234801561001057600080fd5b50610b4d806100206000396000f3fe6080604052600436106100295760003560e01c8063a41368621461002e578063ad55cd0a1461004a575b600080fd5b61004860048036038101906100439190610518565b610087565b005b34801561005657600080fd5b50610071600480360381019061006c91906105bf565b610163565b60405161007e919061066b565b60405180910390f35b61008f610251565b73ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff16146100f3576040517f2f7a8ee100000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b60006100fd610284565b90508181600001908161011091906108a3565b503373ffffffffffffffffffffffffffffffffffffffff167f97f1752b66013c04a3cba7b99967e18ef918f6c3435eae8ba65850da8b3239e283604051610157919061066b565b60405180910390a25050565b6060600061016f610284565b905061018b8361017d6102b1565b6102de90919063ffffffff16565b156101bb57806000016040516020016101a49190610a4f565b60405160208183030381529060405291505061024c565b8060000180546101ca906106bc565b80601f01602080910402602001604051908101604052809291908181526020018280546101f6906106bc565b80156102435780601f1061021857610100808354040283529160200191610243565b820191906000526020600020905b81548152906001019060200180831161022657829003601f168201915b50505050509150505b919050565b600061025b610391565b60000160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b6000807f6bc30b5806f36e039334b408f44b5d5058b8d93571c4cbb551bb131799c6432690508091505090565b6000807ffe6296dfe48bae4dfb2f6e05309f9afe12d16ff49ce3c0d9480f8fb6181fdc3290508091505090565b600080600090505b8360000180549050811015610385578273ffffffffffffffffffffffffffffffffffffffff1684600001828154811061032257610321610a71565b5b9060005260206000200160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff160361037257600191505061038b565b808061037d90610acf565b9150506102e6565b50600090505b92915050565b6000807f8a22373512790c48b83a1fe2efdd2888d4a917bcdc24d0adf63e60f67168046090508091505090565b6000604051905090565b600080fd5b600080fd5b600080fd5b600080fd5b6000601f19601f8301169050919050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b610425826103dc565b810181811067ffffffffffffffff82111715610444576104436103ed565b5b80604052505050565b60006104576103be565b9050610463828261041c565b919050565b600067ffffffffffffffff821115610483576104826103ed565b5b61048c826103dc565b9050602081019050919050565b82818337600083830152505050565b60006104bb6104b684610468565b61044d565b9050828152602081018484840111156104d7576104d66103d7565b5b6104e2848285610499565b509392505050565b600082601f8301126104ff576104fe6103d2565b5b813561050f8482602086016104a8565b91505092915050565b60006020828403121561052e5761052d6103c8565b5b600082013567ffffffffffffffff81111561054c5761054b6103cd565b5b610558848285016104ea565b91505092915050565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b600061058c82610561565b9050919050565b61059c81610581565b81146105a757600080fd5b50565b6000813590506105b981610593565b92915050565b6000602082840312156105d5576105d46103c8565b5b60006105e3848285016105aa565b91505092915050565b600081519050919050565b600082825260208201905092915050565b60005b8381101561062657808201518184015260208101905061060b565b60008484015250505050565b600061063d826105ec565b61064781856105f7565b9350610657818560208601610608565b610660816103dc565b840191505092915050565b600060208201905081810360008301526106858184610632565b905092915050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052602260045260246000fd5b600060028204905060018216806106d457607f821691505b6020821081036106e7576106e661068d565b5b50919050565b60008190508160005260206000209050919050565b60006020601f8301049050919050565b600082821b905092915050565b60006008830261074f7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff82610712565b6107598683610712565b95508019841693508086168417925050509392505050565b6000819050919050565b6000819050919050565b60006107a061079b61079684610771565b61077b565b610771565b9050919050565b6000819050919050565b6107ba83610785565b6107ce6107c6826107a7565b84845461071f565b825550505050565b600090565b6107e36107d6565b6107ee8184846107b1565b505050565b5b81811015610812576108076000826107db565b6001810190506107f4565b5050565b601f82111561085757610828816106ed565b61083184610702565b81016020851015610840578190505b61085461084c85610702565b8301826107f3565b50505b505050565b600082821c905092915050565b600061087a6000198460080261085c565b1980831691505092915050565b60006108938383610869565b9150826002028217905092915050565b6108ac826105ec565b67ffffffffffffffff8111156108c5576108c46103ed565b5b6108cf82546106bc565b6108da828285610816565b600060209050601f83116001811461090d57600084156108fb578287015190505b6109058582610887565b86555061096d565b601f19841661091b866106ed565b60005b828110156109435784890151825560018201915060208501945060208101905061091e565b86831015610960578489015161095c601f891682610869565b8355505b6001600288020188555050505b505050505050565b600081905092915050565b6000815461098d816106bc565b6109978186610975565b945060018216600081146109b257600181146109c7576109fa565b60ff19831686528115158202860193506109fa565b6109d0856106ed565b60005b838110156109f2578154818901526001820191506020810190506109d3565b838801955050505b50505092915050565b7f2e2e205468616e6b7320666f722072657475726e696e67210000000000000000600082015250565b6000610a39601883610975565b9150610a4482610a03565b601882019050919050565b6000610a5b8284610980565b9150610a6682610a2c565b915081905092915050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b6000610ada82610771565b91507fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8203610b0c57610b0b610aa0565b5b60018201905091905056fea26469706673582212200c5f6bf6224f99fe6e19961c3e0840df76a59b21567c4d933bf9c91fe228a91d64736f6c63430008120033\"}},\"initializer\":{}}");
-              _context10.next = 3;
-              return getClientFromLocalStorage(config);
-            case 3:
-              client = _context10.sent;
-              _context10.next = 6;
-              return Promise.all(client.installs.map(function (install) {
-                return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(void 0, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
-                  var isLive;
-                  return _regeneratorRuntime().wrap(function _callee9$(_context9) {
-                    while (1) switch (_context9.prev = _context9.next) {
-                      case 0:
-                        _context9.next = 2;
-                        return (0,_hooks__WEBPACK_IMPORTED_MODULE_7__.isLiveAddress)(install.address, getProvider());
-                      case 2:
-                        isLive = _context9.sent;
-                        return _context9.abrupt("return", Object.assign(Object.assign({}, install), {
-                          isLive: isLive
-                        }));
-                      case 4:
-                      case "end":
-                        return _context9.stop();
-                    }
-                  }, _callee9);
-                }));
-              }));
-            case 6:
-              installs = _context10.sent;
-              set(function (state) {
-                return Object.assign(Object.assign({}, state), {
-                  client: Object.assign(Object.assign({}, state.client), {
-                    installs: installs
-                  })
-                });
-              });
-            case 8:
-            case "end":
-              return _context10.stop();
-          }
-        }, _callee10);
-      }));
-    },
-    updateInstalls: function updateInstalls(client, system) {
-      return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(void 0, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee11() {
-        var installs;
-        return _regeneratorRuntime().wrap(function _callee11$(_context11) {
-          while (1) switch (_context11.prev = _context11.next) {
-            case 0:
-              _context11.next = 2;
-              return (0,_hooks_useInstallPkg__WEBPACK_IMPORTED_MODULE_8__.installedBy)(client, system);
-            case 2:
-              installs = _context11.sent;
-              set(function (state) {
-                return Object.assign(Object.assign({}, state), {
-                  client: Object.assign(Object.assign({}, state.client), {
-                    installs: installs
-                  })
-                });
-              });
-            case 4:
-            case "end":
-              return _context11.stop();
-          }
-        }, _callee11);
-      }));
-    }
-    // // remove
-    // removeFacetByTarget: (target: string) => {
-    //   set((state) => ({
-    //     // cuts: state.cuts.filter((cut) => cut.target !== target),
-    //   }));
-    // },
-    // removeSelector: (target: string, selector: string) => {
-    //   set((state) => ({
-    //     // cuts: state.cuts.map((cut) => {
-    //     //   if (cut.target === target) {
-    //     //     return {
-    //     //       ...cut,
-    //     //       selectors: cut.selectors.filter((s) => s !== selector),
-    //     //     };
-    //     //   }
-    //     //   return cut;
-    //     // }),
-    //   }));
-    // },
-  };
-});
-// setup().then((upgrade) => useDappletStore.setState({ upgrade }));
-//TODO: change getFromLocalStorage functions to NOT use ENV variables
-function getClientFromLocalStorage(config) {
-  return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee12() {
-    var _ref2;
-    var client, provider, chainId, system, DappletsFacet, installs;
-    return _regeneratorRuntime().wrap(function _callee12$(_context12) {
-      while (1) switch (_context12.prev = _context12.next) {
-        case 0:
-          if (config) {
-            _context12.next = 2;
-            break;
-          }
-          throw new Error('Dapplet config not found');
-        case 2:
-          client = config.client;
-          if (client) {
-            _context12.next = 5;
-            break;
-          }
-          throw new Error('Dapplet client not found. You must provide one!');
-        case 5:
-          provider = getProvider();
-          _context12.next = 8;
-          return provider.getNetwork();
-        case 8:
-          chainId = _context12.sent.chainId;
-          system = (0,_contracts__WEBPACK_IMPORTED_MODULE_5__.deployment)('Diamond', chainId);
-          DappletsFacet = new ethers__WEBPACK_IMPORTED_MODULE_2__.Contract(system.address, _contracts_types__WEBPACK_IMPORTED_MODULE_6__.DappletsFacet__factory.abi, provider);
-          _context12.next = 13;
-          return DappletsFacet.installedBy(client);
-        case 13:
-          installs = _context12.sent;
-          return _context12.abrupt("return", (_ref2 = {}, _defineProperty(_ref2, 'address', client), _defineProperty(_ref2, 'installs', installs), _ref2));
-        case 15:
-        case "end":
-          return _context12.stop();
-      }
-    }, _callee12);
-  }));
-}
-function getUpgradeFromLocalStorage(config) {
-  return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee14() {
-    var _this = this,
-      _ref6;
-    var facets, initializer, a, f, i;
-    return _regeneratorRuntime().wrap(function _callee14$(_context14) {
-      while (1) switch (_context14.prev = _context14.next) {
-        case 0:
-          if (config) {
-            _context14.next = 2;
-            break;
-          }
-          throw new Error('Dapplet config not found');
-        case 2:
-          facets = config.facets, initializer = config.initializer;
-          _context14.next = 5;
-          return getUpgradeAddressFromLocalStorage();
-        case 5:
-          a = _context14.sent;
-          _context14.next = 8;
-          return Promise.all(Object.entries(facets).map(function (_ref3) {
-            var _ref4 = _slicedToArray(_ref3, 2),
-              name = _ref4[0],
-              obj = _ref4[1];
-            return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(_this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee13() {
-              var abi, bytecode, functions, cut;
-              return _regeneratorRuntime().wrap(function _callee13$(_context13) {
-                while (1) switch (_context13.prev = _context13.next) {
-                  case 0:
-                    abi = obj.abi, bytecode = obj.bytecode, functions = obj.functions;
-                    _context13.next = 3;
-                    return getCutFromLocalStorage(name);
-                  case 3:
-                    cut = _context13.sent;
-                    return _context13.abrupt("return", _defineProperty({}, name, {
-                      abi: abi,
-                      bytecode: bytecode,
-                      functions: functions,
-                      cut: cut
-                    }));
-                  case 5:
-                  case "end":
-                    return _context13.stop();
-                }
-              }, _callee13);
-            }));
-          }));
-        case 8:
-          f = _context14.sent;
-          _context14.t0 = Object;
-          _context14.next = 12;
-          return getInitializerFromLocalStorage();
-        case 12:
-          _context14.t1 = _context14.sent;
-          _context14.t2 = initializer;
-          i = _context14.t0.assign.call(_context14.t0, _context14.t1, _context14.t2);
-          return _context14.abrupt("return", (_ref6 = {}, _defineProperty(_ref6, 'address', a), _defineProperty(_ref6, 'facets', f), _defineProperty(_ref6, 'initializer', i), _ref6));
-        case 16:
-        case "end":
-          return _context14.stop();
-      }
-    }, _callee14);
-  }));
-}
-function getUpgradeAddressFromLocalStorage() {
-  return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee15() {
-    var addr, local, _JSON$parse, upgrade, isLive;
-    return _regeneratorRuntime().wrap(function _callee15$(_context15) {
-      while (1) switch (_context15.prev = _context15.next) {
-        case 0:
-          addr = '';
-          _context15.prev = 1;
-          local = localStorage.getItem(_hooks__WEBPACK_IMPORTED_MODULE_7__.storage_key);
-          if (!local) {
-            _context15.next = 10;
-            break;
-          }
-          _JSON$parse = JSON.parse(local), upgrade = _JSON$parse.upgrade;
-          _context15.next = 7;
-          return (0,_hooks__WEBPACK_IMPORTED_MODULE_7__.isLiveAddress)(upgrade.address, getProvider());
-        case 7:
-          isLive = _context15.sent;
-          console.log('upgrade deployed:', isLive, upgrade.address);
-          if (isLive) {
-            addr = upgrade.address;
-            // get pkg contents
-            // check if pkg contents match upgrade.facets & initializer
-          }
-        case 10:
-          _context15.next = 15;
-          break;
-        case 12:
-          _context15.prev = 12;
-          _context15.t0 = _context15["catch"](1);
-          console.error('error getting upgrade address from local storage', _context15.t0);
-        case 15:
-          return _context15.abrupt("return", addr);
-        case 16:
-        case "end":
-          return _context15.stop();
-      }
-    }, _callee15, null, [[1, 12]]);
-  }));
-}
-function getCutFromLocalStorage(name) {
-  var _a, _b, _c, _d;
-  return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee16() {
-    var local, cut, facet, target, isLive;
-    return _regeneratorRuntime().wrap(function _callee16$(_context16) {
-      while (1) switch (_context16.prev = _context16.next) {
-        case 0:
-          local = localStorage.getItem(_hooks__WEBPACK_IMPORTED_MODULE_7__.storage_key);
-          cut = {};
-          if (!local) {
-            _context16.next = 10;
-            break;
-          }
-          facet = (_b = (_a = JSON.parse(local)) === null || _a === void 0 ? void 0 : _a.upgrade) === null || _b === void 0 ? void 0 : _b.facets.find(function (f) {
-            return Object.keys(f)[0] === name;
-          });
-          target = (_d = (_c = facet === null || facet === void 0 ? void 0 : facet[name]) === null || _c === void 0 ? void 0 : _c.cut) === null || _d === void 0 ? void 0 : _d.target;
-          _context16.next = 7;
-          return (0,_hooks__WEBPACK_IMPORTED_MODULE_7__.isLiveAddress)(target, getProvider());
-        case 7:
-          isLive = _context16.sent;
-          console.log('isLive', name, isLive, target);
-          if (isLive) {
-            cut = facet[name].cut;
-          }
-        case 10:
-          return _context16.abrupt("return", cut);
-        case 11:
-        case "end":
-          return _context16.stop();
-      }
-    }, _callee16);
-  }));
-}
-function getInitializerFromLocalStorage() {
-  var _a, _b;
-  return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee17() {
-    var local, init, initializer, isLive;
-    return _regeneratorRuntime().wrap(function _callee17$(_context17) {
-      while (1) switch (_context17.prev = _context17.next) {
-        case 0:
-          local = localStorage.getItem(_hooks__WEBPACK_IMPORTED_MODULE_7__.storage_key);
-          init = {
-            target: ethers__WEBPACK_IMPORTED_MODULE_2__.ethers.constants.AddressZero,
-            selector: '0x00000000'
-          };
-          if (!local) {
-            _context17.next = 8;
-            break;
-          }
-          initializer = (_b = (_a = JSON.parse(local)) === null || _a === void 0 ? void 0 : _a.upgrade) === null || _b === void 0 ? void 0 : _b.initializer;
-          _context17.next = 6;
-          return (0,_hooks__WEBPACK_IMPORTED_MODULE_7__.isLiveAddress)(initializer === null || initializer === void 0 ? void 0 : initializer.target, getProvider());
-        case 6:
-          isLive = _context17.sent;
-          if (isLive) {
-            init = {
-              target: initializer.target,
-              selector: initializer.selector
-            };
-          }
-        case 8:
-          return _context17.abrupt("return", init);
-        case 9:
-        case "end":
-          return _context17.stop();
-      }
-    }, _callee17);
-  }));
-}
-function getProvider() {
-  if (window.ethereum) {
-    return new ethers__WEBPACK_IMPORTED_MODULE_2__.ethers.providers.Web3Provider(window.ethereum);
-    // use the provider object to interact with the blockchain
-  } else {
-    console.log('Please install MetaMask!');
-  }
-}
-function useFacetDeployed(name) {
-  var _a, _b;
-  var store = useDappletStore();
-  var _useEthers = (0,_usedapp_core__WEBPACK_IMPORTED_MODULE_1__.useEthers)(),
-    library = _useEthers.library;
-  var facet = (store === null || store === void 0 ? void 0 : store.upgrade) && ((_a = store === null || store === void 0 ? void 0 : store.upgrade.facets.find(function (f) {
-    return Object.keys(f)[0] === name;
-  })) === null || _a === void 0 ? void 0 : _a[name]);
-  var target = (_b = facet === null || facet === void 0 ? void 0 : facet.cut) === null || _b === void 0 ? void 0 : _b.target;
-  (0,react__WEBPACK_IMPORTED_MODULE_3__.useMemo)(function () {
-    function checkAddress() {
-      return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee18() {
-        var isLive;
-        return _regeneratorRuntime().wrap(function _callee18$(_context18) {
-          while (1) switch (_context18.prev = _context18.next) {
-            case 0:
-              _context18.next = 2;
-              return (0,_hooks__WEBPACK_IMPORTED_MODULE_7__.isLiveAddress)(target, getProvider());
-            case 2:
-              isLive = _context18.sent;
-              isLive ? store.setFacetIsDeployed(name, true) : store.setFacetIsDeployed(name, false);
-            case 4:
-            case "end":
-              return _context18.stop();
-          }
-        }, _callee18);
-      }));
-    }
-    checkAddress();
-  }, [target, library]);
-  console.log(name, 'deployed', facet === null || facet === void 0 ? void 0 : facet.isDeployed, target);
-  return facet === null || facet === void 0 ? void 0 : facet.isDeployed;
-}
-function useInitializerDeployed() {
-  var _a;
-  var store = useDappletStore();
-  var initializer = (_a = store === null || store === void 0 ? void 0 : store.upgrade) === null || _a === void 0 ? void 0 : _a.initializer;
-  var target = initializer === null || initializer === void 0 ? void 0 : initializer.target;
-  (0,react__WEBPACK_IMPORTED_MODULE_3__.useMemo)(function () {
-    function checkAddress() {
-      return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee19() {
-        var isLive;
-        return _regeneratorRuntime().wrap(function _callee19$(_context19) {
-          while (1) switch (_context19.prev = _context19.next) {
-            case 0:
-              _context19.next = 2;
-              return (0,_hooks__WEBPACK_IMPORTED_MODULE_7__.isLiveAddress)(target, getProvider());
-            case 2:
-              isLive = _context19.sent;
-              isLive ? store.setInitializerIsDeployed(true) : store.setInitializerIsDeployed(false);
-            case 4:
-            case "end":
-              return _context19.stop();
-          }
-        }, _callee19);
-      }));
-    }
-    checkAddress();
-  }, [target]);
-  console.log('initializer deployed', initializer === null || initializer === void 0 ? void 0 : initializer.isDeployed, target);
-  return initializer === null || initializer === void 0 ? void 0 : initializer.isDeployed;
-}
-function useUpgradeAddressDeployed() {
-  var _useDappletStore = useDappletStore(),
-    upgrade = _useDappletStore.upgrade;
-  var address = upgrade === null || upgrade === void 0 ? void 0 : upgrade.address;
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(false),
-    _useState2 = _slicedToArray(_useState, 2),
-    deployed = _useState2[0],
-    setDeployed = _useState2[1];
-  (0,react__WEBPACK_IMPORTED_MODULE_3__.useMemo)(function () {
-    function checkAddress() {
-      var _a, _b;
-      return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee20() {
-        var isLive, PKG, get, eq, _iterator, _step, _loop, _isLive;
-        return _regeneratorRuntime().wrap(function _callee20$(_context21) {
-          while (1) switch (_context21.prev = _context21.next) {
-            case 0:
-              _context21.next = 2;
-              return (0,_hooks__WEBPACK_IMPORTED_MODULE_7__.isLiveAddress)(address, getProvider());
-            case 2:
-              isLive = _context21.sent;
-              if (!isLive) {
-                _context21.next = 30;
-                break;
-              }
-              PKG = new ethers__WEBPACK_IMPORTED_MODULE_2__.ethers.Contract(address, _contracts_types__WEBPACK_IMPORTED_MODULE_6__.PKG__factory.abi, getProvider());
-              _context21.next = 7;
-              return PKG.get(0);
-            case 7:
-              get = _context21.sent;
-              //match get with store.upgrade facets & initializers
-              eq = true;
-              _iterator = _createForOfIteratorHelper(get.cuts);
-              _context21.prev = 10;
-              _loop = /*#__PURE__*/_regeneratorRuntime().mark(function _loop() {
-                var cut, isLive;
-                return _regeneratorRuntime().wrap(function _loop$(_context20) {
-                  while (1) switch (_context20.prev = _context20.next) {
-                    case 0:
-                      cut = _step.value;
-                      _context20.next = 3;
-                      return (0,_hooks__WEBPACK_IMPORTED_MODULE_7__.isLiveAddress)(cut.target, getProvider());
-                    case 3:
-                      isLive = _context20.sent;
-                      if (isLive) {
-                        // cut should match the cut in store.upgrade.facets.map(facet => facet[facetName].cut)
-                        eq = eq && (upgrade === null || upgrade === void 0 ? void 0 : upgrade.facets.find(function (f) {
-                          var _a;
-                          var obj = Object.values(f)[0];
-                          return ((_a = obj === null || obj === void 0 ? void 0 : obj.cut) === null || _a === void 0 ? void 0 : _a.target) === cut.target;
-                        }));
-                      }
-                    case 5:
-                    case "end":
-                      return _context20.stop();
-                  }
-                }, _loop);
-              });
-              _iterator.s();
-            case 13:
-              if ((_step = _iterator.n()).done) {
-                _context21.next = 17;
-                break;
-              }
-              return _context21.delegateYield(_loop(), "t0", 15);
-            case 15:
-              _context21.next = 13;
-              break;
-            case 17:
-              _context21.next = 22;
-              break;
-            case 19:
-              _context21.prev = 19;
-              _context21.t1 = _context21["catch"](10);
-              _iterator.e(_context21.t1);
-            case 22:
-              _context21.prev = 22;
-              _iterator.f();
-              return _context21.finish(22);
-            case 25:
-              _context21.next = 27;
-              return (0,_hooks__WEBPACK_IMPORTED_MODULE_7__.isLiveAddress)(get.target, getProvider());
-            case 27:
-              _isLive = _context21.sent;
-              if (_isLive) {
-                eq = eq && ((_a = upgrade === null || upgrade === void 0 ? void 0 : upgrade.initializer) === null || _a === void 0 ? void 0 : _a.target) === get.target && ((_b = upgrade === null || upgrade === void 0 ? void 0 : upgrade.initializer) === null || _b === void 0 ? void 0 : _b.selector) === get.selector;
-              }
-              setDeployed(eq);
-            case 30:
-            case "end":
-              return _context21.stop();
-          }
-        }, _callee20, null, [[10, 19, 22, 25]]);
-      }));
-    }
-    checkAddress();
-  }, [address, upgrade === null || upgrade === void 0 ? void 0 : upgrade.facets, upgrade === null || upgrade === void 0 ? void 0 : upgrade.initializer]);
-  return deployed;
-}
-function useGetPkg(addr) {
-  var PKG = new ethers__WEBPACK_IMPORTED_MODULE_2__.Contract(addr, _contracts_types__WEBPACK_IMPORTED_MODULE_6__.PKG__factory.abi, getProvider());
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(null),
-    _useState4 = _slicedToArray(_useState3, 2),
-    pkg = _useState4[0],
-    setPkg = _useState4[1];
-  (0,react__WEBPACK_IMPORTED_MODULE_3__.useMemo)(function () {
-    PKG.get(0).then(function (pkg) {
-      setPkg(pkg);
-    });
-  }, [addr]);
-  return pkg;
-}
-
-/***/ }),
-
 /***/ "./node_modules/bn.js/lib/bn.js":
 /*!**************************************!*\
   !*** ./node_modules/bn.js/lib/bn.js ***!
@@ -27954,155 +19883,6 @@ function useGetPkg(addr) {
   };
 })( false || module, this);
 
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/dist/cjs.js!./src/main.css":
-/*!************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js!./src/main.css ***!
-  \************************************************************/
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/cssWithMappingToString.js */ "./node_modules/css-loader/dist/runtime/cssWithMappingToString.js");
-/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
-// Imports
-
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".creation-card::part(body) {\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n  padding-top: 1rem;\n}\n\n.active-indicator {\n  width: 10px;\n  height: 10px;\n  margin-right: 0.5rem;\n  border-radius: 50%;\n  background-color: var(--sl-color-success);\n  animation: pulse 1s infinite alternate;\n}\n\n@keyframes pulse {\n  0% {\n    transform: scale(1);\n  }\n  100% {\n    transform: scale(1.2);\n  }\n}\n", "",{"version":3,"sources":["webpack://./src/main.css"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,sBAAsB;EACtB,SAAS;EACT,iBAAiB;AACnB;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,oBAAoB;EACpB,kBAAkB;EAClB,yCAAyC;EACzC,sCAAsC;AACxC;;AAEA;EACE;IACE,mBAAmB;EACrB;EACA;IACE,qBAAqB;EACvB;AACF","sourcesContent":[".creation-card::part(body) {\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n  padding-top: 1rem;\n}\n\n.active-indicator {\n  width: 10px;\n  height: 10px;\n  margin-right: 0.5rem;\n  border-radius: 50%;\n  background-color: var(--sl-color-success);\n  animation: pulse 1s infinite alternate;\n}\n\n@keyframes pulse {\n  0% {\n    transform: scale(1);\n  }\n  100% {\n    transform: scale(1.2);\n  }\n}\n"],"sourceRoot":""}]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/dist/runtime/api.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/css-loader/dist/runtime/api.js ***!
-  \*****************************************************/
-/***/ ((module) => {
-
-"use strict";
-
-
-/*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Author Tobias Koppers @sokra
-*/
-// css base code, injected by the css-loader
-// eslint-disable-next-line func-names
-module.exports = function (cssWithMappingToString) {
-  var list = []; // return the list of modules as css string
-
-  list.toString = function toString() {
-    return this.map(function (item) {
-      var content = cssWithMappingToString(item);
-
-      if (item[2]) {
-        return "@media ".concat(item[2], " {").concat(content, "}");
-      }
-
-      return content;
-    }).join("");
-  }; // import a list of modules into the list
-  // eslint-disable-next-line func-names
-
-
-  list.i = function (modules, mediaQuery, dedupe) {
-    if (typeof modules === "string") {
-      // eslint-disable-next-line no-param-reassign
-      modules = [[null, modules, ""]];
-    }
-
-    var alreadyImportedModules = {};
-
-    if (dedupe) {
-      for (var i = 0; i < this.length; i++) {
-        // eslint-disable-next-line prefer-destructuring
-        var id = this[i][0];
-
-        if (id != null) {
-          alreadyImportedModules[id] = true;
-        }
-      }
-    }
-
-    for (var _i = 0; _i < modules.length; _i++) {
-      var item = [].concat(modules[_i]);
-
-      if (dedupe && alreadyImportedModules[item[0]]) {
-        // eslint-disable-next-line no-continue
-        continue;
-      }
-
-      if (mediaQuery) {
-        if (!item[2]) {
-          item[2] = mediaQuery;
-        } else {
-          item[2] = "".concat(mediaQuery, " and ").concat(item[2]);
-        }
-      }
-
-      list.push(item);
-    }
-  };
-
-  return list;
-};
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/dist/runtime/cssWithMappingToString.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/runtime/cssWithMappingToString.js ***!
-  \************************************************************************/
-/***/ ((module) => {
-
-"use strict";
-
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-module.exports = function cssWithMappingToString(item) {
-  var _item = _slicedToArray(item, 4),
-      content = _item[1],
-      cssMapping = _item[3];
-
-  if (!cssMapping) {
-    return content;
-  }
-
-  if (typeof btoa === "function") {
-    // eslint-disable-next-line no-undef
-    var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(cssMapping))));
-    var data = "sourceMappingURL=data:application/json;charset=utf-8;base64,".concat(base64);
-    var sourceMapping = "/*# ".concat(data, " */");
-    var sourceURLs = cssMapping.sources.map(function (source) {
-      return "/*# sourceURL=".concat(cssMapping.sourceRoot || "").concat(source, " */");
-    });
-    return [content].concat(sourceURLs).concat([sourceMapping]).join("\n");
-  }
-
-  return [content].join("\n");
-};
 
 /***/ }),
 
@@ -52770,7 +44550,7 @@ function base58check(data) {
 }
 function getWordlist(wordlist) {
     if (wordlist == null) {
-        return _ethersproject_wordlists__WEBPACK_IMPORTED_MODULE_7__.wordlists.en;
+        return _ethersproject_wordlists__WEBPACK_IMPORTED_MODULE_7__.wordlists["en"];
     }
     if (typeof (wordlist) === "string") {
         const words = _ethersproject_wordlists__WEBPACK_IMPORTED_MODULE_7__.wordlists[wordlist];
@@ -62898,7 +54678,7 @@ function decrypt(json, password) {
     const iv = encseed.slice(0, 16);
     const encryptedSeed = encseed.slice(16);
     // Decrypt the seed
-    const aesCbc = new (aes_js__WEBPACK_IMPORTED_MODULE_0___default().ModeOfOperation.cbc)(key, iv);
+    const aesCbc = new (aes_js__WEBPACK_IMPORTED_MODULE_0___default().ModeOfOperation).cbc(key, iv);
     const seed = aes_js__WEBPACK_IMPORTED_MODULE_0___default().padding.pkcs7.strip((0,_ethersproject_bytes__WEBPACK_IMPORTED_MODULE_6__.arrayify)(aesCbc.decrypt(encryptedSeed)));
     // This wallet format is weird... Convert the binary encoded hex to a string.
     let seedHex = "";
@@ -63106,7 +54886,7 @@ function _decrypt(data, key, ciphertext) {
     if (cipher === "aes-128-ctr") {
         const iv = (0,_utils__WEBPACK_IMPORTED_MODULE_5__.looseArrayify)((0,_utils__WEBPACK_IMPORTED_MODULE_5__.searchPath)(data, "crypto/cipherparams/iv"));
         const counter = new (aes_js__WEBPACK_IMPORTED_MODULE_0___default().Counter)(iv);
-        const aesCtr = new (aes_js__WEBPACK_IMPORTED_MODULE_0___default().ModeOfOperation.ctr)(key, counter);
+        const aesCtr = new (aes_js__WEBPACK_IMPORTED_MODULE_0___default().ModeOfOperation).ctr(key, counter);
         return (0,_ethersproject_bytes__WEBPACK_IMPORTED_MODULE_6__.arrayify)(aesCtr.decrypt(ciphertext));
     }
     return null;
@@ -63144,7 +54924,7 @@ function _getAccount(data, key) {
         const mnemonicCiphertext = (0,_utils__WEBPACK_IMPORTED_MODULE_5__.looseArrayify)((0,_utils__WEBPACK_IMPORTED_MODULE_5__.searchPath)(data, "x-ethers/mnemonicCiphertext"));
         const mnemonicIv = (0,_utils__WEBPACK_IMPORTED_MODULE_5__.looseArrayify)((0,_utils__WEBPACK_IMPORTED_MODULE_5__.searchPath)(data, "x-ethers/mnemonicCounter"));
         const mnemonicCounter = new (aes_js__WEBPACK_IMPORTED_MODULE_0___default().Counter)(mnemonicIv);
-        const mnemonicAesCtr = new (aes_js__WEBPACK_IMPORTED_MODULE_0___default().ModeOfOperation.ctr)(mnemonicKey, mnemonicCounter);
+        const mnemonicAesCtr = new (aes_js__WEBPACK_IMPORTED_MODULE_0___default().ModeOfOperation).ctr(mnemonicKey, mnemonicCounter);
         const path = (0,_utils__WEBPACK_IMPORTED_MODULE_5__.searchPath)(data, "x-ethers/path") || _ethersproject_hdnode__WEBPACK_IMPORTED_MODULE_10__.defaultPath;
         const locale = (0,_utils__WEBPACK_IMPORTED_MODULE_5__.searchPath)(data, "x-ethers/locale") || "en";
         const entropy = (0,_ethersproject_bytes__WEBPACK_IMPORTED_MODULE_6__.arrayify)(mnemonicAesCtr.decrypt(mnemonicCiphertext));
@@ -63331,7 +55111,7 @@ function encrypt(account, password, options, progressCallback) {
         const mnemonicKey = key.slice(32, 64);
         // Encrypt the private key
         const counter = new (aes_js__WEBPACK_IMPORTED_MODULE_0___default().Counter)(iv);
-        const aesCtr = new (aes_js__WEBPACK_IMPORTED_MODULE_0___default().ModeOfOperation.ctr)(derivedKey, counter);
+        const aesCtr = new (aes_js__WEBPACK_IMPORTED_MODULE_0___default().ModeOfOperation).ctr(derivedKey, counter);
         const ciphertext = (0,_ethersproject_bytes__WEBPACK_IMPORTED_MODULE_6__.arrayify)(aesCtr.encrypt(privateKey));
         // Compute the message authentication code, used to check the password
         const mac = (0,_ethersproject_keccak256__WEBPACK_IMPORTED_MODULE_7__.keccak256)((0,_ethersproject_bytes__WEBPACK_IMPORTED_MODULE_6__.concat)([macPrefix, ciphertext]));
@@ -63361,7 +55141,7 @@ function encrypt(account, password, options, progressCallback) {
         if (entropy) {
             const mnemonicIv = (0,_ethersproject_random__WEBPACK_IMPORTED_MODULE_12__.randomBytes)(16);
             const mnemonicCounter = new (aes_js__WEBPACK_IMPORTED_MODULE_0___default().Counter)(mnemonicIv);
-            const mnemonicAesCtr = new (aes_js__WEBPACK_IMPORTED_MODULE_0___default().ModeOfOperation.ctr)(mnemonicKey, mnemonicCounter);
+            const mnemonicAesCtr = new (aes_js__WEBPACK_IMPORTED_MODULE_0___default().ModeOfOperation).ctr(mnemonicKey, mnemonicCounter);
             const mnemonicCiphertext = (0,_ethersproject_bytes__WEBPACK_IMPORTED_MODULE_6__.arrayify)(mnemonicAesCtr.encrypt(entropy));
             const now = new Date();
             const timestamp = (now.getUTCFullYear() + "-" +
@@ -64715,7 +56495,7 @@ function base58check(data) {
 }
 function getWordlist(wordlist) {
     if (wordlist == null) {
-        return _ethersproject_wordlists__WEBPACK_IMPORTED_MODULE_7__.wordlists.en;
+        return _ethersproject_wordlists__WEBPACK_IMPORTED_MODULE_7__.wordlists["en"];
     }
     if (typeof (wordlist) === "string") {
         const words = _ethersproject_wordlists__WEBPACK_IMPORTED_MODULE_7__.wordlists[wordlist];
@@ -97244,6 +89024,8226 @@ assert.equal = function assertEqual(l, r, msg) {
 
 /***/ }),
 
+/***/ "./src/components/molecules/ContractCard.tsx":
+/*!***************************************************!*\
+  !*** ./src/components/molecules/ContractCard.tsx ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @shoelace-style/shoelace/dist/react */ "@shoelace-style/shoelace/dist/react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _lib_hooks_useDeployFacet__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../lib/hooks/useDeployFacet */ "./src/lib/hooks/useDeployFacet.ts");
+/* harmony import */ var _lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../lib/stores/dapplet */ "./src/lib/stores/dapplet.ts");
+
+
+
+// import { useFacetDeployed } from '../../hooks/useFacetDeployed';
+
+function ContractCard(_ref) {
+  var name = _ref.name,
+    value = _ref.value;
+  var deploy = (0,_lib_hooks_useDeployFacet__WEBPACK_IMPORTED_MODULE_2__.useDeployFacet)(name, value);
+  var deployed = (0,_lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_3__.useFacetDeployed)(name);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlCard, null, value && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+    className: "flex flex-row items-center justify-between"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlButton, {
+    variant: deployed ? 'default' : 'success',
+    outline: !deployed,
+    size: "small",
+    onClick: function onClick() {
+      return deploy();
+    }
+  }, deployed ? 'Re-deploy' : 'Deploy'))));
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ContractCard);
+
+/***/ }),
+
+/***/ "./src/components/molecules/FacetCard.tsx":
+/*!************************************************!*\
+  !*** ./src/components/molecules/FacetCard.tsx ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @shoelace-style/shoelace/dist/react */ "@shoelace-style/shoelace/dist/react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _lib_hooks_useDeployFacet__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../lib/hooks/useDeployFacet */ "./src/lib/hooks/useDeployFacet.ts");
+/* harmony import */ var _lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../lib/stores/dapplet */ "./src/lib/stores/dapplet.ts");
+
+
+
+// import { useFacetDeployed } from '../../hooks/useFacetDeployed';
+
+function FacetCard(_ref) {
+  var name = _ref.name,
+    facet = _ref.facet;
+  var deploy = (0,_lib_hooks_useDeployFacet__WEBPACK_IMPORTED_MODULE_2__.useDeployFacet)(name, facet);
+  var deployed = (0,_lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_3__.useFacetDeployed)(name);
+  var fns = facet.abi.map(function (fn) {
+    var _a;
+    if (fn.type !== 'receive' && fn.type !== 'fallback' && fn.type !== 'event' && fn.type !== 'error' && fn.type !== 'constructor') {
+      return fn.name + '(' + ((_a = fn.inputs) === null || _a === void 0 ? void 0 : _a.map(function (input) {
+        return input.type;
+      }).join(',')) + ')';
+    }
+  }).filter(function (fn) {
+    return fn !== undefined;
+  });
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlCard, null, facet && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+    slot: "header",
+    className: "flex flex-row items-center justify-between"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, name)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+    className: "flex flex-col gap-4"
+  }, fns === null || fns === void 0 ? void 0 : fns.map(function (fn, i) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+      className: "flex flex-row items-center justify-between"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+      className: "flex flex-row items-center gap-3"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlIcon, {
+      name: "arrow-return-right"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+      key: i
+    }, fn)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlSwitch, {
+      checked: true,
+      disabled: true
+    }));
+  }))));
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FacetCard);
+
+/***/ }),
+
+/***/ "./src/components/molecules/InitializerCard.tsx":
+/*!******************************************************!*\
+  !*** ./src/components/molecules/InitializerCard.tsx ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @shoelace-style/shoelace/dist/react */ "@shoelace-style/shoelace/dist/react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _lib_hooks_useDeployInitializer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../lib/hooks/useDeployInitializer */ "./src/lib/hooks/useDeployInitializer.ts");
+/* harmony import */ var _lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../lib/stores/dapplet */ "./src/lib/stores/dapplet.ts");
+
+
+
+
+function InitializerCard() {
+  var _a;
+  var store = (0,_lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_3__.useDappletStore)();
+  var initializer = (_a = store === null || store === void 0 ? void 0 : store.upgrade) === null || _a === void 0 ? void 0 : _a.initializer;
+  console.log('asdfs initializer', initializer);
+  var name = Object.keys(initializer)[0];
+  var values = initializer[name];
+  var deploy = (0,_lib_hooks_useDeployInitializer__WEBPACK_IMPORTED_MODULE_2__.useDeployInitializer)(values);
+  var deployed = (0,_lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_3__.useInitializerDeployed)();
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, null, Object.keys(initializer).length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlCard, {
+    className: "w-full"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", {
+    slot: "header",
+    className: "flex flex-row items-center justify-between"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("div", null, name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlButton, {
+    variant: deployed ? 'default' : 'success',
+    outline: !deployed,
+    size: "small",
+    onClick: function onClick() {
+      return deploy();
+    }
+  }, deployed ? 'Re-deploy' : 'Deploy')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("ul", {
+    className: "fn-list"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createElement("li", null, values["function"]))));
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (InitializerCard);
+
+/***/ }),
+
+/***/ "./src/components/molecules/PkgCard.tsx":
+/*!**********************************************!*\
+  !*** ./src/components/molecules/PkgCard.tsx ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @shoelace-style/shoelace/dist/react */ "@shoelace-style/shoelace/dist/react");
+/* harmony import */ var _usedapp_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @usedapp/core */ "@usedapp/core");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _lib_hooks_useInstallPkg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../lib/hooks/useInstallPkg */ "./src/lib/hooks/useInstallPkg.tsx");
+/* harmony import */ var _lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../lib/stores/dapplet */ "./src/lib/stores/dapplet.ts");
+
+
+
+
+
+function PkgCard(_ref) {
+  var pkg = _ref.pkg,
+    local = _ref.local;
+  var _a;
+  var get = (0,_lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_4__.useGetPkg)(pkg);
+  var _useInstallPkg = (0,_lib_hooks_useInstallPkg__WEBPACK_IMPORTED_MODULE_3__.useInstallPkg)(),
+    install = _useInstallPkg.send;
+  var _useUninstallPkg = (0,_lib_hooks_useInstallPkg__WEBPACK_IMPORTED_MODULE_3__.useUninstallPkg)(),
+    uninstall = _useUninstallPkg.send;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlCard, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
+    className: "flex flex-row items-center justify-between gap-2",
+    slot: "header"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlIcon, {
+    name: "box"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", null, pkg && (0,_usedapp_core__WEBPACK_IMPORTED_MODULE_1__.shortenAddress)(pkg)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlButton, {
+    variant: local ? 'success' : 'danger',
+    outline: true,
+    size: "small",
+    onClick: function onClick() {
+      return local ? install() : uninstall(pkg);
+    }
+  }, local ? 'Install' : 'Uninstall')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
+    className: "flex flex-col gap-5"
+  }, (_a = get === null || get === void 0 ? void 0 : get.cuts) === null || _a === void 0 ? void 0 : _a.map(function (cut, i) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlCard, {
+      key: i
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
+      className: "flex flex-row items-center gap-4",
+      slot: "header"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlIcon, {
+      name: "gem"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", null, cut.target && (0,_usedapp_core__WEBPACK_IMPORTED_MODULE_1__.shortenAddress)(cut.target))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", null, cut.selectors.map(function (selector, j) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
+        className: "flex flex-row items-center gap-2",
+        key: j
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlIcon, {
+        name: "arrow-return-right"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", null, selector));
+    })));
+  })));
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PkgCard);
+
+/***/ }),
+
+/***/ "./src/components/organisms/Contracts.tsx":
+/*!************************************************!*\
+  !*** ./src/components/organisms/Contracts.tsx ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @shoelace-style/shoelace/dist/react */ "@shoelace-style/shoelace/dist/react");
+/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ethers */ "ethers");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../lib/stores/dapplet */ "./src/lib/stores/dapplet.ts");
+/* harmony import */ var _molecules_ContractCard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../molecules/ContractCard */ "./src/components/molecules/ContractCard.tsx");
+/* harmony import */ var _molecules_InitializerCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../molecules/InitializerCard */ "./src/components/molecules/InitializerCard.tsx");
+
+
+
+
+
+
+function Contracts() {
+  var _a, _b;
+  var store = (0,_lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_3__.useDappletStore)();
+  var facets = (_a = store === null || store === void 0 ? void 0 : store.upgrade) === null || _a === void 0 ? void 0 : _a.facets;
+  var facetNames = facets.map(function (f) {
+    return Object.keys(f)[0];
+  });
+  var facetValues = facets.map(function (f) {
+    return Object.values(f)[0];
+  });
+  var initializer = (_b = store === null || store === void 0 ? void 0 : store.upgrade) === null || _b === void 0 ? void 0 : _b.initializer;
+  var initializerIsDeployed = (initializer === null || initializer === void 0 ? void 0 : initializer.target) !== ethers__WEBPACK_IMPORTED_MODULE_1__.ethers.constants.AddressZero && (initializer === null || initializer === void 0 ? void 0 : initializer.isDeployed);
+  var facetsRemaining = facetValues.length - facetValues.filter(function (f) {
+    return f.isDeployed;
+  }).length;
+  var remaining = initializerIsDeployed ? facetsRemaining + 1 : facetsRemaining;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlDetails, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
+    slot: "summary",
+    className: "flex flex-row items-center justify-between w-full"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", null, "Contracts"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlBadge, {
+    variant: remaining > 0 ? 'success' : 'neutral',
+    pill: true,
+    pulse: remaining > 0,
+    style: {
+      marginRight: '1rem'
+    }
+  }, remaining > 0 ? "".concat(remaining) : 'deployed')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
+    className: "flex flex-col gap-2 text-left"
+  }, facetNames.map(function (name, i) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_molecules_ContractCard__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      name: name,
+      value: facetValues[i]
+    });
+  })), (initializer === null || initializer === void 0 ? void 0 : initializer.target) && (initializer === null || initializer === void 0 ? void 0 : initializer.target) !== ethers__WEBPACK_IMPORTED_MODULE_1__.ethers.constants.AddressZero && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(react__WEBPACK_IMPORTED_MODULE_2__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlDivider, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
+    className: "flex flex-col gap-2 text-left"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_molecules_InitializerCard__WEBPACK_IMPORTED_MODULE_5__["default"], null))));
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Contracts);
+
+/***/ }),
+
+/***/ "./src/components/organisms/Installation.tsx":
+/*!***************************************************!*\
+  !*** ./src/components/organisms/Installation.tsx ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @shoelace-style/shoelace/dist/react */ "@shoelace-style/shoelace/dist/react");
+/* harmony import */ var _usedapp_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @usedapp/core */ "@usedapp/core");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _lib_hooks_useInstallPkg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../lib/hooks/useInstallPkg */ "./src/lib/hooks/useInstallPkg.tsx");
+/* harmony import */ var _lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../lib/stores/dapplet */ "./src/lib/stores/dapplet.ts");
+/* harmony import */ var _molecules_PkgCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../molecules/PkgCard */ "./src/components/molecules/PkgCard.tsx");
+
+
+
+
+
+
+function Installation() {
+  var installs = (0,_lib_hooks_useInstallPkg__WEBPACK_IMPORTED_MODULE_3__.useInstalledBy)();
+  console.log('asdf installs', installs);
+  var installed = (0,_lib_hooks_useInstallPkg__WEBPACK_IMPORTED_MODULE_3__.useIsInstalled)();
+  console.log('asdf installed', installed);
+  var created = (0,_lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_4__.useUpgradeAddressDeployed)();
+  var waiting = !created;
+  var _useDappletStore = (0,_lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_4__.useDappletStore)(),
+    client = _useDappletStore.client,
+    upgrade = _useDappletStore.upgrade;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(react__WEBPACK_IMPORTED_MODULE_2__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlDetails, {
+    disabled: waiting
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
+    className: "flex flex-row items-center justify-between w-full",
+    slot: "summary"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", null, "Installation"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlBadge, {
+    variant: installed ? 'neutral' : !created ? 'warning' : 'success',
+    pill: true,
+    style: {
+      marginRight: '1rem'
+    },
+    pulse: !installed && created
+  }, installed ? 'installed' : !created ? 'waiting' : 'ready')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlCard, {
+    className: "w-full"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
+    slot: "header",
+    className: "flex flex-row items-center gap-3"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlIcon, {
+    name: "app-indicator"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", null, client.address && (0,_usedapp_core__WEBPACK_IMPORTED_MODULE_1__.shortenAddress)(client.address))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
+    className: "flex flex-col gap-5"
+  }, created && !installed && upgrade.address && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_molecules_PkgCard__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    pkg: upgrade.address,
+    local: true
+  }), installs === null || installs === void 0 ? void 0 : installs.map(function (pkg, i) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_molecules_PkgCard__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      pkg: pkg,
+      local: false,
+      key: i
+    });
+  })))));
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Installation);
+
+/***/ }),
+
+/***/ "./src/components/organisms/LiveDeploy.tsx":
+/*!*************************************************!*\
+  !*** ./src/components/organisms/LiveDeploy.tsx ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @shoelace-style/shoelace/dist/react */ "@shoelace-style/shoelace/dist/react");
+/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ethers */ "ethers");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../lib/stores/dapplet */ "./src/lib/stores/dapplet.ts");
+/* harmony import */ var _molecules_ContractCard__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../molecules/ContractCard */ "./src/components/molecules/ContractCard.tsx");
+/* harmony import */ var _molecules_InitializerCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../molecules/InitializerCard */ "./src/components/molecules/InitializerCard.tsx");
+
+
+
+
+
+
+function LiveDeploy() {
+  var _a, _b;
+  var store = (0,_lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_3__.useDappletStore)();
+  var facets = (_a = store === null || store === void 0 ? void 0 : store.upgrade) === null || _a === void 0 ? void 0 : _a.facets;
+  var facetNames = facets.map(function (f) {
+    return Object.keys(f)[0];
+  });
+  var facetValues = facets.map(function (f) {
+    return Object.values(f)[0];
+  });
+  var initializer = (_b = store === null || store === void 0 ? void 0 : store.upgrade) === null || _b === void 0 ? void 0 : _b.initializer;
+  var initializerIsDeployed = (initializer === null || initializer === void 0 ? void 0 : initializer.target) !== ethers__WEBPACK_IMPORTED_MODULE_1__.ethers.constants.AddressZero && (initializer === null || initializer === void 0 ? void 0 : initializer.isDeployed);
+  var facetsRemaining = facetValues.length - facetValues.filter(function (f) {
+    return f.isDeployed;
+  }).length;
+  var remaining = initializerIsDeployed ? facetsRemaining + 1 : facetsRemaining;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlDetails, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
+    slot: "summary",
+    className: "flex flex-row items-center justify-between w-full"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", null, "Contracts (live)"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlBadge, {
+    variant: remaining > 0 ? 'success' : 'neutral',
+    pill: true,
+    pulse: remaining > 0,
+    style: {
+      marginRight: '1rem'
+    }
+  }, remaining > 0 ? "".concat(remaining) : 'deployed')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
+    className: "flex flex-col gap-2 text-left"
+  }, facetNames.map(function (name, i) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_molecules_ContractCard__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      name: name,
+      value: facetValues[i]
+    });
+  })), (initializer === null || initializer === void 0 ? void 0 : initializer.target) && (initializer === null || initializer === void 0 ? void 0 : initializer.target) !== ethers__WEBPACK_IMPORTED_MODULE_1__.ethers.constants.AddressZero && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(react__WEBPACK_IMPORTED_MODULE_2__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlDivider, null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
+    className: "flex flex-col gap-2 text-left"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_molecules_InitializerCard__WEBPACK_IMPORTED_MODULE_5__["default"], null))));
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LiveDeploy);
+
+/***/ }),
+
+/***/ "./src/components/organisms/LiveRegister.tsx":
+/*!***************************************************!*\
+  !*** ./src/components/organisms/LiveRegister.tsx ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @shoelace-style/shoelace/dist/react */ "@shoelace-style/shoelace/dist/react");
+/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ethers */ "ethers");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _lib_hooks_useCreatePkg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../lib/hooks/useCreatePkg */ "./src/lib/hooks/useCreatePkg.tsx");
+/* harmony import */ var _lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../lib/stores/dapplet */ "./src/lib/stores/dapplet.ts");
+/* harmony import */ var _molecules_FacetCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../molecules/FacetCard */ "./src/components/molecules/FacetCard.tsx");
+
+
+
+
+
+
+function LiveRegister() {
+  var _a, _b;
+  var store = (0,_lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_4__.useDappletStore)();
+  var facets = (_a = store === null || store === void 0 ? void 0 : store.upgrade) === null || _a === void 0 ? void 0 : _a.facets;
+  var facetNames = facets.map(function (f) {
+    return Object.keys(f)[0];
+  });
+  var facetValues = facets.map(function (f) {
+    return Object.values(f)[0];
+  });
+  var initializer = (_b = store === null || store === void 0 ? void 0 : store.upgrade) === null || _b === void 0 ? void 0 : _b.initializer;
+  var name = store === null || store === void 0 ? void 0 : store.name;
+  var waiting = facetValues.filter(function (f) {
+    return !f.isDeployed;
+  }).length > 0 || (initializer === null || initializer === void 0 ? void 0 : initializer.target) !== ethers__WEBPACK_IMPORTED_MODULE_1__.ethers.constants.AddressZero && !(initializer === null || initializer === void 0 ? void 0 : initializer.isDeployed);
+  var _useCreatePkg = (0,_lib_hooks_useCreatePkg__WEBPACK_IMPORTED_MODULE_3__.useCreatePkg)(),
+    create = _useCreatePkg.send;
+  var created = (0,_lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_4__.useUpgradeAddressDeployed)();
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(react__WEBPACK_IMPORTED_MODULE_2__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlDetails, {
+    disabled: waiting
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
+    className: "flex flex-row items-center justify-between w-full",
+    slot: "summary"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", null, "Registration (live)"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlBadge, {
+    variant: waiting ? 'warning' : created ? 'neutral' : 'success',
+    pill: true,
+    style: {
+      marginRight: '1rem'
+    },
+    pulse: !created && !waiting
+  }, waiting ? 'waiting' : created ? 'created' : 'ready')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlCard, {
+    className: "w-full creation-card"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
+    slot: "header",
+    className: "flex flex-row items-center justify-between"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", null, name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlButton, {
+    variant: created ? 'default' : 'success',
+    outline: !created,
+    size: "small",
+    onClick: function onClick() {
+      return create();
+    }
+  }, created ? 'Re-create' : 'Create')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlInput, {
+    className: "w-full",
+    value: store === null || store === void 0 ? void 0 : store.CID,
+    placeholder: "Qm...",
+    helpText: "Add IPFS hash if publishing to live network",
+    onSlInput: function onSlInput(e) {
+      store === null || store === void 0 ? void 0 : store.setCID(e.target.value);
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
+    className: "w-full flex flex-col gap-5"
+  }, facetNames.map(function (name, i) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_molecules_FacetCard__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      name: name,
+      facet: facetValues[i]
+    });
+  })))));
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LiveRegister);
+
+/***/ }),
+
+/***/ "./src/components/organisms/Registration.tsx":
+/*!***************************************************!*\
+  !*** ./src/components/organisms/Registration.tsx ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @shoelace-style/shoelace/dist/react */ "@shoelace-style/shoelace/dist/react");
+/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ethers */ "ethers");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _lib_hooks_useCreatePkg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../lib/hooks/useCreatePkg */ "./src/lib/hooks/useCreatePkg.tsx");
+/* harmony import */ var _lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../lib/stores/dapplet */ "./src/lib/stores/dapplet.ts");
+/* harmony import */ var _molecules_FacetCard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../molecules/FacetCard */ "./src/components/molecules/FacetCard.tsx");
+
+
+
+
+
+
+function Registration() {
+  var _a, _b;
+  var store = (0,_lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_4__.useDappletStore)();
+  var facets = (_a = store === null || store === void 0 ? void 0 : store.upgrade) === null || _a === void 0 ? void 0 : _a.facets;
+  var facetNames = facets.map(function (f) {
+    return Object.keys(f)[0];
+  });
+  var facetValues = facets.map(function (f) {
+    return Object.values(f)[0];
+  });
+  var initializer = (_b = store === null || store === void 0 ? void 0 : store.upgrade) === null || _b === void 0 ? void 0 : _b.initializer;
+  var name = store === null || store === void 0 ? void 0 : store.name;
+  var waiting = facetValues.filter(function (f) {
+    return !f.isDeployed;
+  }).length > 0 || (initializer === null || initializer === void 0 ? void 0 : initializer.target) !== ethers__WEBPACK_IMPORTED_MODULE_1__.ethers.constants.AddressZero && !(initializer === null || initializer === void 0 ? void 0 : initializer.isDeployed);
+  var _useCreatePkg = (0,_lib_hooks_useCreatePkg__WEBPACK_IMPORTED_MODULE_3__.useCreatePkg)(),
+    create = _useCreatePkg.send;
+  var created = (0,_lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_4__.useUpgradeAddressDeployed)();
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(react__WEBPACK_IMPORTED_MODULE_2__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlDetails, {
+    disabled: waiting
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
+    className: "flex flex-row items-center justify-between w-full",
+    slot: "summary"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", null, "Registration"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlBadge, {
+    variant: waiting ? 'warning' : created ? 'neutral' : 'success',
+    pill: true,
+    style: {
+      marginRight: '1rem'
+    },
+    pulse: !created && !waiting
+  }, waiting ? 'waiting' : created ? 'created' : 'ready')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlCard, {
+    className: "w-full creation-card"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
+    slot: "header",
+    className: "flex flex-row items-center justify-between"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", null, name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlButton, {
+    variant: created ? 'default' : 'success',
+    outline: !created,
+    size: "small",
+    onClick: function onClick() {
+      return create();
+    }
+  }, created ? 'Re-create' : 'Create')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlInput, {
+    className: "w-full",
+    value: store === null || store === void 0 ? void 0 : store.CID,
+    placeholder: "Qm...",
+    helpText: "Add IPFS hash if publishing to live network",
+    onSlInput: function onSlInput(e) {
+      store === null || store === void 0 ? void 0 : store.setCID(e.target.value);
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement("div", {
+    className: "w-full flex flex-col gap-5"
+  }, facetNames.map(function (name, i) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__.createElement(_molecules_FacetCard__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      name: name,
+      facet: facetValues[i]
+    });
+  })))));
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Registration);
+
+/***/ }),
+
+/***/ "./src/components/templates/Assistant.tsx":
+/*!************************************************!*\
+  !*** ./src/components/templates/Assistant.tsx ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Assistant)
+/* harmony export */ });
+/* harmony import */ var _shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @shoelace-style/shoelace/dist/react */ "@shoelace-style/shoelace/dist/react");
+/* harmony import */ var _usedapp_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @usedapp/core */ "@usedapp/core");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _lib_hooks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../lib/hooks */ "./src/lib/hooks/index.tsx");
+/* harmony import */ var _lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../lib/stores/dapplet */ "./src/lib/stores/dapplet.ts");
+/* harmony import */ var _organisms_Contracts__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../organisms/Contracts */ "./src/components/organisms/Contracts.tsx");
+/* harmony import */ var _organisms_Installation__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../organisms/Installation */ "./src/components/organisms/Installation.tsx");
+/* harmony import */ var _organisms_LiveDeploy__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../organisms/LiveDeploy */ "./src/components/organisms/LiveDeploy.tsx");
+/* harmony import */ var _organisms_LiveRegister__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../organisms/LiveRegister */ "./src/components/organisms/LiveRegister.tsx");
+/* harmony import */ var _organisms_Registration__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../organisms/Registration */ "./src/components/organisms/Registration.tsx");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+
+
+function Assistant() {
+  var store = (0,_lib_stores_dapplet__WEBPACK_IMPORTED_MODULE_4__.useDappletStore)();
+  console.log('asdf store', store);
+  var _useEthers = (0,_usedapp_core__WEBPACK_IMPORTED_MODULE_1__.useEthers)(),
+    account = _useEthers.account,
+    chainId = _useEthers.chainId,
+    library = _useEthers.library,
+    activateBrowserWallet = _useEthers.activateBrowserWallet,
+    deactivate = _useEthers.deactivate;
+  (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
+    store.loading && store.load();
+  }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
+    !store.loading && localStorage.setItem(_lib_hooks__WEBPACK_IMPORTED_MODULE_3__.storage_key, JSON.stringify(store));
+  }, [store]);
+  // const { value: owner } = useOwnershipFacet.owner(store?.client, []) || {};
+  // console.log(owner?.[0] === account ? '✅ IS OWNER' : '🚫 ERR: IS NOT OWNER');
+  ////////////////////// for debugging
+  (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
+    var l = localStorage.getItem(_lib_hooks__WEBPACK_IMPORTED_MODULE_3__.storage_key);
+    l && console.log('asdf localStorage', JSON.parse(l));
+  }, [store]);
+  //////////////////////
+  var dialog = (0,react__WEBPACK_IMPORTED_MODULE_2__.useRef)(null);
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(true),
+    _useState2 = _slicedToArray(_useState, 2),
+    open = _useState2[0],
+    setOpen = _useState2[1];
+  function handleRequestClose(event) {
+    if (event.detail.source === 'overlay') {
+      event.preventDefault();
+      setOpen(false);
+    }
+  }
+  function handleHide(e) {
+    if (e.target === dialog.current) {
+      setOpen(false);
+    }
+  }
+  function handleReset() {
+    store.reset().then(function () {
+      store.load();
+    });
+  }
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(react__WEBPACK_IMPORTED_MODULE_2__["default"].Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlDialog, {
+    onSlRequestClose: handleRequestClose,
+    open: /* chainId.toString() === config.chainId &&  */open,
+    onSlAfterHide: handleHide,
+    ref: dialog
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement("div", {
+    slot: "label",
+    className: "flex flex-row items-center justify-between"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement("div", null, "Dapplet Dev Assistant")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement("div", {
+    slot: "header-actions",
+    className: "flex items-center"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlTooltip, {
+    content: "Logout",
+    placement: "top"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlIconButton, {
+    name: "box-arrow-right",
+    onClick: deactivate
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement("div", {
+    slot: "header-actions",
+    className: "flex items-center"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlTooltip, {
+    content: "Reset",
+    placement: "top"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlIconButton, {
+    name: "arrow-clockwise",
+    onClick: handleReset
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(react__WEBPACK_IMPORTED_MODULE_2__["default"].Fragment, null, account ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(react__WEBPACK_IMPORTED_MODULE_2__["default"].Fragment, null, store ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(_organisms_Contracts__WEBPACK_IMPORTED_MODULE_5__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(_organisms_Registration__WEBPACK_IMPORTED_MODULE_9__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(_organisms_Installation__WEBPACK_IMPORTED_MODULE_6__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(_organisms_LiveDeploy__WEBPACK_IMPORTED_MODULE_7__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(_organisms_LiveRegister__WEBPACK_IMPORTED_MODULE_8__["default"], null)) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlAlert, {
+    variant: "warning",
+    open: true
+  }, "dapplet.json not found")) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement("div", {
+    className: "flex flex-col gap-4"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlButton, {
+    variant: "primary",
+    onClick: function onClick() {
+      return activateBrowserWallet();
+    }
+  }, "CONNECT")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlTooltip, {
+    content: "Development Setup",
+    placement: "bottom"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["default"].createElement(_shoelace_style_shoelace_dist_react__WEBPACK_IMPORTED_MODULE_0__.SlIconButton, {
+    name: "gem",
+    label: "Edit",
+    style: {
+      fontSize: '2.5rem',
+      color: 'var(--sl-color-primary-500)'
+    },
+    onClick: function onClick() {
+      return setOpen(true);
+    }
+  })));
+}
+
+/***/ }),
+
+/***/ "./src/lib/actions/createPkg.tsx":
+/*!***************************************!*\
+  !*** ./src/lib/actions/createPkg.tsx ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createPkg: () => (/* binding */ createPkg)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "tslib");
+/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ethers */ "ethers");
+/* harmony import */ var ethers_lib_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ethers/lib/utils */ "./node_modules/ethers/lib/utils.js");
+/* harmony import */ var ethers_lib_utils__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(ethers_lib_utils__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../constants */ "./src/lib/constants/index.ts");
+/* harmony import */ var _contracts_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../contracts/types */ "./src/lib/contracts/types/index.ts");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+
+
+
+
+
+function createPkg(client, cut, cid, signer) {
+  return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+    var Installer, tx, receipt, iface, _iterator, _step, log, event;
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) switch (_context.prev = _context.next) {
+        case 0:
+          Installer = new ethers__WEBPACK_IMPORTED_MODULE_1__.Contract(client, _contracts_types__WEBPACK_IMPORTED_MODULE_3__.Installer__factory.abi, signer);
+          _context.next = 3;
+          return Installer.create(cut, cid, {
+            value: _constants__WEBPACK_IMPORTED_MODULE_2__.costOf.createPkg,
+            gasLimit: 1000000
+          });
+        case 3:
+          tx = _context.sent;
+          _context.next = 6;
+          return tx.wait();
+        case 6:
+          receipt = _context.sent;
+          iface = new ethers_lib_utils__WEBPACK_IMPORTED_MODULE_4__.Interface(_contracts_types__WEBPACK_IMPORTED_MODULE_3__.OperatorFacet__factory.abi);
+          _iterator = _createForOfIteratorHelper(receipt.logs);
+          _context.prev = 9;
+          _iterator.s();
+        case 11:
+          if ((_step = _iterator.n()).done) {
+            _context.next = 18;
+            break;
+          }
+          log = _step.value;
+          event = iface.parseLog(log);
+          if (!(event.name === 'PackageCreated')) {
+            _context.next = 16;
+            break;
+          }
+          return _context.abrupt("return", event.args.pkg);
+        case 16:
+          _context.next = 11;
+          break;
+        case 18:
+          _context.next = 23;
+          break;
+        case 20:
+          _context.prev = 20;
+          _context.t0 = _context["catch"](9);
+          _iterator.e(_context.t0);
+        case 23:
+          _context.prev = 23;
+          _iterator.f();
+          return _context.finish(23);
+        case 26:
+        case "end":
+          return _context.stop();
+      }
+    }, _callee, null, [[9, 20, 23, 26]]);
+  }));
+}
+
+/***/ }),
+
+/***/ "./src/lib/actions/deployContract.tsx":
+/*!********************************************!*\
+  !*** ./src/lib/actions/deployContract.tsx ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   deployContract: () => (/* binding */ deployContract),
+/* harmony export */   deployFacet: () => (/* binding */ deployFacet),
+/* harmony export */   deployInitializer: () => (/* binding */ deployInitializer)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "tslib");
+/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ethers */ "ethers");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+
+
+function deployContract(artifact, signer, args) {
+  return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+    var factory, contract;
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) switch (_context.prev = _context.next) {
+        case 0:
+          factory = new ethers__WEBPACK_IMPORTED_MODULE_1__.ethers.ContractFactory(artifact.abi, artifact.bytecode, signer);
+          _context.next = 3;
+          return factory.deploy.apply(factory, _toConsumableArray(args));
+        case 3:
+          contract = _context.sent;
+          _context.next = 6;
+          return contract.deployed();
+        case 6:
+          return _context.abrupt("return", contract);
+        case 7:
+        case "end":
+          return _context.stop();
+      }
+    }, _callee);
+  }));
+}
+function deployFacet(facet, signer) {
+  return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+    var cut, selectors, bytecode, abi, fns, constructorArgs, contract;
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) switch (_context2.prev = _context2.next) {
+        case 0:
+          cut = {
+            target: ethers__WEBPACK_IMPORTED_MODULE_1__.ethers.constants.AddressZero,
+            action: 0,
+            selectors: []
+          };
+          selectors = [];
+          bytecode = facet.bytecode;
+          abi = facet.abi;
+          fns = facet.functions;
+          constructorArgs = facet.constructorArgs || [];
+          _context2.next = 8;
+          return deployContract({
+            abi: abi,
+            bytecode: bytecode
+          }, signer, constructorArgs);
+        case 8:
+          contract = _context2.sent;
+          Object.keys(contract["interface"].functions).forEach(function (fn) {
+            if (contract["interface"].functions[fn]) {
+              var sighash = contract["interface"].getSighash(fn);
+              selectors.push(sighash);
+            }
+          });
+          contract && (cut = {
+            target: contract.address,
+            action: 0,
+            selectors: selectors
+          });
+          return _context2.abrupt("return", cut);
+        case 12:
+        case "end":
+          return _context2.stop();
+      }
+    }, _callee2);
+  }));
+}
+function deployInitializer(initializer, signer) {
+  return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+    var selector, target, abi, bytecode, fn, constructorArgs, contract;
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) switch (_context3.prev = _context3.next) {
+        case 0:
+          selector = '0x00000000';
+          target = ethers__WEBPACK_IMPORTED_MODULE_1__.ethers.constants.AddressZero;
+          abi = initializer === null || initializer === void 0 ? void 0 : initializer.abi;
+          bytecode = initializer === null || initializer === void 0 ? void 0 : initializer.bytecode;
+          fn = initializer === null || initializer === void 0 ? void 0 : initializer["function"];
+          constructorArgs = (initializer === null || initializer === void 0 ? void 0 : initializer.constructorArgs) || [];
+          _context3.next = 8;
+          return deployContract({
+            abi: abi,
+            bytecode: bytecode
+          }, signer, constructorArgs);
+        case 8:
+          contract = _context3.sent;
+          if (contract["interface"].functions[fn]) {
+            selector = contract["interface"].getSighash(fn);
+            target = contract.address;
+          }
+          return _context3.abrupt("return", {
+            selector: selector,
+            target: target
+          });
+        case 11:
+        case "end":
+          return _context3.stop();
+      }
+    }, _callee3);
+  }));
+}
+
+/***/ }),
+
+/***/ "./src/lib/actions/installPkg.tsx":
+/*!****************************************!*\
+  !*** ./src/lib/actions/installPkg.tsx ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   installPkg: () => (/* binding */ installPkg),
+/* harmony export */   uninstallPkg: () => (/* binding */ uninstallPkg)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "tslib");
+/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ethers */ "ethers");
+/* harmony import */ var ethers_lib_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ethers/lib/utils */ "./node_modules/ethers/lib/utils.js");
+/* harmony import */ var ethers_lib_utils__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(ethers_lib_utils__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../constants */ "./src/lib/constants/index.ts");
+/* harmony import */ var _contracts_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../contracts/types */ "./src/lib/contracts/types/index.ts");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+
+// import deployments.json
+
+
+
+
+function installPkg(client, pkg, signer, data) {
+  return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+    var Installer, tx, receipt, iface, _iterator, _step, log, event;
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) switch (_context.prev = _context.next) {
+        case 0:
+          Installer = new ethers__WEBPACK_IMPORTED_MODULE_1__.Contract(client, _contracts_types__WEBPACK_IMPORTED_MODULE_3__.Installer__factory.abi, signer);
+          console.log('Installer', Installer);
+          _context.next = 4;
+          return Installer.install(pkg, data, {
+            value: _constants__WEBPACK_IMPORTED_MODULE_2__.costOf.install,
+            gasLimit: 1000000
+          });
+        case 4:
+          tx = _context.sent;
+          console.log('tx', tx);
+          _context.next = 8;
+          return tx.wait();
+        case 8:
+          receipt = _context.sent;
+          console.log('receipt', receipt);
+          iface = new ethers_lib_utils__WEBPACK_IMPORTED_MODULE_4__.Interface(_contracts_types__WEBPACK_IMPORTED_MODULE_3__.OperatorFacet__factory.abi);
+          _iterator = _createForOfIteratorHelper(receipt.logs);
+          _context.prev = 12;
+          _iterator.s();
+        case 14:
+          if ((_step = _iterator.n()).done) {
+            _context.next = 26;
+            break;
+          }
+          log = _step.value;
+          event = iface.parseLog(log);
+          console.log('event', event);
+          if (!(event.name === 'ClientUpgraded')) {
+            _context.next = 24;
+            break;
+          }
+          if (!(event.args.pkg === pkg)) {
+            _context.next = 23;
+            break;
+          }
+          return _context.abrupt("return", true);
+        case 23:
+          throw new Error('ClientUpgraded event pkg does not match');
+        case 24:
+          _context.next = 14;
+          break;
+        case 26:
+          _context.next = 31;
+          break;
+        case 28:
+          _context.prev = 28;
+          _context.t0 = _context["catch"](12);
+          _iterator.e(_context.t0);
+        case 31:
+          _context.prev = 31;
+          _iterator.f();
+          return _context.finish(31);
+        case 34:
+        case "end":
+          return _context.stop();
+      }
+    }, _callee, null, [[12, 28, 31, 34]]);
+  }));
+}
+function uninstallPkg(client, pkg, signer, data) {
+  return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+    var Installer, tx, receipt, iface, _iterator2, _step2, log, event;
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) switch (_context2.prev = _context2.next) {
+        case 0:
+          Installer = new ethers__WEBPACK_IMPORTED_MODULE_1__.Contract(client, _contracts_types__WEBPACK_IMPORTED_MODULE_3__.Installer__factory.abi, signer);
+          console.log('Installer', Installer);
+          _context2.next = 4;
+          return Installer.uninstall(pkg, data, {
+            gasLimit: 1000000
+          });
+        case 4:
+          tx = _context2.sent;
+          console.log('tx', tx);
+          _context2.next = 8;
+          return tx.wait();
+        case 8:
+          receipt = _context2.sent;
+          console.log('receipt', receipt);
+          iface = new ethers_lib_utils__WEBPACK_IMPORTED_MODULE_4__.Interface(_contracts_types__WEBPACK_IMPORTED_MODULE_3__.OperatorFacet__factory.abi);
+          _iterator2 = _createForOfIteratorHelper(receipt.logs);
+          _context2.prev = 12;
+          _iterator2.s();
+        case 14:
+          if ((_step2 = _iterator2.n()).done) {
+            _context2.next = 25;
+            break;
+          }
+          log = _step2.value;
+          event = iface.parseLog(log);
+          if (!(event.name === 'ClientUpgraded')) {
+            _context2.next = 23;
+            break;
+          }
+          if (!(event.args.pkg === pkg)) {
+            _context2.next = 22;
+            break;
+          }
+          return _context2.abrupt("return", true);
+        case 22:
+          throw new Error('ClientUpgraded event pkg does not match');
+        case 23:
+          _context2.next = 14;
+          break;
+        case 25:
+          _context2.next = 30;
+          break;
+        case 27:
+          _context2.prev = 27;
+          _context2.t0 = _context2["catch"](12);
+          _iterator2.e(_context2.t0);
+        case 30:
+          _context2.prev = 30;
+          _iterator2.f();
+          return _context2.finish(30);
+        case 33:
+        case "end":
+          return _context2.stop();
+      }
+    }, _callee2, null, [[12, 27, 30, 33]]);
+  }));
+}
+
+/***/ }),
+
+/***/ "./src/lib/constants/index.ts":
+/*!************************************!*\
+  !*** ./src/lib/constants/index.ts ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   costOf: () => (/* binding */ costOf),
+/* harmony export */   gateways: () => (/* binding */ gateways)
+/* harmony export */ });
+/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
+
+var costOf = {
+  createPkg: ethers__WEBPACK_IMPORTED_MODULE_0__.ethers.utils.parseEther('0.01'),
+  createClient: ethers__WEBPACK_IMPORTED_MODULE_0__.ethers.utils.parseEther('0.01'),
+  install: ethers__WEBPACK_IMPORTED_MODULE_0__.ethers.utils.parseEther('0.001')
+};
+var gateways = [{
+  prefix: 'https://',
+  suffix: '.ipfs.w3s.link/'
+}, {
+  prefix: 'https://ipfs.io/ipfs/',
+  suffix: ''
+}, {
+  prefix: 'https://gateway.ipfs.io/ipfs/',
+  suffix: ''
+}];
+
+/***/ }),
+
+/***/ "./src/lib/contracts/hooks/Initializer.ts":
+/*!************************************************!*\
+  !*** ./src/lib/contracts/hooks/Initializer.ts ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   useInitializer: () => (/* binding */ useInitializer),
+/* harmony export */   useInitializer_cost: () => (/* binding */ useInitializer_cost),
+/* harmony export */   useInitializer_init: () => (/* binding */ useInitializer_init),
+/* harmony export */   useInitializer_owner: () => (/* binding */ useInitializer_owner)
+/* harmony export */ });
+/* harmony import */ var _usedapp_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @usedapp/core */ "@usedapp/core");
+/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ethers */ "ethers");
+/* harmony import */ var _types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../types */ "./src/lib/contracts/types/index.ts");
+
+
+
+var InitializerInterface = new ethers__WEBPACK_IMPORTED_MODULE_1__.utils.Interface(_types__WEBPACK_IMPORTED_MODULE_2__.Initializer__factory.abi);
+var useInitializer_cost = function useInitializer_cost(contractAddress, args) {
+  var queryParams = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  return (0,_usedapp_core__WEBPACK_IMPORTED_MODULE_0__.useCall)(contractAddress && args && {
+    contract: new ethers__WEBPACK_IMPORTED_MODULE_1__.Contract(contractAddress, InitializerInterface),
+    method: 'cost',
+    args: args
+  }, queryParams);
+};
+var useInitializer_init = function useInitializer_init(contractAddress, options) {
+  return (0,_usedapp_core__WEBPACK_IMPORTED_MODULE_0__.useContractFunction)(contractAddress && new ethers__WEBPACK_IMPORTED_MODULE_1__.Contract(contractAddress, InitializerInterface), 'init', options);
+};
+var useInitializer_owner = function useInitializer_owner(contractAddress, args) {
+  var queryParams = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  return (0,_usedapp_core__WEBPACK_IMPORTED_MODULE_0__.useCall)(contractAddress && args && {
+    contract: new ethers__WEBPACK_IMPORTED_MODULE_1__.Contract(contractAddress, InitializerInterface),
+    method: 'owner',
+    args: args
+  }, queryParams);
+};
+var useInitializer = {
+  cost: useInitializer_cost,
+  init: useInitializer_init,
+  owner: useInitializer_owner,
+  events: {}
+};
+
+/***/ }),
+
+/***/ "./src/lib/contracts/index.tsx":
+/*!*************************************!*\
+  !*** ./src/lib/contracts/index.tsx ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+var _contracts_deployments_json__WEBPACK_IMPORTED_MODULE_0___namespace_cache;
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   deployment: () => (/* binding */ deployment),
+/* harmony export */   rootName: () => (/* binding */ rootName)
+/* harmony export */ });
+/* harmony import */ var _contracts_deployments_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../contracts/deployments.json */ "./src/lib/contracts/deployments.json");
+ //weird behavior
+var rootName = 'dapptest.eth';
+function deployment(contractName, chainId) {
+  var _a;
+  var contract = (_a = /*#__PURE__*/ (_contracts_deployments_json__WEBPACK_IMPORTED_MODULE_0___namespace_cache || (_contracts_deployments_json__WEBPACK_IMPORTED_MODULE_0___namespace_cache = __webpack_require__.t(_contracts_deployments_json__WEBPACK_IMPORTED_MODULE_0__, 2)))[chainId]) === null || _a === void 0 ? void 0 : _a[contractName];
+  return contract;
+}
+//useInterface -- fetch from typechain files
+// export function useDeployments(contractName: string) {
+//   const chainId = useEthers().chainId || (config.readOnlyChainId as number);
+//   return (deployments as IDeployments)[chainId as keyof IDeployments]?.[
+//     contractName
+//   ];
+// }
+// export function useFacet(contractName: string) {
+//   return new ethers.Contract(
+//     useDeployments(contractName)?.abi,
+//     useDeployments('Diamond')?.address,
+//     useEthers().library
+//   );
+// }
+
+/***/ }),
+
+/***/ "./src/lib/contracts/types/factories/DappletsFacet__factory.ts":
+/*!*********************************************************************!*\
+  !*** ./src/lib/contracts/types/factories/DappletsFacet__factory.ts ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   DappletsFacet__factory: () => (/* binding */ DappletsFacet__factory)
+/* harmony export */ });
+/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+/* Autogenerated file. Do not edit manually. */
+/* tslint:disable */
+/* eslint-disable */
+
+var _abi = [{
+  inputs: [],
+  name: "ERC20Base__ApproveFromZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__ApproveToZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__BurnExceedsBalance",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__BurnFromZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__InsufficientAllowance",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__MintToZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__TransferExceedsBalance",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__TransferFromZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__TransferToZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "EnumerableMap__IndexOutOfBounds",
+  type: "error"
+}, {
+  inputs: [],
+  name: "EnumerableMap__NonExistentKey",
+  type: "error"
+}, {
+  inputs: [],
+  name: "EnumerableSet__IndexOutOfBounds",
+  type: "error"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "owner",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "spender",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "uint256",
+    name: "value",
+    type: "uint256"
+  }],
+  name: "Approval",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "pkg",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "account",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "uint256",
+    name: "amount",
+    type: "uint256"
+  }],
+  name: "Stake",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "from",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "to",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "uint256",
+    name: "value",
+    type: "uint256"
+  }],
+  name: "Transfer",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "pkg",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "account",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "uint256",
+    name: "amount",
+    type: "uint256"
+  }],
+  name: "Unstake",
+  type: "event"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "holder",
+    type: "address"
+  }, {
+    internalType: "address",
+    name: "spender",
+    type: "address"
+  }],
+  name: "allowance",
+  outputs: [{
+    internalType: "uint256",
+    name: "",
+    type: "uint256"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "spender",
+    type: "address"
+  }, {
+    internalType: "uint256",
+    name: "amount",
+    type: "uint256"
+  }],
+  name: "approve",
+  outputs: [{
+    internalType: "bool",
+    name: "",
+    type: "bool"
+  }],
+  stateMutability: "nonpayable",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "account",
+    type: "address"
+  }],
+  name: "balanceOf",
+  outputs: [{
+    internalType: "uint256",
+    name: "",
+    type: "uint256"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [],
+  name: "decimals",
+  outputs: [{
+    internalType: "uint8",
+    name: "",
+    type: "uint8"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "account",
+    type: "address"
+  }],
+  name: "installedBy",
+  outputs: [{
+    internalType: "address[]",
+    name: "pkgs",
+    type: "address[]"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "pkg",
+    type: "address"
+  }],
+  name: "installersOf",
+  outputs: [{
+    internalType: "address[]",
+    name: "installers",
+    type: "address[]"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "pkg",
+    type: "address"
+  }],
+  name: "isPkg",
+  outputs: [{
+    internalType: "bool",
+    name: "",
+    type: "bool"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address[]",
+    name: "pkgs",
+    type: "address[]"
+  }],
+  name: "metadataOf",
+  outputs: [{
+    internalType: "string[]",
+    name: "metadata",
+    type: "string[]"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [],
+  name: "name",
+  outputs: [{
+    internalType: "string",
+    name: "",
+    type: "string"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "account",
+    type: "address"
+  }],
+  name: "ownedBy",
+  outputs: [{
+    internalType: "address[]",
+    name: "pkgs",
+    type: "address[]"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "pkg",
+    type: "address"
+  }],
+  name: "ownerOf",
+  outputs: [{
+    internalType: "address",
+    name: "owner",
+    type: "address"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "account",
+    type: "address"
+  }],
+  name: "receivedStakeOf",
+  outputs: [{
+    internalType: "address[]",
+    name: "pkgs",
+    type: "address[]"
+  }, {
+    internalType: "uint256[]",
+    name: "amounts",
+    type: "uint256[]"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "account",
+    type: "address"
+  }],
+  name: "sentStakeOf",
+  outputs: [{
+    internalType: "address[]",
+    name: "pkgs",
+    type: "address[]"
+  }, {
+    internalType: "uint256[]",
+    name: "amounts",
+    type: "uint256[]"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "pkg",
+    type: "address"
+  }],
+  name: "stake",
+  outputs: [],
+  stateMutability: "payable",
+  type: "function"
+}, {
+  inputs: [],
+  name: "symbol",
+  outputs: [{
+    internalType: "string",
+    name: "",
+    type: "string"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [],
+  name: "totalSupply",
+  outputs: [{
+    internalType: "uint256",
+    name: "",
+    type: "uint256"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "recipient",
+    type: "address"
+  }, {
+    internalType: "uint256",
+    name: "amount",
+    type: "uint256"
+  }],
+  name: "transfer",
+  outputs: [{
+    internalType: "bool",
+    name: "",
+    type: "bool"
+  }],
+  stateMutability: "nonpayable",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "holder",
+    type: "address"
+  }, {
+    internalType: "address",
+    name: "recipient",
+    type: "address"
+  }, {
+    internalType: "uint256",
+    name: "amount",
+    type: "uint256"
+  }],
+  name: "transferFrom",
+  outputs: [{
+    internalType: "bool",
+    name: "",
+    type: "bool"
+  }],
+  stateMutability: "nonpayable",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "pkg",
+    type: "address"
+  }, {
+    internalType: "uint256",
+    name: "amount",
+    type: "uint256"
+  }],
+  name: "unstake",
+  outputs: [],
+  stateMutability: "nonpayable",
+  type: "function"
+}];
+var DappletsFacet__factory = /*#__PURE__*/function () {
+  function DappletsFacet__factory() {
+    _classCallCheck(this, DappletsFacet__factory);
+  }
+  _createClass(DappletsFacet__factory, null, [{
+    key: "createInterface",
+    value: function createInterface() {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
+    }
+  }, {
+    key: "connect",
+    value: function connect(address, signerOrProvider) {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
+    }
+  }]);
+  return DappletsFacet__factory;
+}();
+DappletsFacet__factory.abi = _abi;
+
+/***/ }),
+
+/***/ "./src/lib/contracts/types/factories/DappsFacet__factory.ts":
+/*!******************************************************************!*\
+  !*** ./src/lib/contracts/types/factories/DappsFacet__factory.ts ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   DappsFacet__factory: () => (/* binding */ DappsFacet__factory)
+/* harmony export */ });
+/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+/* Autogenerated file. Do not edit manually. */
+/* tslint:disable */
+/* eslint-disable */
+
+var _abi = [{
+  inputs: [],
+  name: "ERC20Base__ApproveFromZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__ApproveToZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__BurnExceedsBalance",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__BurnFromZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__InsufficientAllowance",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__MintToZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__TransferExceedsBalance",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__TransferFromZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__TransferToZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "Ownable__NotOwner",
+  type: "error"
+}, {
+  inputs: [],
+  name: "Ownable__NotTransitiveOwner",
+  type: "error"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "owner",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "spender",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "uint256",
+    name: "value",
+    type: "uint256"
+  }],
+  name: "Approval",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "recipient",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "sender",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "uint256",
+    name: "amount",
+    type: "uint256"
+  }],
+  name: "FeePaid",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "previousOwner",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "newOwner",
+    type: "address"
+  }],
+  name: "OwnershipTransferred",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "bytes32",
+    name: "role",
+    type: "bytes32"
+  }, {
+    indexed: true,
+    internalType: "bytes32",
+    name: "previousAdminRole",
+    type: "bytes32"
+  }, {
+    indexed: true,
+    internalType: "bytes32",
+    name: "newAdminRole",
+    type: "bytes32"
+  }],
+  name: "RoleAdminChanged",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "bytes32",
+    name: "role",
+    type: "bytes32"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "account",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "sender",
+    type: "address"
+  }],
+  name: "RoleGranted",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "bytes32",
+    name: "role",
+    type: "bytes32"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "account",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "sender",
+    type: "address"
+  }],
+  name: "RoleRevoked",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "from",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "to",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "uint256",
+    name: "value",
+    type: "uint256"
+  }],
+  name: "Transfer",
+  type: "event"
+}, {
+  inputs: [],
+  name: "createClient",
+  outputs: [{
+    internalType: "address",
+    name: "client",
+    type: "address"
+  }],
+  stateMutability: "payable",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "string",
+    name: "_title",
+    type: "string"
+  }],
+  name: "getClientUpgrade",
+  outputs: [{
+    components: [{
+      internalType: "address",
+      name: "target",
+      type: "address"
+    }, {
+      internalType: "enum IDiamondWritableInternal.FacetCutAction",
+      name: "action",
+      type: "uint8"
+    }, {
+      internalType: "bytes4[]",
+      name: "selectors",
+      type: "bytes4[]"
+    }],
+    internalType: "struct IDiamondWritableInternal.FacetCut[]",
+    name: "cuts",
+    type: "tuple[]"
+  }, {
+    internalType: "address",
+    name: "target",
+    type: "address"
+  }, {
+    internalType: "bytes",
+    name: "data",
+    type: "bytes"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "string",
+    name: "_title",
+    type: "string"
+  }, {
+    components: [{
+      internalType: "address",
+      name: "target",
+      type: "address"
+    }, {
+      internalType: "enum IDiamondWritableInternal.FacetCutAction",
+      name: "action",
+      type: "uint8"
+    }, {
+      internalType: "bytes4[]",
+      name: "selectors",
+      type: "bytes4[]"
+    }],
+    internalType: "struct IDiamondWritableInternal.FacetCut[]",
+    name: "_cuts",
+    type: "tuple[]"
+  }, {
+    internalType: "address",
+    name: "_target",
+    type: "address"
+  }, {
+    internalType: "bytes4",
+    name: "_selector",
+    type: "bytes4"
+  }],
+  name: "setClientUpgrade",
+  outputs: [],
+  stateMutability: "nonpayable",
+  type: "function"
+}];
+var DappsFacet__factory = /*#__PURE__*/function () {
+  function DappsFacet__factory() {
+    _classCallCheck(this, DappsFacet__factory);
+  }
+  _createClass(DappsFacet__factory, null, [{
+    key: "createInterface",
+    value: function createInterface() {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
+    }
+  }, {
+    key: "connect",
+    value: function connect(address, signerOrProvider) {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
+    }
+  }]);
+  return DappsFacet__factory;
+}();
+DappsFacet__factory.abi = _abi;
+
+/***/ }),
+
+/***/ "./src/lib/contracts/types/factories/DiamondBase__factory.ts":
+/*!*******************************************************************!*\
+  !*** ./src/lib/contracts/types/factories/DiamondBase__factory.ts ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   DiamondBase__factory: () => (/* binding */ DiamondBase__factory)
+/* harmony export */ });
+/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+/* Autogenerated file. Do not edit manually. */
+/* tslint:disable */
+/* eslint-disable */
+
+var _abi = [{
+  inputs: [],
+  name: "Proxy__ImplementationIsNotContract",
+  type: "error"
+}, {
+  stateMutability: "payable",
+  type: "fallback"
+}];
+var DiamondBase__factory = /*#__PURE__*/function () {
+  function DiamondBase__factory() {
+    _classCallCheck(this, DiamondBase__factory);
+  }
+  _createClass(DiamondBase__factory, null, [{
+    key: "createInterface",
+    value: function createInterface() {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
+    }
+  }, {
+    key: "connect",
+    value: function connect(address, signerOrProvider) {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
+    }
+  }]);
+  return DiamondBase__factory;
+}();
+DiamondBase__factory.abi = _abi;
+
+/***/ }),
+
+/***/ "./src/lib/contracts/types/factories/DiamondCutFacet__factory.ts":
+/*!***********************************************************************!*\
+  !*** ./src/lib/contracts/types/factories/DiamondCutFacet__factory.ts ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   DiamondCutFacet__factory: () => (/* binding */ DiamondCutFacet__factory)
+/* harmony export */ });
+/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+/* Autogenerated file. Do not edit manually. */
+/* tslint:disable */
+/* eslint-disable */
+
+var _abi = [{
+  inputs: [],
+  name: "DiamondWritable__InvalidInitializationParameters",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__RemoveTargetNotZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__ReplaceTargetIsIdentical",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorAlreadyAdded",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorIsImmutable",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorNotFound",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorNotSpecified",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__TargetHasNoCode",
+  type: "error"
+}, {
+  inputs: [],
+  name: "Ownable__NotOwner",
+  type: "error"
+}, {
+  inputs: [],
+  name: "Ownable__NotTransitiveOwner",
+  type: "error"
+}, {
+  anonymous: false,
+  inputs: [{
+    components: [{
+      internalType: "address",
+      name: "target",
+      type: "address"
+    }, {
+      internalType: "enum IDiamondWritableInternal.FacetCutAction",
+      name: "action",
+      type: "uint8"
+    }, {
+      internalType: "bytes4[]",
+      name: "selectors",
+      type: "bytes4[]"
+    }],
+    indexed: false,
+    internalType: "struct IDiamondWritableInternal.FacetCut[]",
+    name: "facetCuts",
+    type: "tuple[]"
+  }, {
+    indexed: false,
+    internalType: "address",
+    name: "target",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "bytes",
+    name: "data",
+    type: "bytes"
+  }],
+  name: "DiamondCut",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "previousOwner",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "newOwner",
+    type: "address"
+  }],
+  name: "OwnershipTransferred",
+  type: "event"
+}, {
+  inputs: [{
+    components: [{
+      internalType: "address",
+      name: "target",
+      type: "address"
+    }, {
+      internalType: "enum IDiamondWritableInternal.FacetCutAction",
+      name: "action",
+      type: "uint8"
+    }, {
+      internalType: "bytes4[]",
+      name: "selectors",
+      type: "bytes4[]"
+    }],
+    internalType: "struct IDiamondWritableInternal.FacetCut[]",
+    name: "facetCuts",
+    type: "tuple[]"
+  }, {
+    internalType: "address",
+    name: "target",
+    type: "address"
+  }, {
+    internalType: "bytes",
+    name: "data",
+    type: "bytes"
+  }],
+  name: "diamondCut",
+  outputs: [],
+  stateMutability: "nonpayable",
+  type: "function"
+}];
+var DiamondCutFacet__factory = /*#__PURE__*/function () {
+  function DiamondCutFacet__factory() {
+    _classCallCheck(this, DiamondCutFacet__factory);
+  }
+  _createClass(DiamondCutFacet__factory, null, [{
+    key: "createInterface",
+    value: function createInterface() {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
+    }
+  }, {
+    key: "connect",
+    value: function connect(address, signerOrProvider) {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
+    }
+  }]);
+  return DiamondCutFacet__factory;
+}();
+DiamondCutFacet__factory.abi = _abi;
+
+/***/ }),
+
+/***/ "./src/lib/contracts/types/factories/DiamondLoupeFacet__factory.ts":
+/*!*************************************************************************!*\
+  !*** ./src/lib/contracts/types/factories/DiamondLoupeFacet__factory.ts ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   DiamondLoupeFacet__factory: () => (/* binding */ DiamondLoupeFacet__factory)
+/* harmony export */ });
+/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+/* Autogenerated file. Do not edit manually. */
+/* tslint:disable */
+/* eslint-disable */
+
+var _abi = [{
+  inputs: [{
+    internalType: "bytes4",
+    name: "selector",
+    type: "bytes4"
+  }],
+  name: "facetAddress",
+  outputs: [{
+    internalType: "address",
+    name: "facet",
+    type: "address"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [],
+  name: "facetAddresses",
+  outputs: [{
+    internalType: "address[]",
+    name: "addresses",
+    type: "address[]"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "facet",
+    type: "address"
+  }],
+  name: "facetFunctionSelectors",
+  outputs: [{
+    internalType: "bytes4[]",
+    name: "selectors",
+    type: "bytes4[]"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [],
+  name: "facets",
+  outputs: [{
+    components: [{
+      internalType: "address",
+      name: "target",
+      type: "address"
+    }, {
+      internalType: "bytes4[]",
+      name: "selectors",
+      type: "bytes4[]"
+    }],
+    internalType: "struct IDiamondReadable.Facet[]",
+    name: "diamondFacets",
+    type: "tuple[]"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  stateMutability: "payable",
+  type: "receive"
+}];
+var DiamondLoupeFacet__factory = /*#__PURE__*/function () {
+  function DiamondLoupeFacet__factory() {
+    _classCallCheck(this, DiamondLoupeFacet__factory);
+  }
+  _createClass(DiamondLoupeFacet__factory, null, [{
+    key: "createInterface",
+    value: function createInterface() {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
+    }
+  }, {
+    key: "connect",
+    value: function connect(address, signerOrProvider) {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
+    }
+  }]);
+  return DiamondLoupeFacet__factory;
+}();
+DiamondLoupeFacet__factory.abi = _abi;
+
+/***/ }),
+
+/***/ "./src/lib/contracts/types/factories/DiamondReadable__factory.ts":
+/*!***********************************************************************!*\
+  !*** ./src/lib/contracts/types/factories/DiamondReadable__factory.ts ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   DiamondReadable__factory: () => (/* binding */ DiamondReadable__factory)
+/* harmony export */ });
+/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+/* Autogenerated file. Do not edit manually. */
+/* tslint:disable */
+/* eslint-disable */
+
+var _abi = [{
+  inputs: [{
+    internalType: "bytes4",
+    name: "selector",
+    type: "bytes4"
+  }],
+  name: "facetAddress",
+  outputs: [{
+    internalType: "address",
+    name: "facet",
+    type: "address"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [],
+  name: "facetAddresses",
+  outputs: [{
+    internalType: "address[]",
+    name: "addresses",
+    type: "address[]"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "facet",
+    type: "address"
+  }],
+  name: "facetFunctionSelectors",
+  outputs: [{
+    internalType: "bytes4[]",
+    name: "selectors",
+    type: "bytes4[]"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [],
+  name: "facets",
+  outputs: [{
+    components: [{
+      internalType: "address",
+      name: "target",
+      type: "address"
+    }, {
+      internalType: "bytes4[]",
+      name: "selectors",
+      type: "bytes4[]"
+    }],
+    internalType: "struct IDiamondReadable.Facet[]",
+    name: "diamondFacets",
+    type: "tuple[]"
+  }],
+  stateMutability: "view",
+  type: "function"
+}];
+var DiamondReadable__factory = /*#__PURE__*/function () {
+  function DiamondReadable__factory() {
+    _classCallCheck(this, DiamondReadable__factory);
+  }
+  _createClass(DiamondReadable__factory, null, [{
+    key: "createInterface",
+    value: function createInterface() {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
+    }
+  }, {
+    key: "connect",
+    value: function connect(address, signerOrProvider) {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
+    }
+  }]);
+  return DiamondReadable__factory;
+}();
+DiamondReadable__factory.abi = _abi;
+
+/***/ }),
+
+/***/ "./src/lib/contracts/types/factories/DiamondWritableInternal__factory.ts":
+/*!*******************************************************************************!*\
+  !*** ./src/lib/contracts/types/factories/DiamondWritableInternal__factory.ts ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   DiamondWritableInternal__factory: () => (/* binding */ DiamondWritableInternal__factory)
+/* harmony export */ });
+/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+/* Autogenerated file. Do not edit manually. */
+/* tslint:disable */
+/* eslint-disable */
+
+var _abi = [{
+  inputs: [],
+  name: "DiamondWritable__InvalidInitializationParameters",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__RemoveTargetNotZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__ReplaceTargetIsIdentical",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorAlreadyAdded",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorIsImmutable",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorNotFound",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorNotSpecified",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__TargetHasNoCode",
+  type: "error"
+}, {
+  anonymous: false,
+  inputs: [{
+    components: [{
+      internalType: "address",
+      name: "target",
+      type: "address"
+    }, {
+      internalType: "enum IDiamondWritableInternal.FacetCutAction",
+      name: "action",
+      type: "uint8"
+    }, {
+      internalType: "bytes4[]",
+      name: "selectors",
+      type: "bytes4[]"
+    }],
+    indexed: false,
+    internalType: "struct IDiamondWritableInternal.FacetCut[]",
+    name: "facetCuts",
+    type: "tuple[]"
+  }, {
+    indexed: false,
+    internalType: "address",
+    name: "target",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "bytes",
+    name: "data",
+    type: "bytes"
+  }],
+  name: "DiamondCut",
+  type: "event"
+}];
+var DiamondWritableInternal__factory = /*#__PURE__*/function () {
+  function DiamondWritableInternal__factory() {
+    _classCallCheck(this, DiamondWritableInternal__factory);
+  }
+  _createClass(DiamondWritableInternal__factory, null, [{
+    key: "createInterface",
+    value: function createInterface() {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
+    }
+  }, {
+    key: "connect",
+    value: function connect(address, signerOrProvider) {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
+    }
+  }]);
+  return DiamondWritableInternal__factory;
+}();
+DiamondWritableInternal__factory.abi = _abi;
+
+/***/ }),
+
+/***/ "./src/lib/contracts/types/factories/DiamondWritable__factory.ts":
+/*!***********************************************************************!*\
+  !*** ./src/lib/contracts/types/factories/DiamondWritable__factory.ts ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   DiamondWritable__factory: () => (/* binding */ DiamondWritable__factory)
+/* harmony export */ });
+/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+/* Autogenerated file. Do not edit manually. */
+/* tslint:disable */
+/* eslint-disable */
+
+var _abi = [{
+  inputs: [],
+  name: "DiamondWritable__InvalidInitializationParameters",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__RemoveTargetNotZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__ReplaceTargetIsIdentical",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorAlreadyAdded",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorIsImmutable",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorNotFound",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorNotSpecified",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__TargetHasNoCode",
+  type: "error"
+}, {
+  inputs: [],
+  name: "Ownable__NotOwner",
+  type: "error"
+}, {
+  inputs: [],
+  name: "Ownable__NotTransitiveOwner",
+  type: "error"
+}, {
+  anonymous: false,
+  inputs: [{
+    components: [{
+      internalType: "address",
+      name: "target",
+      type: "address"
+    }, {
+      internalType: "enum IDiamondWritableInternal.FacetCutAction",
+      name: "action",
+      type: "uint8"
+    }, {
+      internalType: "bytes4[]",
+      name: "selectors",
+      type: "bytes4[]"
+    }],
+    indexed: false,
+    internalType: "struct IDiamondWritableInternal.FacetCut[]",
+    name: "facetCuts",
+    type: "tuple[]"
+  }, {
+    indexed: false,
+    internalType: "address",
+    name: "target",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "bytes",
+    name: "data",
+    type: "bytes"
+  }],
+  name: "DiamondCut",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "previousOwner",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "newOwner",
+    type: "address"
+  }],
+  name: "OwnershipTransferred",
+  type: "event"
+}, {
+  inputs: [{
+    components: [{
+      internalType: "address",
+      name: "target",
+      type: "address"
+    }, {
+      internalType: "enum IDiamondWritableInternal.FacetCutAction",
+      name: "action",
+      type: "uint8"
+    }, {
+      internalType: "bytes4[]",
+      name: "selectors",
+      type: "bytes4[]"
+    }],
+    internalType: "struct IDiamondWritableInternal.FacetCut[]",
+    name: "facetCuts",
+    type: "tuple[]"
+  }, {
+    internalType: "address",
+    name: "target",
+    type: "address"
+  }, {
+    internalType: "bytes",
+    name: "data",
+    type: "bytes"
+  }],
+  name: "diamondCut",
+  outputs: [],
+  stateMutability: "nonpayable",
+  type: "function"
+}];
+var DiamondWritable__factory = /*#__PURE__*/function () {
+  function DiamondWritable__factory() {
+    _classCallCheck(this, DiamondWritable__factory);
+  }
+  _createClass(DiamondWritable__factory, null, [{
+    key: "createInterface",
+    value: function createInterface() {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
+    }
+  }, {
+    key: "connect",
+    value: function connect(address, signerOrProvider) {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
+    }
+  }]);
+  return DiamondWritable__factory;
+}();
+DiamondWritable__factory.abi = _abi;
+
+/***/ }),
+
+/***/ "./src/lib/contracts/types/factories/Diamond__factory.ts":
+/*!***************************************************************!*\
+  !*** ./src/lib/contracts/types/factories/Diamond__factory.ts ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Diamond__factory: () => (/* binding */ Diamond__factory)
+/* harmony export */ });
+/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+/* Autogenerated file. Do not edit manually. */
+/* tslint:disable */
+/* eslint-disable */
+
+var _abi = [{
+  inputs: [{
+    internalType: "address",
+    name: "_creator",
+    type: "address"
+  }, {
+    components: [{
+      internalType: "address",
+      name: "target",
+      type: "address"
+    }, {
+      internalType: "enum IDiamondWritableInternal.FacetCutAction",
+      name: "action",
+      type: "uint8"
+    }, {
+      internalType: "bytes4[]",
+      name: "selectors",
+      type: "bytes4[]"
+    }],
+    internalType: "struct IDiamondWritableInternal.FacetCut[]",
+    name: "_cuts",
+    type: "tuple[]"
+  }, {
+    internalType: "address",
+    name: "_target",
+    type: "address"
+  }, {
+    internalType: "bytes",
+    name: "_data",
+    type: "bytes"
+  }],
+  stateMutability: "nonpayable",
+  type: "constructor"
+}, {
+  inputs: [],
+  name: "DiamondWritable__InvalidInitializationParameters",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__RemoveTargetNotZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__ReplaceTargetIsIdentical",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorAlreadyAdded",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorIsImmutable",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorNotFound",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorNotSpecified",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__TargetHasNoCode",
+  type: "error"
+}, {
+  inputs: [],
+  name: "Ownable__NotOwner",
+  type: "error"
+}, {
+  inputs: [],
+  name: "Ownable__NotTransitiveOwner",
+  type: "error"
+}, {
+  inputs: [],
+  name: "Proxy__ImplementationIsNotContract",
+  type: "error"
+}, {
+  anonymous: false,
+  inputs: [{
+    components: [{
+      internalType: "address",
+      name: "target",
+      type: "address"
+    }, {
+      internalType: "enum IDiamondWritableInternal.FacetCutAction",
+      name: "action",
+      type: "uint8"
+    }, {
+      internalType: "bytes4[]",
+      name: "selectors",
+      type: "bytes4[]"
+    }],
+    indexed: false,
+    internalType: "struct IDiamondWritableInternal.FacetCut[]",
+    name: "facetCuts",
+    type: "tuple[]"
+  }, {
+    indexed: false,
+    internalType: "address",
+    name: "target",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "bytes",
+    name: "data",
+    type: "bytes"
+  }],
+  name: "DiamondCut",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "previousOwner",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "newOwner",
+    type: "address"
+  }],
+  name: "OwnershipTransferred",
+  type: "event"
+}, {
+  stateMutability: "payable",
+  type: "fallback"
+}, {
+  stateMutability: "payable",
+  type: "receive"
+}];
+var Diamond__factory = /*#__PURE__*/function () {
+  function Diamond__factory() {
+    _classCallCheck(this, Diamond__factory);
+  }
+  _createClass(Diamond__factory, null, [{
+    key: "createInterface",
+    value: function createInterface() {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
+    }
+  }, {
+    key: "connect",
+    value: function connect(address, signerOrProvider) {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
+    }
+  }]);
+  return Diamond__factory;
+}();
+Diamond__factory.abi = _abi;
+
+/***/ }),
+
+/***/ "./src/lib/contracts/types/factories/ERC165Facet__factory.ts":
+/*!*******************************************************************!*\
+  !*** ./src/lib/contracts/types/factories/ERC165Facet__factory.ts ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ERC165Facet__factory: () => (/* binding */ ERC165Facet__factory)
+/* harmony export */ });
+/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+/* Autogenerated file. Do not edit manually. */
+/* tslint:disable */
+/* eslint-disable */
+
+var _abi = [{
+  inputs: [],
+  name: "ERC165Base__InvalidInterfaceId",
+  type: "error"
+}, {
+  inputs: [{
+    internalType: "bytes4",
+    name: "interfaceId",
+    type: "bytes4"
+  }],
+  name: "supportsInterface",
+  outputs: [{
+    internalType: "bool",
+    name: "",
+    type: "bool"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  stateMutability: "payable",
+  type: "receive"
+}];
+var ERC165Facet__factory = /*#__PURE__*/function () {
+  function ERC165Facet__factory() {
+    _classCallCheck(this, ERC165Facet__factory);
+  }
+  _createClass(ERC165Facet__factory, null, [{
+    key: "createInterface",
+    value: function createInterface() {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
+    }
+  }, {
+    key: "connect",
+    value: function connect(address, signerOrProvider) {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
+    }
+  }]);
+  return ERC165Facet__factory;
+}();
+ERC165Facet__factory.abi = _abi;
+
+/***/ }),
+
+/***/ "./src/lib/contracts/types/factories/IDiamondBase__factory.ts":
+/*!********************************************************************!*\
+  !*** ./src/lib/contracts/types/factories/IDiamondBase__factory.ts ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   IDiamondBase__factory: () => (/* binding */ IDiamondBase__factory)
+/* harmony export */ });
+/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+/* Autogenerated file. Do not edit manually. */
+/* tslint:disable */
+/* eslint-disable */
+
+var _abi = [{
+  inputs: [],
+  name: "Proxy__ImplementationIsNotContract",
+  type: "error"
+}, {
+  stateMutability: "payable",
+  type: "fallback"
+}];
+var IDiamondBase__factory = /*#__PURE__*/function () {
+  function IDiamondBase__factory() {
+    _classCallCheck(this, IDiamondBase__factory);
+  }
+  _createClass(IDiamondBase__factory, null, [{
+    key: "createInterface",
+    value: function createInterface() {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
+    }
+  }, {
+    key: "connect",
+    value: function connect(address, signerOrProvider) {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
+    }
+  }]);
+  return IDiamondBase__factory;
+}();
+IDiamondBase__factory.abi = _abi;
+
+/***/ }),
+
+/***/ "./src/lib/contracts/types/factories/IDiamondReadable__factory.ts":
+/*!************************************************************************!*\
+  !*** ./src/lib/contracts/types/factories/IDiamondReadable__factory.ts ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   IDiamondReadable__factory: () => (/* binding */ IDiamondReadable__factory)
+/* harmony export */ });
+/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+/* Autogenerated file. Do not edit manually. */
+/* tslint:disable */
+/* eslint-disable */
+
+var _abi = [{
+  inputs: [{
+    internalType: "bytes4",
+    name: "selector",
+    type: "bytes4"
+  }],
+  name: "facetAddress",
+  outputs: [{
+    internalType: "address",
+    name: "facet",
+    type: "address"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [],
+  name: "facetAddresses",
+  outputs: [{
+    internalType: "address[]",
+    name: "addresses",
+    type: "address[]"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "facet",
+    type: "address"
+  }],
+  name: "facetFunctionSelectors",
+  outputs: [{
+    internalType: "bytes4[]",
+    name: "selectors",
+    type: "bytes4[]"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [],
+  name: "facets",
+  outputs: [{
+    components: [{
+      internalType: "address",
+      name: "target",
+      type: "address"
+    }, {
+      internalType: "bytes4[]",
+      name: "selectors",
+      type: "bytes4[]"
+    }],
+    internalType: "struct IDiamondReadable.Facet[]",
+    name: "diamondFacets",
+    type: "tuple[]"
+  }],
+  stateMutability: "view",
+  type: "function"
+}];
+var IDiamondReadable__factory = /*#__PURE__*/function () {
+  function IDiamondReadable__factory() {
+    _classCallCheck(this, IDiamondReadable__factory);
+  }
+  _createClass(IDiamondReadable__factory, null, [{
+    key: "createInterface",
+    value: function createInterface() {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
+    }
+  }, {
+    key: "connect",
+    value: function connect(address, signerOrProvider) {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
+    }
+  }]);
+  return IDiamondReadable__factory;
+}();
+IDiamondReadable__factory.abi = _abi;
+
+/***/ }),
+
+/***/ "./src/lib/contracts/types/factories/IDiamondWritableInternal__factory.ts":
+/*!********************************************************************************!*\
+  !*** ./src/lib/contracts/types/factories/IDiamondWritableInternal__factory.ts ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   IDiamondWritableInternal__factory: () => (/* binding */ IDiamondWritableInternal__factory)
+/* harmony export */ });
+/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+/* Autogenerated file. Do not edit manually. */
+/* tslint:disable */
+/* eslint-disable */
+
+var _abi = [{
+  inputs: [],
+  name: "DiamondWritable__InvalidInitializationParameters",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__RemoveTargetNotZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__ReplaceTargetIsIdentical",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorAlreadyAdded",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorIsImmutable",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorNotFound",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorNotSpecified",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__TargetHasNoCode",
+  type: "error"
+}, {
+  anonymous: false,
+  inputs: [{
+    components: [{
+      internalType: "address",
+      name: "target",
+      type: "address"
+    }, {
+      internalType: "enum IDiamondWritableInternal.FacetCutAction",
+      name: "action",
+      type: "uint8"
+    }, {
+      internalType: "bytes4[]",
+      name: "selectors",
+      type: "bytes4[]"
+    }],
+    indexed: false,
+    internalType: "struct IDiamondWritableInternal.FacetCut[]",
+    name: "facetCuts",
+    type: "tuple[]"
+  }, {
+    indexed: false,
+    internalType: "address",
+    name: "target",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "bytes",
+    name: "data",
+    type: "bytes"
+  }],
+  name: "DiamondCut",
+  type: "event"
+}];
+var IDiamondWritableInternal__factory = /*#__PURE__*/function () {
+  function IDiamondWritableInternal__factory() {
+    _classCallCheck(this, IDiamondWritableInternal__factory);
+  }
+  _createClass(IDiamondWritableInternal__factory, null, [{
+    key: "createInterface",
+    value: function createInterface() {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
+    }
+  }, {
+    key: "connect",
+    value: function connect(address, signerOrProvider) {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
+    }
+  }]);
+  return IDiamondWritableInternal__factory;
+}();
+IDiamondWritableInternal__factory.abi = _abi;
+
+/***/ }),
+
+/***/ "./src/lib/contracts/types/factories/IDiamondWritable__factory.ts":
+/*!************************************************************************!*\
+  !*** ./src/lib/contracts/types/factories/IDiamondWritable__factory.ts ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   IDiamondWritable__factory: () => (/* binding */ IDiamondWritable__factory)
+/* harmony export */ });
+/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+/* Autogenerated file. Do not edit manually. */
+/* tslint:disable */
+/* eslint-disable */
+
+var _abi = [{
+  inputs: [],
+  name: "DiamondWritable__InvalidInitializationParameters",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__RemoveTargetNotZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__ReplaceTargetIsIdentical",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorAlreadyAdded",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorIsImmutable",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorNotFound",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorNotSpecified",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__TargetHasNoCode",
+  type: "error"
+}, {
+  anonymous: false,
+  inputs: [{
+    components: [{
+      internalType: "address",
+      name: "target",
+      type: "address"
+    }, {
+      internalType: "enum IDiamondWritableInternal.FacetCutAction",
+      name: "action",
+      type: "uint8"
+    }, {
+      internalType: "bytes4[]",
+      name: "selectors",
+      type: "bytes4[]"
+    }],
+    indexed: false,
+    internalType: "struct IDiamondWritableInternal.FacetCut[]",
+    name: "facetCuts",
+    type: "tuple[]"
+  }, {
+    indexed: false,
+    internalType: "address",
+    name: "target",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "bytes",
+    name: "data",
+    type: "bytes"
+  }],
+  name: "DiamondCut",
+  type: "event"
+}, {
+  inputs: [{
+    components: [{
+      internalType: "address",
+      name: "target",
+      type: "address"
+    }, {
+      internalType: "enum IDiamondWritableInternal.FacetCutAction",
+      name: "action",
+      type: "uint8"
+    }, {
+      internalType: "bytes4[]",
+      name: "selectors",
+      type: "bytes4[]"
+    }],
+    internalType: "struct IDiamondWritableInternal.FacetCut[]",
+    name: "facetCuts",
+    type: "tuple[]"
+  }, {
+    internalType: "address",
+    name: "target",
+    type: "address"
+  }, {
+    internalType: "bytes",
+    name: "data",
+    type: "bytes"
+  }],
+  name: "diamondCut",
+  outputs: [],
+  stateMutability: "nonpayable",
+  type: "function"
+}];
+var IDiamondWritable__factory = /*#__PURE__*/function () {
+  function IDiamondWritable__factory() {
+    _classCallCheck(this, IDiamondWritable__factory);
+  }
+  _createClass(IDiamondWritable__factory, null, [{
+    key: "createInterface",
+    value: function createInterface() {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
+    }
+  }, {
+    key: "connect",
+    value: function connect(address, signerOrProvider) {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
+    }
+  }]);
+  return IDiamondWritable__factory;
+}();
+IDiamondWritable__factory.abi = _abi;
+
+/***/ }),
+
+/***/ "./src/lib/contracts/types/factories/IInstaller__factory.ts":
+/*!******************************************************************!*\
+  !*** ./src/lib/contracts/types/factories/IInstaller__factory.ts ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   IInstaller__factory: () => (/* binding */ IInstaller__factory)
+/* harmony export */ });
+/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+/* Autogenerated file. Do not edit manually. */
+/* tslint:disable */
+/* eslint-disable */
+
+var _abi = [{
+  inputs: [],
+  name: "DiamondWritable__InvalidInitializationParameters",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__RemoveTargetNotZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__ReplaceTargetIsIdentical",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorAlreadyAdded",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorIsImmutable",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorNotFound",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorNotSpecified",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__TargetHasNoCode",
+  type: "error"
+}, {
+  anonymous: false,
+  inputs: [{
+    components: [{
+      internalType: "address",
+      name: "target",
+      type: "address"
+    }, {
+      internalType: "enum IDiamondWritableInternal.FacetCutAction",
+      name: "action",
+      type: "uint8"
+    }, {
+      internalType: "bytes4[]",
+      name: "selectors",
+      type: "bytes4[]"
+    }],
+    indexed: false,
+    internalType: "struct IDiamondWritableInternal.FacetCut[]",
+    name: "facetCuts",
+    type: "tuple[]"
+  }, {
+    indexed: false,
+    internalType: "address",
+    name: "target",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "bytes",
+    name: "data",
+    type: "bytes"
+  }],
+  name: "DiamondCut",
+  type: "event"
+}, {
+  inputs: [{
+    components: [{
+      components: [{
+        internalType: "address",
+        name: "target",
+        type: "address"
+      }, {
+        internalType: "enum IDiamondWritableInternal.FacetCutAction",
+        name: "action",
+        type: "uint8"
+      }, {
+        internalType: "bytes4[]",
+        name: "selectors",
+        type: "bytes4[]"
+      }],
+      internalType: "struct IDiamondWritableInternal.FacetCut[]",
+      name: "cuts",
+      type: "tuple[]"
+    }, {
+      internalType: "address",
+      name: "target",
+      type: "address"
+    }, {
+      internalType: "bytes4",
+      name: "selector",
+      type: "bytes4"
+    }],
+    internalType: "struct IPKG.UPGRADE",
+    name: "_pkg",
+    type: "tuple"
+  }, {
+    internalType: "string",
+    name: "_ipfsCid",
+    type: "string"
+  }],
+  name: "create",
+  outputs: [{
+    internalType: "address",
+    name: "pkg",
+    type: "address"
+  }],
+  stateMutability: "payable",
+  type: "function"
+}, {
+  inputs: [{
+    components: [{
+      internalType: "address",
+      name: "target",
+      type: "address"
+    }, {
+      internalType: "enum IDiamondWritableInternal.FacetCutAction",
+      name: "action",
+      type: "uint8"
+    }, {
+      internalType: "bytes4[]",
+      name: "selectors",
+      type: "bytes4[]"
+    }],
+    internalType: "struct IDiamondWritableInternal.FacetCut[]",
+    name: "facetCuts",
+    type: "tuple[]"
+  }, {
+    internalType: "address",
+    name: "target",
+    type: "address"
+  }, {
+    internalType: "bytes",
+    name: "data",
+    type: "bytes"
+  }],
+  name: "diamondCut",
+  outputs: [],
+  stateMutability: "nonpayable",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "_pkg",
+    type: "address"
+  }, {
+    internalType: "bytes",
+    name: "_data",
+    type: "bytes"
+  }],
+  name: "install",
+  outputs: [],
+  stateMutability: "payable",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "_pkg",
+    type: "address"
+  }, {
+    internalType: "bytes",
+    name: "_data",
+    type: "bytes"
+  }],
+  name: "uninstall",
+  outputs: [],
+  stateMutability: "nonpayable",
+  type: "function"
+}];
+var IInstaller__factory = /*#__PURE__*/function () {
+  function IInstaller__factory() {
+    _classCallCheck(this, IInstaller__factory);
+  }
+  _createClass(IInstaller__factory, null, [{
+    key: "createInterface",
+    value: function createInterface() {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
+    }
+  }, {
+    key: "connect",
+    value: function connect(address, signerOrProvider) {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
+    }
+  }]);
+  return IInstaller__factory;
+}();
+IInstaller__factory.abi = _abi;
+
+/***/ }),
+
+/***/ "./src/lib/contracts/types/factories/IPKG__factory.ts":
+/*!************************************************************!*\
+  !*** ./src/lib/contracts/types/factories/IPKG__factory.ts ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   IPKG__factory: () => (/* binding */ IPKG__factory)
+/* harmony export */ });
+/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+/* Autogenerated file. Do not edit manually. */
+/* tslint:disable */
+/* eslint-disable */
+
+var _abi = [{
+  inputs: [{
+    internalType: "enum IPKG.VARIANT",
+    name: "action",
+    type: "uint8"
+  }],
+  name: "get",
+  outputs: [{
+    components: [{
+      internalType: "address",
+      name: "target",
+      type: "address"
+    }, {
+      internalType: "enum IDiamondWritableInternal.FacetCutAction",
+      name: "action",
+      type: "uint8"
+    }, {
+      internalType: "bytes4[]",
+      name: "selectors",
+      type: "bytes4[]"
+    }],
+    internalType: "struct IDiamondWritableInternal.FacetCut[]",
+    name: "",
+    type: "tuple[]"
+  }, {
+    internalType: "address",
+    name: "",
+    type: "address"
+  }, {
+    internalType: "bytes4",
+    name: "",
+    type: "bytes4"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "_token",
+    type: "address"
+  }, {
+    components: [{
+      internalType: "address",
+      name: "target",
+      type: "address"
+    }, {
+      internalType: "enum IDiamondWritableInternal.FacetCutAction",
+      name: "action",
+      type: "uint8"
+    }, {
+      internalType: "bytes4[]",
+      name: "selectors",
+      type: "bytes4[]"
+    }],
+    internalType: "struct IDiamondWritableInternal.FacetCut[]",
+    name: "_cuts",
+    type: "tuple[]"
+  }, {
+    internalType: "address",
+    name: "_target",
+    type: "address"
+  }, {
+    internalType: "bytes4",
+    name: "_selector",
+    type: "bytes4"
+  }],
+  name: "set",
+  outputs: [],
+  stateMutability: "nonpayable",
+  type: "function"
+}];
+var IPKG__factory = /*#__PURE__*/function () {
+  function IPKG__factory() {
+    _classCallCheck(this, IPKG__factory);
+  }
+  _createClass(IPKG__factory, null, [{
+    key: "createInterface",
+    value: function createInterface() {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
+    }
+  }, {
+    key: "connect",
+    value: function connect(address, signerOrProvider) {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
+    }
+  }]);
+  return IPKG__factory;
+}();
+IPKG__factory.abi = _abi;
+
+/***/ }),
+
+/***/ "./src/lib/contracts/types/factories/Initializer__factory.ts":
+/*!*******************************************************************!*\
+  !*** ./src/lib/contracts/types/factories/Initializer__factory.ts ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Initializer__factory: () => (/* binding */ Initializer__factory)
+/* harmony export */ });
+/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+/* Autogenerated file. Do not edit manually. */
+/* tslint:disable */
+/* eslint-disable */
+
+var _abi = [{
+  inputs: [],
+  name: "cost",
+  outputs: [{
+    internalType: "uint256",
+    name: "",
+    type: "uint256"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [],
+  name: "init",
+  outputs: [],
+  stateMutability: "payable",
+  type: "function"
+}, {
+  inputs: [],
+  name: "owner",
+  outputs: [{
+    internalType: "address",
+    name: "",
+    type: "address"
+  }],
+  stateMutability: "view",
+  type: "function"
+}];
+var Initializer__factory = /*#__PURE__*/function () {
+  function Initializer__factory() {
+    _classCallCheck(this, Initializer__factory);
+  }
+  _createClass(Initializer__factory, null, [{
+    key: "createInterface",
+    value: function createInterface() {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
+    }
+  }, {
+    key: "connect",
+    value: function connect(address, signerOrProvider) {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
+    }
+  }]);
+  return Initializer__factory;
+}();
+Initializer__factory.abi = _abi;
+
+/***/ }),
+
+/***/ "./src/lib/contracts/types/factories/Installer__factory.ts":
+/*!*****************************************************************!*\
+  !*** ./src/lib/contracts/types/factories/Installer__factory.ts ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Installer__factory: () => (/* binding */ Installer__factory)
+/* harmony export */ });
+/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+/* Autogenerated file. Do not edit manually. */
+/* tslint:disable */
+/* eslint-disable */
+
+var _abi = [{
+  inputs: [{
+    internalType: "address",
+    name: "_sys",
+    type: "address"
+  }],
+  stateMutability: "nonpayable",
+  type: "constructor"
+}, {
+  inputs: [],
+  name: "DiamondWritable__InvalidInitializationParameters",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__RemoveTargetNotZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__ReplaceTargetIsIdentical",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorAlreadyAdded",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorIsImmutable",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorNotFound",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorNotSpecified",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__TargetHasNoCode",
+  type: "error"
+}, {
+  inputs: [],
+  name: "Ownable__NotOwner",
+  type: "error"
+}, {
+  inputs: [],
+  name: "Ownable__NotTransitiveOwner",
+  type: "error"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "pkg",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "bool",
+    name: "install",
+    type: "bool"
+  }],
+  name: "DappletUpgrade",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    components: [{
+      internalType: "address",
+      name: "target",
+      type: "address"
+    }, {
+      internalType: "enum IDiamondWritableInternal.FacetCutAction",
+      name: "action",
+      type: "uint8"
+    }, {
+      internalType: "bytes4[]",
+      name: "selectors",
+      type: "bytes4[]"
+    }],
+    indexed: false,
+    internalType: "struct IDiamondWritableInternal.FacetCut[]",
+    name: "facetCuts",
+    type: "tuple[]"
+  }, {
+    indexed: false,
+    internalType: "address",
+    name: "target",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "bytes",
+    name: "data",
+    type: "bytes"
+  }],
+  name: "DiamondCut",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "previousOwner",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "newOwner",
+    type: "address"
+  }],
+  name: "OwnershipTransferred",
+  type: "event"
+}, {
+  inputs: [{
+    components: [{
+      components: [{
+        internalType: "address",
+        name: "target",
+        type: "address"
+      }, {
+        internalType: "enum IDiamondWritableInternal.FacetCutAction",
+        name: "action",
+        type: "uint8"
+      }, {
+        internalType: "bytes4[]",
+        name: "selectors",
+        type: "bytes4[]"
+      }],
+      internalType: "struct IDiamondWritableInternal.FacetCut[]",
+      name: "cuts",
+      type: "tuple[]"
+    }, {
+      internalType: "address",
+      name: "target",
+      type: "address"
+    }, {
+      internalType: "bytes4",
+      name: "selector",
+      type: "bytes4"
+    }],
+    internalType: "struct IPKG.UPGRADE",
+    name: "_pkg",
+    type: "tuple"
+  }, {
+    internalType: "string",
+    name: "_ipfsCid",
+    type: "string"
+  }],
+  name: "create",
+  outputs: [{
+    internalType: "address",
+    name: "pkg",
+    type: "address"
+  }],
+  stateMutability: "payable",
+  type: "function"
+}, {
+  inputs: [{
+    components: [{
+      internalType: "address",
+      name: "target",
+      type: "address"
+    }, {
+      internalType: "enum IDiamondWritableInternal.FacetCutAction",
+      name: "action",
+      type: "uint8"
+    }, {
+      internalType: "bytes4[]",
+      name: "selectors",
+      type: "bytes4[]"
+    }],
+    internalType: "struct IDiamondWritableInternal.FacetCut[]",
+    name: "facetCuts",
+    type: "tuple[]"
+  }, {
+    internalType: "address",
+    name: "target",
+    type: "address"
+  }, {
+    internalType: "bytes",
+    name: "data",
+    type: "bytes"
+  }],
+  name: "diamondCut",
+  outputs: [],
+  stateMutability: "nonpayable",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "_pkg",
+    type: "address"
+  }, {
+    internalType: "bytes",
+    name: "data",
+    type: "bytes"
+  }],
+  name: "install",
+  outputs: [],
+  stateMutability: "payable",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "_pkg",
+    type: "address"
+  }, {
+    internalType: "bytes",
+    name: "data",
+    type: "bytes"
+  }],
+  name: "uninstall",
+  outputs: [],
+  stateMutability: "nonpayable",
+  type: "function"
+}];
+var Installer__factory = /*#__PURE__*/function () {
+  function Installer__factory() {
+    _classCallCheck(this, Installer__factory);
+  }
+  _createClass(Installer__factory, null, [{
+    key: "createInterface",
+    value: function createInterface() {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
+    }
+  }, {
+    key: "connect",
+    value: function connect(address, signerOrProvider) {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
+    }
+  }]);
+  return Installer__factory;
+}();
+Installer__factory.abi = _abi;
+
+/***/ }),
+
+/***/ "./src/lib/contracts/types/factories/OperatorFacet__factory.ts":
+/*!*********************************************************************!*\
+  !*** ./src/lib/contracts/types/factories/OperatorFacet__factory.ts ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   OperatorFacet__factory: () => (/* binding */ OperatorFacet__factory)
+/* harmony export */ });
+/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+/* Autogenerated file. Do not edit manually. */
+/* tslint:disable */
+/* eslint-disable */
+
+var _abi = [{
+  inputs: [],
+  stateMutability: "nonpayable",
+  type: "constructor"
+}, {
+  inputs: [],
+  name: "ERC20Base__ApproveFromZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__ApproveToZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__BurnExceedsBalance",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__BurnFromZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__InsufficientAllowance",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__MintToZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__TransferExceedsBalance",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__TransferFromZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__TransferToZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "Factory__FailedDeployment",
+  type: "error"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "owner",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "spender",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "uint256",
+    name: "value",
+    type: "uint256"
+  }],
+  name: "Approval",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "pkg",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "client",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "caller",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "bool",
+    name: "install",
+    type: "bool"
+  }],
+  name: "ClientUpgraded",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "recipient",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "sender",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "uint256",
+    name: "amount",
+    type: "uint256"
+  }],
+  name: "FeePaid",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "pkg",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "creator",
+    type: "address"
+  }],
+  name: "PackageCreated",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "bytes32",
+    name: "role",
+    type: "bytes32"
+  }, {
+    indexed: true,
+    internalType: "bytes32",
+    name: "previousAdminRole",
+    type: "bytes32"
+  }, {
+    indexed: true,
+    internalType: "bytes32",
+    name: "newAdminRole",
+    type: "bytes32"
+  }],
+  name: "RoleAdminChanged",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "bytes32",
+    name: "role",
+    type: "bytes32"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "account",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "sender",
+    type: "address"
+  }],
+  name: "RoleGranted",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "bytes32",
+    name: "role",
+    type: "bytes32"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "account",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "sender",
+    type: "address"
+  }],
+  name: "RoleRevoked",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "from",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "to",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "uint256",
+    name: "value",
+    type: "uint256"
+  }],
+  name: "Transfer",
+  type: "event"
+}, {
+  inputs: [{
+    components: [{
+      components: [{
+        internalType: "address",
+        name: "target",
+        type: "address"
+      }, {
+        internalType: "enum IDiamondWritableInternal.FacetCutAction",
+        name: "action",
+        type: "uint8"
+      }, {
+        internalType: "bytes4[]",
+        name: "selectors",
+        type: "bytes4[]"
+      }],
+      internalType: "struct IDiamondWritableInternal.FacetCut[]",
+      name: "cuts",
+      type: "tuple[]"
+    }, {
+      internalType: "address",
+      name: "target",
+      type: "address"
+    }, {
+      internalType: "bytes4",
+      name: "selector",
+      type: "bytes4"
+    }],
+    internalType: "struct IPKG.UPGRADE",
+    name: "_pkg",
+    type: "tuple"
+  }, {
+    internalType: "string",
+    name: "_ipfsCid",
+    type: "string"
+  }, {
+    internalType: "address",
+    name: "_caller",
+    type: "address"
+  }],
+  name: "createPkg",
+  outputs: [{
+    internalType: "address",
+    name: "",
+    type: "address"
+  }],
+  stateMutability: "payable",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "_pkg",
+    type: "address"
+  }, {
+    internalType: "address",
+    name: "_caller",
+    type: "address"
+  }, {
+    internalType: "bytes4",
+    name: "initFn",
+    type: "bytes4"
+  }, {
+    internalType: "bytes",
+    name: "data",
+    type: "bytes"
+  }],
+  name: "installPkg",
+  outputs: [],
+  stateMutability: "payable",
+  type: "function"
+}, {
+  inputs: [],
+  name: "model",
+  outputs: [{
+    internalType: "address",
+    name: "",
+    type: "address"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "_pkg",
+    type: "address"
+  }, {
+    internalType: "address",
+    name: "_caller",
+    type: "address"
+  }, {
+    internalType: "bytes4",
+    name: "initFn",
+    type: "bytes4"
+  }, {
+    internalType: "bytes",
+    name: "data",
+    type: "bytes"
+  }],
+  name: "uninstallPkg",
+  outputs: [],
+  stateMutability: "nonpayable",
+  type: "function"
+}];
+var OperatorFacet__factory = /*#__PURE__*/function () {
+  function OperatorFacet__factory() {
+    _classCallCheck(this, OperatorFacet__factory);
+  }
+  _createClass(OperatorFacet__factory, null, [{
+    key: "createInterface",
+    value: function createInterface() {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
+    }
+  }, {
+    key: "connect",
+    value: function connect(address, signerOrProvider) {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
+    }
+  }]);
+  return OperatorFacet__factory;
+}();
+OperatorFacet__factory.abi = _abi;
+
+/***/ }),
+
+/***/ "./src/lib/contracts/types/factories/OwnershipFacet__factory.ts":
+/*!**********************************************************************!*\
+  !*** ./src/lib/contracts/types/factories/OwnershipFacet__factory.ts ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   OwnershipFacet__factory: () => (/* binding */ OwnershipFacet__factory)
+/* harmony export */ });
+/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+/* Autogenerated file. Do not edit manually. */
+/* tslint:disable */
+/* eslint-disable */
+
+var _abi = [{
+  inputs: [],
+  name: "Ownable__NotOwner",
+  type: "error"
+}, {
+  inputs: [],
+  name: "Ownable__NotTransitiveOwner",
+  type: "error"
+}, {
+  inputs: [],
+  name: "SafeOwnable__NotNomineeOwner",
+  type: "error"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "previousOwner",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "newOwner",
+    type: "address"
+  }],
+  name: "OwnershipTransferred",
+  type: "event"
+}, {
+  inputs: [],
+  name: "acceptOwnership",
+  outputs: [],
+  stateMutability: "nonpayable",
+  type: "function"
+}, {
+  inputs: [],
+  name: "nomineeOwner",
+  outputs: [{
+    internalType: "address",
+    name: "",
+    type: "address"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [],
+  name: "owner",
+  outputs: [{
+    internalType: "address",
+    name: "",
+    type: "address"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "account",
+    type: "address"
+  }],
+  name: "transferOwnership",
+  outputs: [],
+  stateMutability: "nonpayable",
+  type: "function"
+}, {
+  stateMutability: "payable",
+  type: "receive"
+}];
+var OwnershipFacet__factory = /*#__PURE__*/function () {
+  function OwnershipFacet__factory() {
+    _classCallCheck(this, OwnershipFacet__factory);
+  }
+  _createClass(OwnershipFacet__factory, null, [{
+    key: "createInterface",
+    value: function createInterface() {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
+    }
+  }, {
+    key: "connect",
+    value: function connect(address, signerOrProvider) {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
+    }
+  }]);
+  return OwnershipFacet__factory;
+}();
+OwnershipFacet__factory.abi = _abi;
+
+/***/ }),
+
+/***/ "./src/lib/contracts/types/factories/PKG__factory.ts":
+/*!***********************************************************!*\
+  !*** ./src/lib/contracts/types/factories/PKG__factory.ts ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   PKG__factory: () => (/* binding */ PKG__factory)
+/* harmony export */ });
+/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+/* Autogenerated file. Do not edit manually. */
+/* tslint:disable */
+/* eslint-disable */
+
+var _abi = [{
+  inputs: [],
+  name: "AddressUtils__NotContract",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__InvalidInitializationParameters",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__RemoveTargetNotZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__ReplaceTargetIsIdentical",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorAlreadyAdded",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorIsImmutable",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorNotFound",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorNotSpecified",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__TargetHasNoCode",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__ApproveFromZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__ApproveToZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__BurnExceedsBalance",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__BurnFromZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__InsufficientAllowance",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__MintToZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__TransferExceedsBalance",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__TransferFromZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__TransferToZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC4626Base__AllowanceExceeded",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC4626Base__MaximumAmountExceeded",
+  type: "error"
+}, {
+  inputs: [],
+  name: "SafeERC20__OperationFailed",
+  type: "error"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "owner",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "spender",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "uint256",
+    name: "value",
+    type: "uint256"
+  }],
+  name: "Approval",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "caller",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "owner",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "uint256",
+    name: "assets",
+    type: "uint256"
+  }, {
+    indexed: false,
+    internalType: "uint256",
+    name: "shares",
+    type: "uint256"
+  }],
+  name: "Deposit",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    components: [{
+      internalType: "address",
+      name: "target",
+      type: "address"
+    }, {
+      internalType: "enum IDiamondWritableInternal.FacetCutAction",
+      name: "action",
+      type: "uint8"
+    }, {
+      internalType: "bytes4[]",
+      name: "selectors",
+      type: "bytes4[]"
+    }],
+    indexed: false,
+    internalType: "struct IDiamondWritableInternal.FacetCut[]",
+    name: "facetCuts",
+    type: "tuple[]"
+  }, {
+    indexed: false,
+    internalType: "address",
+    name: "target",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "bytes",
+    name: "data",
+    type: "bytes"
+  }],
+  name: "DiamondCut",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "from",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "to",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "uint256",
+    name: "value",
+    type: "uint256"
+  }],
+  name: "Transfer",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "caller",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "receiver",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "owner",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "uint256",
+    name: "assets",
+    type: "uint256"
+  }, {
+    indexed: false,
+    internalType: "uint256",
+    name: "shares",
+    type: "uint256"
+  }],
+  name: "Withdraw",
+  type: "event"
+}, {
+  inputs: [],
+  name: "asset",
+  outputs: [{
+    internalType: "address",
+    name: "",
+    type: "address"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "account",
+    type: "address"
+  }],
+  name: "balanceOf",
+  outputs: [{
+    internalType: "uint256",
+    name: "",
+    type: "uint256"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "uint256",
+    name: "shareAmount",
+    type: "uint256"
+  }],
+  name: "convertToAssets",
+  outputs: [{
+    internalType: "uint256",
+    name: "assetAmount",
+    type: "uint256"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "uint256",
+    name: "assetAmount",
+    type: "uint256"
+  }],
+  name: "convertToShares",
+  outputs: [{
+    internalType: "uint256",
+    name: "shareAmount",
+    type: "uint256"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "uint256",
+    name: "assetAmount",
+    type: "uint256"
+  }, {
+    internalType: "address",
+    name: "receiver",
+    type: "address"
+  }],
+  name: "deposit",
+  outputs: [{
+    internalType: "uint256",
+    name: "shareAmount",
+    type: "uint256"
+  }],
+  stateMutability: "nonpayable",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "enum IPKG.VARIANT",
+    name: "action",
+    type: "uint8"
+  }],
+  name: "get",
+  outputs: [{
+    components: [{
+      internalType: "address",
+      name: "target",
+      type: "address"
+    }, {
+      internalType: "enum IDiamondWritableInternal.FacetCutAction",
+      name: "action",
+      type: "uint8"
+    }, {
+      internalType: "bytes4[]",
+      name: "selectors",
+      type: "bytes4[]"
+    }],
+    internalType: "struct IDiamondWritableInternal.FacetCut[]",
+    name: "cuts",
+    type: "tuple[]"
+  }, {
+    internalType: "address",
+    name: "target",
+    type: "address"
+  }, {
+    internalType: "bytes4",
+    name: "selector",
+    type: "bytes4"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "receiver",
+    type: "address"
+  }],
+  name: "maxDeposit",
+  outputs: [{
+    internalType: "uint256",
+    name: "maxAssets",
+    type: "uint256"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "receiver",
+    type: "address"
+  }],
+  name: "maxMint",
+  outputs: [{
+    internalType: "uint256",
+    name: "maxShares",
+    type: "uint256"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "owner",
+    type: "address"
+  }],
+  name: "maxRedeem",
+  outputs: [{
+    internalType: "uint256",
+    name: "maxShares",
+    type: "uint256"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "owner",
+    type: "address"
+  }],
+  name: "maxWithdraw",
+  outputs: [{
+    internalType: "uint256",
+    name: "maxAssets",
+    type: "uint256"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "uint256",
+    name: "shareAmount",
+    type: "uint256"
+  }, {
+    internalType: "address",
+    name: "receiver",
+    type: "address"
+  }],
+  name: "mint",
+  outputs: [{
+    internalType: "uint256",
+    name: "assetAmount",
+    type: "uint256"
+  }],
+  stateMutability: "nonpayable",
+  type: "function"
+}, {
+  inputs: [],
+  name: "pkg",
+  outputs: [{
+    internalType: "address",
+    name: "target",
+    type: "address"
+  }, {
+    internalType: "bytes4",
+    name: "selector",
+    type: "bytes4"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "uint256",
+    name: "assetAmount",
+    type: "uint256"
+  }],
+  name: "previewDeposit",
+  outputs: [{
+    internalType: "uint256",
+    name: "shareAmount",
+    type: "uint256"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "uint256",
+    name: "shareAmount",
+    type: "uint256"
+  }],
+  name: "previewMint",
+  outputs: [{
+    internalType: "uint256",
+    name: "assetAmount",
+    type: "uint256"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "uint256",
+    name: "shareAmount",
+    type: "uint256"
+  }],
+  name: "previewRedeem",
+  outputs: [{
+    internalType: "uint256",
+    name: "assetAmount",
+    type: "uint256"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "uint256",
+    name: "assetAmount",
+    type: "uint256"
+  }],
+  name: "previewWithdraw",
+  outputs: [{
+    internalType: "uint256",
+    name: "shareAmount",
+    type: "uint256"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "uint256",
+    name: "shareAmount",
+    type: "uint256"
+  }, {
+    internalType: "address",
+    name: "receiver",
+    type: "address"
+  }, {
+    internalType: "address",
+    name: "owner",
+    type: "address"
+  }],
+  name: "redeem",
+  outputs: [{
+    internalType: "uint256",
+    name: "assetAmount",
+    type: "uint256"
+  }],
+  stateMutability: "nonpayable",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "_system",
+    type: "address"
+  }, {
+    components: [{
+      internalType: "address",
+      name: "target",
+      type: "address"
+    }, {
+      internalType: "enum IDiamondWritableInternal.FacetCutAction",
+      name: "action",
+      type: "uint8"
+    }, {
+      internalType: "bytes4[]",
+      name: "selectors",
+      type: "bytes4[]"
+    }],
+    internalType: "struct IDiamondWritableInternal.FacetCut[]",
+    name: "_cuts",
+    type: "tuple[]"
+  }, {
+    internalType: "address",
+    name: "_target",
+    type: "address"
+  }, {
+    internalType: "bytes4",
+    name: "_selector",
+    type: "bytes4"
+  }],
+  name: "set",
+  outputs: [],
+  stateMutability: "nonpayable",
+  type: "function"
+}, {
+  inputs: [],
+  name: "totalAssets",
+  outputs: [{
+    internalType: "uint256",
+    name: "",
+    type: "uint256"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [],
+  name: "totalSupply",
+  outputs: [{
+    internalType: "uint256",
+    name: "",
+    type: "uint256"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "uint256",
+    name: "assetAmount",
+    type: "uint256"
+  }, {
+    internalType: "address",
+    name: "receiver",
+    type: "address"
+  }, {
+    internalType: "address",
+    name: "owner",
+    type: "address"
+  }],
+  name: "withdraw",
+  outputs: [{
+    internalType: "uint256",
+    name: "shareAmount",
+    type: "uint256"
+  }],
+  stateMutability: "nonpayable",
+  type: "function"
+}];
+var PKG__factory = /*#__PURE__*/function () {
+  function PKG__factory() {
+    _classCallCheck(this, PKG__factory);
+  }
+  _createClass(PKG__factory, null, [{
+    key: "createInterface",
+    value: function createInterface() {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
+    }
+  }, {
+    key: "connect",
+    value: function connect(address, signerOrProvider) {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
+    }
+  }]);
+  return PKG__factory;
+}();
+PKG__factory.abi = _abi;
+
+/***/ }),
+
+/***/ "./src/lib/contracts/types/factories/System__factory.ts":
+/*!**************************************************************!*\
+  !*** ./src/lib/contracts/types/factories/System__factory.ts ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   System__factory: () => (/* binding */ System__factory)
+/* harmony export */ });
+/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ethers */ "ethers");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+/* Autogenerated file. Do not edit manually. */
+/* tslint:disable */
+/* eslint-disable */
+
+var _abi = [{
+  inputs: [{
+    internalType: "bytes4",
+    name: "selector",
+    type: "bytes4"
+  }],
+  name: "facetAddress",
+  outputs: [{
+    internalType: "address",
+    name: "facet",
+    type: "address"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [],
+  name: "facetAddresses",
+  outputs: [{
+    internalType: "address[]",
+    name: "addresses",
+    type: "address[]"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "facet",
+    type: "address"
+  }],
+  name: "facetFunctionSelectors",
+  outputs: [{
+    internalType: "bytes4[]",
+    name: "selectors",
+    type: "bytes4[]"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [],
+  name: "facets",
+  outputs: [{
+    components: [{
+      internalType: "address",
+      name: "target",
+      type: "address"
+    }, {
+      internalType: "bytes4[]",
+      name: "selectors",
+      type: "bytes4[]"
+    }],
+    internalType: "struct IDiamondReadable.Facet[]",
+    name: "diamondFacets",
+    type: "tuple[]"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [],
+  name: "ERC165Base__InvalidInterfaceId",
+  type: "error"
+}, {
+  inputs: [{
+    internalType: "bytes4",
+    name: "interfaceId",
+    type: "bytes4"
+  }],
+  name: "supportsInterface",
+  outputs: [{
+    internalType: "bool",
+    name: "",
+    type: "bool"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [],
+  name: "Ownable__NotOwner",
+  type: "error"
+}, {
+  inputs: [],
+  name: "Ownable__NotTransitiveOwner",
+  type: "error"
+}, {
+  inputs: [],
+  name: "SafeOwnable__NotNomineeOwner",
+  type: "error"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "previousOwner",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "newOwner",
+    type: "address"
+  }],
+  name: "OwnershipTransferred",
+  type: "event"
+}, {
+  inputs: [],
+  name: "acceptOwnership",
+  outputs: [],
+  stateMutability: "nonpayable",
+  type: "function"
+}, {
+  inputs: [],
+  name: "nomineeOwner",
+  outputs: [{
+    internalType: "address",
+    name: "",
+    type: "address"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [],
+  name: "owner",
+  outputs: [{
+    internalType: "address",
+    name: "",
+    type: "address"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "account",
+    type: "address"
+  }],
+  name: "transferOwnership",
+  outputs: [],
+  stateMutability: "nonpayable",
+  type: "function"
+}, {
+  inputs: [],
+  name: "ERC20Base__ApproveFromZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__ApproveToZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__BurnExceedsBalance",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__BurnFromZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__InsufficientAllowance",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__MintToZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__TransferExceedsBalance",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__TransferFromZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__TransferToZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "EnumerableMap__IndexOutOfBounds",
+  type: "error"
+}, {
+  inputs: [],
+  name: "EnumerableMap__NonExistentKey",
+  type: "error"
+}, {
+  inputs: [],
+  name: "EnumerableSet__IndexOutOfBounds",
+  type: "error"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "owner",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "spender",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "uint256",
+    name: "value",
+    type: "uint256"
+  }],
+  name: "Approval",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "pkg",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "account",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "uint256",
+    name: "amount",
+    type: "uint256"
+  }],
+  name: "Stake",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "from",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "to",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "uint256",
+    name: "value",
+    type: "uint256"
+  }],
+  name: "Transfer",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "pkg",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "account",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "uint256",
+    name: "amount",
+    type: "uint256"
+  }],
+  name: "Unstake",
+  type: "event"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "holder",
+    type: "address"
+  }, {
+    internalType: "address",
+    name: "spender",
+    type: "address"
+  }],
+  name: "allowance",
+  outputs: [{
+    internalType: "uint256",
+    name: "",
+    type: "uint256"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "spender",
+    type: "address"
+  }, {
+    internalType: "uint256",
+    name: "amount",
+    type: "uint256"
+  }],
+  name: "approve",
+  outputs: [{
+    internalType: "bool",
+    name: "",
+    type: "bool"
+  }],
+  stateMutability: "nonpayable",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "account",
+    type: "address"
+  }],
+  name: "balanceOf",
+  outputs: [{
+    internalType: "uint256",
+    name: "",
+    type: "uint256"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [],
+  name: "decimals",
+  outputs: [{
+    internalType: "uint8",
+    name: "",
+    type: "uint8"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "account",
+    type: "address"
+  }],
+  name: "installedBy",
+  outputs: [{
+    internalType: "address[]",
+    name: "pkgs",
+    type: "address[]"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "pkg",
+    type: "address"
+  }],
+  name: "installersOf",
+  outputs: [{
+    internalType: "address[]",
+    name: "installers",
+    type: "address[]"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "pkg",
+    type: "address"
+  }],
+  name: "isPkg",
+  outputs: [{
+    internalType: "bool",
+    name: "",
+    type: "bool"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address[]",
+    name: "pkgs",
+    type: "address[]"
+  }],
+  name: "metadataOf",
+  outputs: [{
+    internalType: "string[]",
+    name: "metadata",
+    type: "string[]"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [],
+  name: "name",
+  outputs: [{
+    internalType: "string",
+    name: "",
+    type: "string"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "account",
+    type: "address"
+  }],
+  name: "ownedBy",
+  outputs: [{
+    internalType: "address[]",
+    name: "pkgs",
+    type: "address[]"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "pkg",
+    type: "address"
+  }],
+  name: "ownerOf",
+  outputs: [{
+    internalType: "address",
+    name: "owner",
+    type: "address"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "account",
+    type: "address"
+  }],
+  name: "receivedStakeOf",
+  outputs: [{
+    internalType: "address[]",
+    name: "pkgs",
+    type: "address[]"
+  }, {
+    internalType: "uint256[]",
+    name: "amounts",
+    type: "uint256[]"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "account",
+    type: "address"
+  }],
+  name: "sentStakeOf",
+  outputs: [{
+    internalType: "address[]",
+    name: "pkgs",
+    type: "address[]"
+  }, {
+    internalType: "uint256[]",
+    name: "amounts",
+    type: "uint256[]"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "pkg",
+    type: "address"
+  }],
+  name: "stake",
+  outputs: [],
+  stateMutability: "payable",
+  type: "function"
+}, {
+  inputs: [],
+  name: "symbol",
+  outputs: [{
+    internalType: "string",
+    name: "",
+    type: "string"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [],
+  name: "totalSupply",
+  outputs: [{
+    internalType: "uint256",
+    name: "",
+    type: "uint256"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "recipient",
+    type: "address"
+  }, {
+    internalType: "uint256",
+    name: "amount",
+    type: "uint256"
+  }],
+  name: "transfer",
+  outputs: [{
+    internalType: "bool",
+    name: "",
+    type: "bool"
+  }],
+  stateMutability: "nonpayable",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "holder",
+    type: "address"
+  }, {
+    internalType: "address",
+    name: "recipient",
+    type: "address"
+  }, {
+    internalType: "uint256",
+    name: "amount",
+    type: "uint256"
+  }],
+  name: "transferFrom",
+  outputs: [{
+    internalType: "bool",
+    name: "",
+    type: "bool"
+  }],
+  stateMutability: "nonpayable",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "pkg",
+    type: "address"
+  }, {
+    internalType: "uint256",
+    name: "amount",
+    type: "uint256"
+  }],
+  name: "unstake",
+  outputs: [],
+  stateMutability: "nonpayable",
+  type: "function"
+}, {
+  inputs: [],
+  name: "ERC20Base__ApproveFromZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__ApproveToZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__BurnExceedsBalance",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__BurnFromZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__InsufficientAllowance",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__MintToZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__TransferExceedsBalance",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__TransferFromZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__TransferToZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "Ownable__NotOwner",
+  type: "error"
+}, {
+  inputs: [],
+  name: "Ownable__NotTransitiveOwner",
+  type: "error"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "owner",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "spender",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "uint256",
+    name: "value",
+    type: "uint256"
+  }],
+  name: "Approval",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "recipient",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "sender",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "uint256",
+    name: "amount",
+    type: "uint256"
+  }],
+  name: "FeePaid",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "previousOwner",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "newOwner",
+    type: "address"
+  }],
+  name: "OwnershipTransferred",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "bytes32",
+    name: "role",
+    type: "bytes32"
+  }, {
+    indexed: true,
+    internalType: "bytes32",
+    name: "previousAdminRole",
+    type: "bytes32"
+  }, {
+    indexed: true,
+    internalType: "bytes32",
+    name: "newAdminRole",
+    type: "bytes32"
+  }],
+  name: "RoleAdminChanged",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "bytes32",
+    name: "role",
+    type: "bytes32"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "account",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "sender",
+    type: "address"
+  }],
+  name: "RoleGranted",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "bytes32",
+    name: "role",
+    type: "bytes32"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "account",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "sender",
+    type: "address"
+  }],
+  name: "RoleRevoked",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "from",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "to",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "uint256",
+    name: "value",
+    type: "uint256"
+  }],
+  name: "Transfer",
+  type: "event"
+}, {
+  inputs: [],
+  name: "createClient",
+  outputs: [{
+    internalType: "address",
+    name: "client",
+    type: "address"
+  }],
+  stateMutability: "payable",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "string",
+    name: "_title",
+    type: "string"
+  }],
+  name: "getClientUpgrade",
+  outputs: [{
+    components: [{
+      internalType: "address",
+      name: "target",
+      type: "address"
+    }, {
+      internalType: "enum IDiamondWritableInternal.FacetCutAction",
+      name: "action",
+      type: "uint8"
+    }, {
+      internalType: "bytes4[]",
+      name: "selectors",
+      type: "bytes4[]"
+    }],
+    internalType: "struct IDiamondWritableInternal.FacetCut[]",
+    name: "cuts",
+    type: "tuple[]"
+  }, {
+    internalType: "address",
+    name: "target",
+    type: "address"
+  }, {
+    internalType: "bytes",
+    name: "data",
+    type: "bytes"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "string",
+    name: "_title",
+    type: "string"
+  }, {
+    components: [{
+      internalType: "address",
+      name: "target",
+      type: "address"
+    }, {
+      internalType: "enum IDiamondWritableInternal.FacetCutAction",
+      name: "action",
+      type: "uint8"
+    }, {
+      internalType: "bytes4[]",
+      name: "selectors",
+      type: "bytes4[]"
+    }],
+    internalType: "struct IDiamondWritableInternal.FacetCut[]",
+    name: "_cuts",
+    type: "tuple[]"
+  }, {
+    internalType: "address",
+    name: "_target",
+    type: "address"
+  }, {
+    internalType: "bytes4",
+    name: "_selector",
+    type: "bytes4"
+  }],
+  name: "setClientUpgrade",
+  outputs: [],
+  stateMutability: "nonpayable",
+  type: "function"
+}, {
+  inputs: [],
+  name: "DiamondWritable__InvalidInitializationParameters",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__RemoveTargetNotZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__ReplaceTargetIsIdentical",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorAlreadyAdded",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorIsImmutable",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorNotFound",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__SelectorNotSpecified",
+  type: "error"
+}, {
+  inputs: [],
+  name: "DiamondWritable__TargetHasNoCode",
+  type: "error"
+}, {
+  inputs: [],
+  name: "Ownable__NotOwner",
+  type: "error"
+}, {
+  inputs: [],
+  name: "Ownable__NotTransitiveOwner",
+  type: "error"
+}, {
+  anonymous: false,
+  inputs: [{
+    components: [{
+      internalType: "address",
+      name: "target",
+      type: "address"
+    }, {
+      internalType: "enum IDiamondWritableInternal.FacetCutAction",
+      name: "action",
+      type: "uint8"
+    }, {
+      internalType: "bytes4[]",
+      name: "selectors",
+      type: "bytes4[]"
+    }],
+    indexed: false,
+    internalType: "struct IDiamondWritableInternal.FacetCut[]",
+    name: "facetCuts",
+    type: "tuple[]"
+  }, {
+    indexed: false,
+    internalType: "address",
+    name: "target",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "bytes",
+    name: "data",
+    type: "bytes"
+  }],
+  name: "DiamondCut",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "previousOwner",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "newOwner",
+    type: "address"
+  }],
+  name: "OwnershipTransferred",
+  type: "event"
+}, {
+  inputs: [{
+    components: [{
+      internalType: "address",
+      name: "target",
+      type: "address"
+    }, {
+      internalType: "enum IDiamondWritableInternal.FacetCutAction",
+      name: "action",
+      type: "uint8"
+    }, {
+      internalType: "bytes4[]",
+      name: "selectors",
+      type: "bytes4[]"
+    }],
+    internalType: "struct IDiamondWritableInternal.FacetCut[]",
+    name: "facetCuts",
+    type: "tuple[]"
+  }, {
+    internalType: "address",
+    name: "target",
+    type: "address"
+  }, {
+    internalType: "bytes",
+    name: "data",
+    type: "bytes"
+  }],
+  name: "diamondCut",
+  outputs: [],
+  stateMutability: "nonpayable",
+  type: "function"
+}, {
+  inputs: [],
+  name: "ERC20Base__ApproveFromZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__ApproveToZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__BurnExceedsBalance",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__BurnFromZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__InsufficientAllowance",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__MintToZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__TransferExceedsBalance",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__TransferFromZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "ERC20Base__TransferToZeroAddress",
+  type: "error"
+}, {
+  inputs: [],
+  name: "Factory__FailedDeployment",
+  type: "error"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "owner",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "spender",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "uint256",
+    name: "value",
+    type: "uint256"
+  }],
+  name: "Approval",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "pkg",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "client",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "caller",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "bool",
+    name: "install",
+    type: "bool"
+  }],
+  name: "ClientUpgraded",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "recipient",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "sender",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "uint256",
+    name: "amount",
+    type: "uint256"
+  }],
+  name: "FeePaid",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "pkg",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "creator",
+    type: "address"
+  }],
+  name: "PackageCreated",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "bytes32",
+    name: "role",
+    type: "bytes32"
+  }, {
+    indexed: true,
+    internalType: "bytes32",
+    name: "previousAdminRole",
+    type: "bytes32"
+  }, {
+    indexed: true,
+    internalType: "bytes32",
+    name: "newAdminRole",
+    type: "bytes32"
+  }],
+  name: "RoleAdminChanged",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "bytes32",
+    name: "role",
+    type: "bytes32"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "account",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "sender",
+    type: "address"
+  }],
+  name: "RoleGranted",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "bytes32",
+    name: "role",
+    type: "bytes32"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "account",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "sender",
+    type: "address"
+  }],
+  name: "RoleRevoked",
+  type: "event"
+}, {
+  anonymous: false,
+  inputs: [{
+    indexed: true,
+    internalType: "address",
+    name: "from",
+    type: "address"
+  }, {
+    indexed: true,
+    internalType: "address",
+    name: "to",
+    type: "address"
+  }, {
+    indexed: false,
+    internalType: "uint256",
+    name: "value",
+    type: "uint256"
+  }],
+  name: "Transfer",
+  type: "event"
+}, {
+  inputs: [{
+    components: [{
+      components: [{
+        internalType: "address",
+        name: "target",
+        type: "address"
+      }, {
+        internalType: "enum IDiamondWritableInternal.FacetCutAction",
+        name: "action",
+        type: "uint8"
+      }, {
+        internalType: "bytes4[]",
+        name: "selectors",
+        type: "bytes4[]"
+      }],
+      internalType: "struct IDiamondWritableInternal.FacetCut[]",
+      name: "cuts",
+      type: "tuple[]"
+    }, {
+      internalType: "address",
+      name: "target",
+      type: "address"
+    }, {
+      internalType: "bytes4",
+      name: "selector",
+      type: "bytes4"
+    }],
+    internalType: "struct IPKG.UPGRADE",
+    name: "_pkg",
+    type: "tuple"
+  }, {
+    internalType: "string",
+    name: "_ipfsCid",
+    type: "string"
+  }, {
+    internalType: "address",
+    name: "_caller",
+    type: "address"
+  }],
+  name: "createPkg",
+  outputs: [{
+    internalType: "address",
+    name: "",
+    type: "address"
+  }],
+  stateMutability: "payable",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "_pkg",
+    type: "address"
+  }, {
+    internalType: "address",
+    name: "_caller",
+    type: "address"
+  }, {
+    internalType: "bytes4",
+    name: "initFn",
+    type: "bytes4"
+  }, {
+    internalType: "bytes",
+    name: "data",
+    type: "bytes"
+  }],
+  name: "installPkg",
+  outputs: [],
+  stateMutability: "payable",
+  type: "function"
+}, {
+  inputs: [],
+  name: "model",
+  outputs: [{
+    internalType: "address",
+    name: "",
+    type: "address"
+  }],
+  stateMutability: "view",
+  type: "function"
+}, {
+  inputs: [{
+    internalType: "address",
+    name: "_pkg",
+    type: "address"
+  }, {
+    internalType: "address",
+    name: "_caller",
+    type: "address"
+  }, {
+    internalType: "bytes4",
+    name: "initFn",
+    type: "bytes4"
+  }, {
+    internalType: "bytes",
+    name: "data",
+    type: "bytes"
+  }],
+  name: "uninstallPkg",
+  outputs: [],
+  stateMutability: "nonpayable",
+  type: "function"
+}];
+var System__factory = /*#__PURE__*/function () {
+  function System__factory() {
+    _classCallCheck(this, System__factory);
+  }
+  _createClass(System__factory, null, [{
+    key: "createInterface",
+    value: function createInterface() {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.utils.Interface(_abi);
+    }
+  }, {
+    key: "connect",
+    value: function connect(address, signerOrProvider) {
+      return new ethers__WEBPACK_IMPORTED_MODULE_0__.Contract(address, _abi, signerOrProvider);
+    }
+  }]);
+  return System__factory;
+}();
+System__factory.abi = _abi;
+
+/***/ }),
+
+/***/ "./src/lib/contracts/types/factories/index.ts":
+/*!****************************************************!*\
+  !*** ./src/lib/contracts/types/factories/index.ts ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   DappletsFacet__factory: () => (/* reexport safe */ _DappletsFacet_factory__WEBPACK_IMPORTED_MODULE_0__.DappletsFacet__factory),
+/* harmony export */   DappsFacet__factory: () => (/* reexport safe */ _DappsFacet_factory__WEBPACK_IMPORTED_MODULE_1__.DappsFacet__factory),
+/* harmony export */   DiamondBase__factory: () => (/* reexport safe */ _DiamondBase_factory__WEBPACK_IMPORTED_MODULE_3__.DiamondBase__factory),
+/* harmony export */   DiamondCutFacet__factory: () => (/* reexport safe */ _DiamondCutFacet_factory__WEBPACK_IMPORTED_MODULE_4__.DiamondCutFacet__factory),
+/* harmony export */   DiamondLoupeFacet__factory: () => (/* reexport safe */ _DiamondLoupeFacet_factory__WEBPACK_IMPORTED_MODULE_5__.DiamondLoupeFacet__factory),
+/* harmony export */   DiamondReadable__factory: () => (/* reexport safe */ _DiamondReadable_factory__WEBPACK_IMPORTED_MODULE_6__.DiamondReadable__factory),
+/* harmony export */   DiamondWritableInternal__factory: () => (/* reexport safe */ _DiamondWritableInternal_factory__WEBPACK_IMPORTED_MODULE_8__.DiamondWritableInternal__factory),
+/* harmony export */   DiamondWritable__factory: () => (/* reexport safe */ _DiamondWritable_factory__WEBPACK_IMPORTED_MODULE_7__.DiamondWritable__factory),
+/* harmony export */   Diamond__factory: () => (/* reexport safe */ _Diamond_factory__WEBPACK_IMPORTED_MODULE_2__.Diamond__factory),
+/* harmony export */   ERC165Facet__factory: () => (/* reexport safe */ _ERC165Facet_factory__WEBPACK_IMPORTED_MODULE_9__.ERC165Facet__factory),
+/* harmony export */   IDiamondBase__factory: () => (/* reexport safe */ _IDiamondBase_factory__WEBPACK_IMPORTED_MODULE_10__.IDiamondBase__factory),
+/* harmony export */   IDiamondReadable__factory: () => (/* reexport safe */ _IDiamondReadable_factory__WEBPACK_IMPORTED_MODULE_11__.IDiamondReadable__factory),
+/* harmony export */   IDiamondWritableInternal__factory: () => (/* reexport safe */ _IDiamondWritableInternal_factory__WEBPACK_IMPORTED_MODULE_13__.IDiamondWritableInternal__factory),
+/* harmony export */   IDiamondWritable__factory: () => (/* reexport safe */ _IDiamondWritable_factory__WEBPACK_IMPORTED_MODULE_12__.IDiamondWritable__factory),
+/* harmony export */   IInstaller__factory: () => (/* reexport safe */ _IInstaller_factory__WEBPACK_IMPORTED_MODULE_14__.IInstaller__factory),
+/* harmony export */   IPKG__factory: () => (/* reexport safe */ _IPKG_factory__WEBPACK_IMPORTED_MODULE_15__.IPKG__factory),
+/* harmony export */   Initializer__factory: () => (/* reexport safe */ _Initializer_factory__WEBPACK_IMPORTED_MODULE_16__.Initializer__factory),
+/* harmony export */   Installer__factory: () => (/* reexport safe */ _Installer_factory__WEBPACK_IMPORTED_MODULE_17__.Installer__factory),
+/* harmony export */   OperatorFacet__factory: () => (/* reexport safe */ _OperatorFacet_factory__WEBPACK_IMPORTED_MODULE_18__.OperatorFacet__factory),
+/* harmony export */   OwnershipFacet__factory: () => (/* reexport safe */ _OwnershipFacet_factory__WEBPACK_IMPORTED_MODULE_19__.OwnershipFacet__factory),
+/* harmony export */   PKG__factory: () => (/* reexport safe */ _PKG_factory__WEBPACK_IMPORTED_MODULE_20__.PKG__factory),
+/* harmony export */   System__factory: () => (/* reexport safe */ _System_factory__WEBPACK_IMPORTED_MODULE_21__.System__factory)
+/* harmony export */ });
+/* harmony import */ var _DappletsFacet_factory__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DappletsFacet__factory */ "./src/lib/contracts/types/factories/DappletsFacet__factory.ts");
+/* harmony import */ var _DappsFacet_factory__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DappsFacet__factory */ "./src/lib/contracts/types/factories/DappsFacet__factory.ts");
+/* harmony import */ var _Diamond_factory__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Diamond__factory */ "./src/lib/contracts/types/factories/Diamond__factory.ts");
+/* harmony import */ var _DiamondBase_factory__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./DiamondBase__factory */ "./src/lib/contracts/types/factories/DiamondBase__factory.ts");
+/* harmony import */ var _DiamondCutFacet_factory__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./DiamondCutFacet__factory */ "./src/lib/contracts/types/factories/DiamondCutFacet__factory.ts");
+/* harmony import */ var _DiamondLoupeFacet_factory__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./DiamondLoupeFacet__factory */ "./src/lib/contracts/types/factories/DiamondLoupeFacet__factory.ts");
+/* harmony import */ var _DiamondReadable_factory__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./DiamondReadable__factory */ "./src/lib/contracts/types/factories/DiamondReadable__factory.ts");
+/* harmony import */ var _DiamondWritable_factory__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./DiamondWritable__factory */ "./src/lib/contracts/types/factories/DiamondWritable__factory.ts");
+/* harmony import */ var _DiamondWritableInternal_factory__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./DiamondWritableInternal__factory */ "./src/lib/contracts/types/factories/DiamondWritableInternal__factory.ts");
+/* harmony import */ var _ERC165Facet_factory__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./ERC165Facet__factory */ "./src/lib/contracts/types/factories/ERC165Facet__factory.ts");
+/* harmony import */ var _IDiamondBase_factory__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./IDiamondBase__factory */ "./src/lib/contracts/types/factories/IDiamondBase__factory.ts");
+/* harmony import */ var _IDiamondReadable_factory__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./IDiamondReadable__factory */ "./src/lib/contracts/types/factories/IDiamondReadable__factory.ts");
+/* harmony import */ var _IDiamondWritable_factory__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./IDiamondWritable__factory */ "./src/lib/contracts/types/factories/IDiamondWritable__factory.ts");
+/* harmony import */ var _IDiamondWritableInternal_factory__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./IDiamondWritableInternal__factory */ "./src/lib/contracts/types/factories/IDiamondWritableInternal__factory.ts");
+/* harmony import */ var _IInstaller_factory__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./IInstaller__factory */ "./src/lib/contracts/types/factories/IInstaller__factory.ts");
+/* harmony import */ var _IPKG_factory__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./IPKG__factory */ "./src/lib/contracts/types/factories/IPKG__factory.ts");
+/* harmony import */ var _Initializer_factory__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./Initializer__factory */ "./src/lib/contracts/types/factories/Initializer__factory.ts");
+/* harmony import */ var _Installer_factory__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./Installer__factory */ "./src/lib/contracts/types/factories/Installer__factory.ts");
+/* harmony import */ var _OperatorFacet_factory__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./OperatorFacet__factory */ "./src/lib/contracts/types/factories/OperatorFacet__factory.ts");
+/* harmony import */ var _OwnershipFacet_factory__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./OwnershipFacet__factory */ "./src/lib/contracts/types/factories/OwnershipFacet__factory.ts");
+/* harmony import */ var _PKG_factory__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./PKG__factory */ "./src/lib/contracts/types/factories/PKG__factory.ts");
+/* harmony import */ var _System_factory__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./System__factory */ "./src/lib/contracts/types/factories/System__factory.ts");
+/* Autogenerated file. Do not edit manually. */
+/* tslint:disable */
+/* eslint-disable */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/***/ }),
+
+/***/ "./src/lib/contracts/types/index.ts":
+/*!******************************************!*\
+  !*** ./src/lib/contracts/types/index.ts ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   DappletsFacet__factory: () => (/* reexport safe */ _factories_DappletsFacet_factory__WEBPACK_IMPORTED_MODULE_1__.DappletsFacet__factory),
+/* harmony export */   DappsFacet__factory: () => (/* reexport safe */ _factories_DappsFacet_factory__WEBPACK_IMPORTED_MODULE_2__.DappsFacet__factory),
+/* harmony export */   DiamondBase__factory: () => (/* reexport safe */ _factories_DiamondBase_factory__WEBPACK_IMPORTED_MODULE_4__.DiamondBase__factory),
+/* harmony export */   DiamondCutFacet__factory: () => (/* reexport safe */ _factories_DiamondCutFacet_factory__WEBPACK_IMPORTED_MODULE_5__.DiamondCutFacet__factory),
+/* harmony export */   DiamondLoupeFacet__factory: () => (/* reexport safe */ _factories_DiamondLoupeFacet_factory__WEBPACK_IMPORTED_MODULE_6__.DiamondLoupeFacet__factory),
+/* harmony export */   DiamondReadable__factory: () => (/* reexport safe */ _factories_DiamondReadable_factory__WEBPACK_IMPORTED_MODULE_7__.DiamondReadable__factory),
+/* harmony export */   DiamondWritableInternal__factory: () => (/* reexport safe */ _factories_DiamondWritableInternal_factory__WEBPACK_IMPORTED_MODULE_9__.DiamondWritableInternal__factory),
+/* harmony export */   DiamondWritable__factory: () => (/* reexport safe */ _factories_DiamondWritable_factory__WEBPACK_IMPORTED_MODULE_8__.DiamondWritable__factory),
+/* harmony export */   Diamond__factory: () => (/* reexport safe */ _factories_Diamond_factory__WEBPACK_IMPORTED_MODULE_3__.Diamond__factory),
+/* harmony export */   ERC165Facet__factory: () => (/* reexport safe */ _factories_ERC165Facet_factory__WEBPACK_IMPORTED_MODULE_10__.ERC165Facet__factory),
+/* harmony export */   IDiamondBase__factory: () => (/* reexport safe */ _factories_IDiamondBase_factory__WEBPACK_IMPORTED_MODULE_11__.IDiamondBase__factory),
+/* harmony export */   IDiamondReadable__factory: () => (/* reexport safe */ _factories_IDiamondReadable_factory__WEBPACK_IMPORTED_MODULE_12__.IDiamondReadable__factory),
+/* harmony export */   IDiamondWritableInternal__factory: () => (/* reexport safe */ _factories_IDiamondWritableInternal_factory__WEBPACK_IMPORTED_MODULE_14__.IDiamondWritableInternal__factory),
+/* harmony export */   IDiamondWritable__factory: () => (/* reexport safe */ _factories_IDiamondWritable_factory__WEBPACK_IMPORTED_MODULE_13__.IDiamondWritable__factory),
+/* harmony export */   IInstaller__factory: () => (/* reexport safe */ _factories_IInstaller_factory__WEBPACK_IMPORTED_MODULE_15__.IInstaller__factory),
+/* harmony export */   IPKG__factory: () => (/* reexport safe */ _factories_IPKG_factory__WEBPACK_IMPORTED_MODULE_18__.IPKG__factory),
+/* harmony export */   Initializer__factory: () => (/* reexport safe */ _factories_Initializer_factory__WEBPACK_IMPORTED_MODULE_16__.Initializer__factory),
+/* harmony export */   Installer__factory: () => (/* reexport safe */ _factories_Installer_factory__WEBPACK_IMPORTED_MODULE_17__.Installer__factory),
+/* harmony export */   OperatorFacet__factory: () => (/* reexport safe */ _factories_OperatorFacet_factory__WEBPACK_IMPORTED_MODULE_19__.OperatorFacet__factory),
+/* harmony export */   OwnershipFacet__factory: () => (/* reexport safe */ _factories_OwnershipFacet_factory__WEBPACK_IMPORTED_MODULE_20__.OwnershipFacet__factory),
+/* harmony export */   PKG__factory: () => (/* reexport safe */ _factories_PKG_factory__WEBPACK_IMPORTED_MODULE_21__.PKG__factory),
+/* harmony export */   System__factory: () => (/* reexport safe */ _factories_System_factory__WEBPACK_IMPORTED_MODULE_22__.System__factory),
+/* harmony export */   factories: () => (/* reexport module object */ _factories__WEBPACK_IMPORTED_MODULE_0__)
+/* harmony export */ });
+/* harmony import */ var _factories__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./factories */ "./src/lib/contracts/types/factories/index.ts");
+/* harmony import */ var _factories_DappletsFacet_factory__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./factories/DappletsFacet__factory */ "./src/lib/contracts/types/factories/DappletsFacet__factory.ts");
+/* harmony import */ var _factories_DappsFacet_factory__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./factories/DappsFacet__factory */ "./src/lib/contracts/types/factories/DappsFacet__factory.ts");
+/* harmony import */ var _factories_Diamond_factory__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./factories/Diamond__factory */ "./src/lib/contracts/types/factories/Diamond__factory.ts");
+/* harmony import */ var _factories_DiamondBase_factory__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./factories/DiamondBase__factory */ "./src/lib/contracts/types/factories/DiamondBase__factory.ts");
+/* harmony import */ var _factories_DiamondCutFacet_factory__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./factories/DiamondCutFacet__factory */ "./src/lib/contracts/types/factories/DiamondCutFacet__factory.ts");
+/* harmony import */ var _factories_DiamondLoupeFacet_factory__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./factories/DiamondLoupeFacet__factory */ "./src/lib/contracts/types/factories/DiamondLoupeFacet__factory.ts");
+/* harmony import */ var _factories_DiamondReadable_factory__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./factories/DiamondReadable__factory */ "./src/lib/contracts/types/factories/DiamondReadable__factory.ts");
+/* harmony import */ var _factories_DiamondWritable_factory__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./factories/DiamondWritable__factory */ "./src/lib/contracts/types/factories/DiamondWritable__factory.ts");
+/* harmony import */ var _factories_DiamondWritableInternal_factory__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./factories/DiamondWritableInternal__factory */ "./src/lib/contracts/types/factories/DiamondWritableInternal__factory.ts");
+/* harmony import */ var _factories_ERC165Facet_factory__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./factories/ERC165Facet__factory */ "./src/lib/contracts/types/factories/ERC165Facet__factory.ts");
+/* harmony import */ var _factories_IDiamondBase_factory__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./factories/IDiamondBase__factory */ "./src/lib/contracts/types/factories/IDiamondBase__factory.ts");
+/* harmony import */ var _factories_IDiamondReadable_factory__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./factories/IDiamondReadable__factory */ "./src/lib/contracts/types/factories/IDiamondReadable__factory.ts");
+/* harmony import */ var _factories_IDiamondWritable_factory__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./factories/IDiamondWritable__factory */ "./src/lib/contracts/types/factories/IDiamondWritable__factory.ts");
+/* harmony import */ var _factories_IDiamondWritableInternal_factory__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./factories/IDiamondWritableInternal__factory */ "./src/lib/contracts/types/factories/IDiamondWritableInternal__factory.ts");
+/* harmony import */ var _factories_IInstaller_factory__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./factories/IInstaller__factory */ "./src/lib/contracts/types/factories/IInstaller__factory.ts");
+/* harmony import */ var _factories_Initializer_factory__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./factories/Initializer__factory */ "./src/lib/contracts/types/factories/Initializer__factory.ts");
+/* harmony import */ var _factories_Installer_factory__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./factories/Installer__factory */ "./src/lib/contracts/types/factories/Installer__factory.ts");
+/* harmony import */ var _factories_IPKG_factory__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./factories/IPKG__factory */ "./src/lib/contracts/types/factories/IPKG__factory.ts");
+/* harmony import */ var _factories_OperatorFacet_factory__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./factories/OperatorFacet__factory */ "./src/lib/contracts/types/factories/OperatorFacet__factory.ts");
+/* harmony import */ var _factories_OwnershipFacet_factory__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./factories/OwnershipFacet__factory */ "./src/lib/contracts/types/factories/OwnershipFacet__factory.ts");
+/* harmony import */ var _factories_PKG_factory__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./factories/PKG__factory */ "./src/lib/contracts/types/factories/PKG__factory.ts");
+/* harmony import */ var _factories_System_factory__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./factories/System__factory */ "./src/lib/contracts/types/factories/System__factory.ts");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/***/ }),
+
+/***/ "./src/lib/hooks/index.tsx":
+/*!*********************************!*\
+  !*** ./src/lib/hooks/index.tsx ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getInterface: () => (/* binding */ getInterface),
+/* harmony export */   isLiveAddress: () => (/* binding */ isLiveAddress),
+/* harmony export */   matchFunctionsWithSelectors: () => (/* binding */ matchFunctionsWithSelectors),
+/* harmony export */   storage_key: () => (/* binding */ storage_key),
+/* harmony export */   useInterface: () => (/* binding */ useInterface),
+/* harmony export */   useIsLiveAddress: () => (/* binding */ useIsLiveAddress),
+/* harmony export */   useMatchABIFunctionsWithSelectors: () => (/* binding */ useMatchABIFunctionsWithSelectors),
+/* harmony export */   useMatchFunctionsWithABI: () => (/* binding */ useMatchFunctionsWithABI),
+/* harmony export */   useMatchSelectors: () => (/* binding */ useMatchSelectors),
+/* harmony export */   useSelectors: () => (/* binding */ useSelectors),
+/* harmony export */   useSigner: () => (/* binding */ useSigner),
+/* harmony export */   useSystem: () => (/* binding */ useSystem)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "tslib");
+/* harmony import */ var _usedapp_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @usedapp/core */ "@usedapp/core");
+/* harmony import */ var ethers_lib_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ethers/lib/utils */ "./node_modules/ethers/lib/utils.js");
+/* harmony import */ var ethers_lib_utils__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(ethers_lib_utils__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _contracts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../contracts */ "./src/lib/contracts/index.tsx");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+
+
+
+
+
+var storage_key = 'local_dapplet_store';
+function getInterface(abi) {
+  return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) switch (_context.prev = _context.next) {
+        case 0:
+          return _context.abrupt("return", new ethers_lib_utils__WEBPACK_IMPORTED_MODULE_4__.Interface(abi));
+        case 1:
+        case "end":
+          return _context.stop();
+      }
+    }, _callee);
+  }));
+}
+function useInterface(abi) {
+  var _this = this;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(),
+    _useState2 = _slicedToArray(_useState, 2),
+    iface = _useState2[0],
+    setIface = _useState2[1];
+  (0,react__WEBPACK_IMPORTED_MODULE_2__.useMemo)(function () {
+    return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(_this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+        while (1) switch (_context2.prev = _context2.next) {
+          case 0:
+            if (!abi) {
+              _context2.next = 6;
+              break;
+            }
+            _context2.t0 = setIface;
+            _context2.next = 4;
+            return getInterface(abi);
+          case 4:
+            _context2.t1 = _context2.sent;
+            (0, _context2.t0)(_context2.t1);
+          case 6:
+          case "end":
+            return _context2.stop();
+        }
+      }, _callee2);
+    }));
+  }, [abi]);
+  return iface;
+}
+function useMatchSelectors(iface, selectors) {
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
+    _useState4 = _slicedToArray(_useState3, 2),
+    fragments = _useState4[0],
+    setFragments = _useState4[1];
+  (0,react__WEBPACK_IMPORTED_MODULE_2__.useMemo)(function () {
+    if (iface && selectors) {
+      var f = selectors.map(function (selector) {
+        return iface.getFunction(selector);
+      });
+      setFragments(f);
+    }
+  }, [iface, selectors]);
+  return fragments;
+}
+function useMatchABIFunctionsWithSelectors(abi, selectors) {
+  var iface = useInterface(abi);
+  var fragments = useMatchSelectors(iface, selectors);
+  return {
+    fragments: fragments,
+    iface: iface
+  };
+}
+function useSelectors(iface) {
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
+    _useState6 = _slicedToArray(_useState5, 2),
+    selectors = _useState6[0],
+    setSelectors = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(),
+    _useState8 = _slicedToArray(_useState7, 2),
+    fragments = _useState8[0],
+    setFragments = _useState8[1];
+  (0,react__WEBPACK_IMPORTED_MODULE_2__.useMemo)(function () {
+    if (iface) {
+      var functions = iface.fragments.filter(function (fragment) {
+        return fragment.type === 'function';
+      });
+      setSelectors(functions.map(function (fragment) {
+        return iface.getSighash(fragment);
+      }));
+      setFragments(functions);
+    }
+  }, [iface]);
+  return {
+    selectors: selectors,
+    fragments: fragments
+  };
+}
+function matchFunctionsWithSelectors(humanReadableFunctions, iface, selectors) {
+  var functions = humanReadableFunctions[0] === '*' ? iface.fragments.filter(function (fragment) {
+    return fragment.type === 'function';
+  }).map(function (fragment) {
+    return iface.getSighash(fragment);
+  }) : humanReadableFunctions.map(function (functionName) {
+    return iface.getSighash(functionName);
+  });
+  return {
+    selectors: selectors,
+    functions: functions
+  };
+}
+function useMatchFunctionsWithABI(abi, humanReadableFunctions) {
+  var iface = useInterface(abi);
+  var _useSelectors = useSelectors(iface),
+    selectors = _useSelectors.selectors;
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)([]),
+    _useState10 = _slicedToArray(_useState9, 2),
+    functions = _useState10[0],
+    setFunctions = _useState10[1];
+  (0,react__WEBPACK_IMPORTED_MODULE_2__.useMemo)(function () {
+    if (iface && selectors && humanReadableFunctions) {
+      var fns = matchFunctionsWithSelectors(humanReadableFunctions, iface, selectors).functions;
+      setFunctions(fns);
+    }
+  }, [iface, selectors, humanReadableFunctions]);
+  return {
+    selectors: selectors,
+    functions: functions
+  };
+}
+// OK: was this the source of the problem? -- using library uses localhost, not the forked chain????
+function isLiveAddress(address, library) {
+  return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+    var code;
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) switch (_context3.prev = _context3.next) {
+        case 0:
+          if (!(typeof address === 'string' && (0,ethers_lib_utils__WEBPACK_IMPORTED_MODULE_4__.isAddress)(address))) {
+            _context3.next = 7;
+            break;
+          }
+          _context3.next = 3;
+          return library.getCode(address);
+        case 3:
+          code = _context3.sent;
+          return _context3.abrupt("return", code !== '0x');
+        case 7:
+          return _context3.abrupt("return", false);
+        case 8:
+        case "end":
+          return _context3.stop();
+      }
+    }, _callee3);
+  }));
+}
+function useIsLiveAddress(address) {
+  var _useEthers = (0,_usedapp_core__WEBPACK_IMPORTED_MODULE_1__.useEthers)(),
+    library = _useEthers.library;
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
+    _useState12 = _slicedToArray(_useState11, 2),
+    live = _useState12[0],
+    setLive = _useState12[1];
+  (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
+    if (library && address) {
+      isLiveAddress(address, library).then(function (isLive) {
+        if (isLive) {
+          setLive(true);
+        }
+      });
+    }
+  }, [library, address]);
+  return live;
+}
+function useSigner() {
+  var _useEthers2 = (0,_usedapp_core__WEBPACK_IMPORTED_MODULE_1__.useEthers)(),
+    account = _useEthers2.account,
+    library = _useEthers2.library;
+  var signer = (0,react__WEBPACK_IMPORTED_MODULE_2__.useMemo)(function () {
+    if (library && 'getSigner' in library) {
+      return library.getSigner(account);
+    }
+  }, [account, library]);
+  return signer;
+}
+function useSystem() {
+  var _useEthers3 = (0,_usedapp_core__WEBPACK_IMPORTED_MODULE_1__.useEthers)(),
+    chainId = _useEthers3.chainId;
+  var obj = (0,_contracts__WEBPACK_IMPORTED_MODULE_3__.deployment)('Diamond', chainId);
+  return obj;
+}
+
+/***/ }),
+
+/***/ "./src/lib/hooks/useCreatePkg.tsx":
+/*!****************************************!*\
+  !*** ./src/lib/hooks/useCreatePkg.tsx ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   useCreatePkg: () => (/* binding */ useCreatePkg)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "tslib");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! . */ "./src/lib/hooks/index.tsx");
+/* harmony import */ var _actions_createPkg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/createPkg */ "./src/lib/actions/createPkg.tsx");
+/* harmony import */ var _stores_dapplet__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../stores/dapplet */ "./src/lib/stores/dapplet.ts");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+function useCreatePkg() {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(),
+    _useState2 = _slicedToArray(_useState, 2),
+    error = _useState2[0],
+    setError = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
+    _useState4 = _slicedToArray(_useState3, 2),
+    loading = _useState4[0],
+    setLoading = _useState4[1];
+  console.log('error', error);
+  var store = (0,_stores_dapplet__WEBPACK_IMPORTED_MODULE_4__.useDappletStore)();
+  var signer = (0,___WEBPACK_IMPORTED_MODULE_2__.useSigner)();
+  function compileUpgrade() {
+    var _a, _b, _c, _d, _e;
+    var cuts = (_a = store === null || store === void 0 ? void 0 : store.upgrade) === null || _a === void 0 ? void 0 : _a.facets.map(function (f, i) {
+      var _a;
+      return (_a = Object.values(f)[0]) === null || _a === void 0 ? void 0 : _a.cut;
+    });
+    var target = (_c = (_b = store === null || store === void 0 ? void 0 : store.upgrade) === null || _b === void 0 ? void 0 : _b.initializer) === null || _c === void 0 ? void 0 : _c.target;
+    var selector = (_e = (_d = store === null || store === void 0 ? void 0 : store.upgrade) === null || _d === void 0 ? void 0 : _d.initializer) === null || _e === void 0 ? void 0 : _e.selector;
+    return {
+      cuts: cuts,
+      target: target,
+      selector: selector
+    };
+  }
+  function send() {
+    var _a;
+    return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      var upgrade, client, cid, pkg;
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) switch (_context.prev = _context.next) {
+          case 0:
+            setLoading(true);
+            _context.prev = 1;
+            if (signer) {
+              _context.next = 4;
+              break;
+            }
+            throw new Error('No signer found');
+          case 4:
+            upgrade = compileUpgrade();
+            client = (_a = store === null || store === void 0 ? void 0 : store.client) === null || _a === void 0 ? void 0 : _a.address;
+            cid = store === null || store === void 0 ? void 0 : store.CID;
+            _context.next = 9;
+            return (0,_actions_createPkg__WEBPACK_IMPORTED_MODULE_3__.createPkg)(client, upgrade, cid, signer);
+          case 9:
+            pkg = _context.sent;
+            console.log('pkg', pkg);
+            pkg && store.addAddress(pkg);
+            _context.next = 17;
+            break;
+          case 14:
+            _context.prev = 14;
+            _context.t0 = _context["catch"](1);
+            setError(_context.t0.message);
+          case 17:
+            _context.prev = 17;
+            setLoading(false);
+            return _context.finish(17);
+          case 20:
+          case "end":
+            return _context.stop();
+        }
+      }, _callee, null, [[1, 14, 17, 20]]);
+    }));
+  }
+  return {
+    send: send,
+    error: error,
+    loading: loading
+  };
+}
+
+/***/ }),
+
+/***/ "./src/lib/hooks/useDeployFacet.ts":
+/*!*****************************************!*\
+  !*** ./src/lib/hooks/useDeployFacet.ts ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   useDeployFacet: () => (/* binding */ useDeployFacet)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "tslib");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! . */ "./src/lib/hooks/index.tsx");
+/* harmony import */ var _actions_deployContract__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/deployContract */ "./src/lib/actions/deployContract.tsx");
+/* harmony import */ var _stores_dapplet__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../stores/dapplet */ "./src/lib/stores/dapplet.ts");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+
+
+
+
+
+function useDeployFacet(name, facet) {
+  var store = (0,_stores_dapplet__WEBPACK_IMPORTED_MODULE_4__.useDappletStore)();
+  var signer = (0,___WEBPACK_IMPORTED_MODULE_2__.useSigner)();
+  function deploy() {
+    return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      var facetCut;
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) switch (_context.prev = _context.next) {
+          case 0:
+            if (signer) {
+              _context.next = 2;
+              break;
+            }
+            throw new Error('No signer found');
+          case 2:
+            _context.next = 4;
+            return (0,_actions_deployContract__WEBPACK_IMPORTED_MODULE_3__.deployFacet)(facet, signer);
+          case 4:
+            facetCut = _context.sent;
+            console.log('facetCut', facetCut);
+            facetCut && store.addFacetCut(name, facetCut);
+          case 7:
+          case "end":
+            return _context.stop();
+        }
+      }, _callee);
+    }));
+  }
+  return (0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)(function () {
+    return deploy;
+  }, [signer]);
+}
+
+/***/ }),
+
+/***/ "./src/lib/hooks/useDeployInitializer.ts":
+/*!***********************************************!*\
+  !*** ./src/lib/hooks/useDeployInitializer.ts ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   useDeployInitializer: () => (/* binding */ useDeployInitializer)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "tslib");
+/* harmony import */ var _usedapp_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @usedapp/core */ "@usedapp/core");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! . */ "./src/lib/hooks/index.tsx");
+/* harmony import */ var _actions_deployContract__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../actions/deployContract */ "./src/lib/actions/deployContract.tsx");
+/* harmony import */ var _stores_dapplet__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../stores/dapplet */ "./src/lib/stores/dapplet.ts");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+
+
+
+
+
+
+function useDeployInitializer(initializer) {
+  var _useEthers = (0,_usedapp_core__WEBPACK_IMPORTED_MODULE_1__.useEthers)(),
+    library = _useEthers.library;
+  var signer = (0,___WEBPACK_IMPORTED_MODULE_3__.useSigner)();
+  var store = (0,_stores_dapplet__WEBPACK_IMPORTED_MODULE_5__.useDappletStore)();
+  function deploy() {
+    return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      var init;
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) switch (_context.prev = _context.next) {
+          case 0:
+            if (signer) {
+              _context.next = 2;
+              break;
+            }
+            throw new Error('No signer found');
+          case 2:
+            _context.next = 4;
+            return (0,_actions_deployContract__WEBPACK_IMPORTED_MODULE_4__.deployInitializer)(initializer, signer);
+          case 4:
+            init = _context.sent;
+            init && store.addInitializer(init);
+          case 6:
+          case "end":
+            return _context.stop();
+        }
+      }, _callee);
+    }));
+  }
+  return (0,react__WEBPACK_IMPORTED_MODULE_2__.useMemo)(function () {
+    return deploy;
+  }, [library]);
+}
+
+/***/ }),
+
+/***/ "./src/lib/hooks/useInstallPkg.tsx":
+/*!*****************************************!*\
+  !*** ./src/lib/hooks/useInstallPkg.tsx ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   installedBy: () => (/* binding */ installedBy),
+/* harmony export */   isInstalled: () => (/* binding */ isInstalled),
+/* harmony export */   useInitializerCost: () => (/* binding */ useInitializerCost),
+/* harmony export */   useInstallPkg: () => (/* binding */ useInstallPkg),
+/* harmony export */   useInstalledBy: () => (/* binding */ useInstalledBy),
+/* harmony export */   useIsInstalled: () => (/* binding */ useIsInstalled),
+/* harmony export */   usePkgInstalled: () => (/* binding */ usePkgInstalled),
+/* harmony export */   useUninstallPkg: () => (/* binding */ useUninstallPkg)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "tslib");
+/* harmony import */ var _usedapp_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @usedapp/core */ "@usedapp/core");
+/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ethers */ "ethers");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! . */ "./src/lib/hooks/index.tsx");
+/* harmony import */ var _actions_installPkg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../actions/installPkg */ "./src/lib/actions/installPkg.tsx");
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../constants */ "./src/lib/constants/index.ts");
+/* harmony import */ var _contracts_hooks_Initializer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../contracts/hooks/Initializer */ "./src/lib/contracts/hooks/Initializer.ts");
+/* harmony import */ var _contracts_types__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../contracts/types */ "./src/lib/contracts/types/index.ts");
+/* harmony import */ var _stores_dapplet__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../stores/dapplet */ "./src/lib/stores/dapplet.ts");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+
+
+function useInstallPkg() {
+  var _a, _b, _c;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(),
+    _useState2 = _slicedToArray(_useState, 2),
+    error = _useState2[0],
+    setError = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(false),
+    _useState4 = _slicedToArray(_useState3, 2),
+    loading = _useState4[0],
+    setLoading = _useState4[1];
+  var store = (0,_stores_dapplet__WEBPACK_IMPORTED_MODULE_9__.useDappletStore)();
+  var signer = (0,___WEBPACK_IMPORTED_MODULE_4__.useSigner)();
+  var system = (0,___WEBPACK_IMPORTED_MODULE_4__.useSystem)();
+  //get cost
+  var _ref = _contracts_hooks_Initializer__WEBPACK_IMPORTED_MODULE_7__.useInitializer.cost((_b = (_a = store === null || store === void 0 ? void 0 : store.upgrade) === null || _a === void 0 ? void 0 : _a.initializer) === null || _b === void 0 ? void 0 : _b.target, []) || {},
+    cost = _ref.value;
+  var installCost = (0,react__WEBPACK_IMPORTED_MODULE_3__.useMemo)(function () {
+    var _a;
+    return ((_a = cost === null || cost === void 0 ? void 0 : cost[0]) === null || _a === void 0 ? void 0 : _a.add(_constants__WEBPACK_IMPORTED_MODULE_6__.costOf.install)) || _constants__WEBPACK_IMPORTED_MODULE_6__.costOf.install;
+  }, [cost]);
+  var initializer = Object.values(((_c = store === null || store === void 0 ? void 0 : store.upgrade) === null || _c === void 0 ? void 0 : _c.initializer) || {})[0];
+  function send() {
+    var _a, _b;
+    return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      var client, iface, fn, args, calldata, addr, installed;
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) switch (_context.prev = _context.next) {
+          case 0:
+            setLoading(true);
+            _context.prev = 1;
+            client = (_a = store === null || store === void 0 ? void 0 : store.client) === null || _a === void 0 ? void 0 : _a.address;
+            _context.t0 = initializer !== ethers__WEBPACK_IMPORTED_MODULE_2__.ethers.constants.AddressZero;
+            if (!_context.t0) {
+              _context.next = 8;
+              break;
+            }
+            _context.next = 7;
+            return (0,___WEBPACK_IMPORTED_MODULE_4__.getInterface)(initializer === null || initializer === void 0 ? void 0 : initializer.abi);
+          case 7:
+            _context.t0 = _context.sent;
+          case 8:
+            iface = _context.t0;
+            fn = iface && iface.getFunction(initializer === null || initializer === void 0 ? void 0 : initializer["function"]);
+            args = fn && initializer.defaultArgs;
+            calldata = initializer && iface && fn ? iface.encodeFunctionData(fn, args) : '0x';
+            addr = (_b = store === null || store === void 0 ? void 0 : store.upgrade) === null || _b === void 0 ? void 0 : _b.address;
+            _context.t1 = addr && calldata;
+            if (!_context.t1) {
+              _context.next = 18;
+              break;
+            }
+            _context.next = 17;
+            return (0,_actions_installPkg__WEBPACK_IMPORTED_MODULE_5__.installPkg)(client, addr, signer, calldata);
+          case 17:
+            _context.t1 = _context.sent;
+          case 18:
+            installed = _context.t1;
+            console.log('asdf installed', installed);
+            installed && store.checkInstalls();
+            //update installs
+            store.updateInstalls(client, system);
+            _context.next = 27;
+            break;
+          case 24:
+            _context.prev = 24;
+            _context.t2 = _context["catch"](1);
+            setError(_context.t2.message);
+          case 27:
+            _context.prev = 27;
+            setLoading(false);
+            return _context.finish(27);
+          case 30:
+          case "end":
+            return _context.stop();
+        }
+      }, _callee, null, [[1, 24, 27, 30]]);
+    }));
+  }
+  return {
+    send: send,
+    error: error,
+    loading: loading
+  };
+}
+function useUninstallPkg() {
+  var _a;
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(),
+    _useState6 = _slicedToArray(_useState5, 2),
+    error = _useState6[0],
+    setError = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(false),
+    _useState8 = _slicedToArray(_useState7, 2),
+    loading = _useState8[0],
+    setLoading = _useState8[1];
+  var store = (0,_stores_dapplet__WEBPACK_IMPORTED_MODULE_9__.useDappletStore)();
+  var client = (_a = store === null || store === void 0 ? void 0 : store.client) === null || _a === void 0 ? void 0 : _a.address;
+  var system = (0,___WEBPACK_IMPORTED_MODULE_4__.useSystem)();
+  var signer = (0,___WEBPACK_IMPORTED_MODULE_4__.useSigner)();
+  function send(pkg) {
+    var _a;
+    return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+      var _client, uninstalled;
+      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+        while (1) switch (_context2.prev = _context2.next) {
+          case 0:
+            setLoading(true);
+            _context2.prev = 1;
+            _client = (_a = store === null || store === void 0 ? void 0 : store.client) === null || _a === void 0 ? void 0 : _a.address;
+            _context2.t0 = _client;
+            if (!_context2.t0) {
+              _context2.next = 8;
+              break;
+            }
+            _context2.next = 7;
+            return (0,_actions_installPkg__WEBPACK_IMPORTED_MODULE_5__.uninstallPkg)(_client, pkg, signer, '0x');
+          case 7:
+            _context2.t0 = _context2.sent;
+          case 8:
+            uninstalled = _context2.t0;
+            uninstalled && store.checkInstalls();
+            console.log('asdf uninstalled', uninstalled);
+            // update installs
+            store.updateInstalls(_client, system.address);
+            _context2.next = 17;
+            break;
+          case 14:
+            _context2.prev = 14;
+            _context2.t1 = _context2["catch"](1);
+            setError(_context2.t1.message);
+          case 17:
+            _context2.prev = 17;
+            setLoading(false);
+            return _context2.finish(17);
+          case 20:
+          case "end":
+            return _context2.stop();
+        }
+      }, _callee2, null, [[1, 14, 17, 20]]);
+    }));
+  }
+  return {
+    send: send,
+    error: error,
+    loading: loading
+  };
+}
+function installedBy(client, system) {
+  return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+    var provider, DappletsFacet;
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) switch (_context3.prev = _context3.next) {
+        case 0:
+          provider = (0,_stores_dapplet__WEBPACK_IMPORTED_MODULE_9__.getProvider)();
+          DappletsFacet = new ethers__WEBPACK_IMPORTED_MODULE_2__.Contract(system, _contracts_types__WEBPACK_IMPORTED_MODULE_8__.DappletsFacet__factory.abi, provider);
+          _context3.next = 4;
+          return DappletsFacet.installedBy(client);
+        case 4:
+          return _context3.abrupt("return", _context3.sent);
+        case 5:
+        case "end":
+          return _context3.stop();
+      }
+    }, _callee3);
+  }));
+}
+function useInstalledBy() {
+  var _a, _b;
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)([]),
+    _useState10 = _slicedToArray(_useState9, 2),
+    installs = _useState10[0],
+    setInstalls = _useState10[1];
+  var store = (0,_stores_dapplet__WEBPACK_IMPORTED_MODULE_9__.useDappletStore)();
+  var storedInstalls = (_a = store === null || store === void 0 ? void 0 : store.client) === null || _a === void 0 ? void 0 : _a.installs;
+  var client = (_b = store === null || store === void 0 ? void 0 : store.client) === null || _b === void 0 ? void 0 : _b.address;
+  var system = (0,___WEBPACK_IMPORTED_MODULE_4__.useSystem)();
+  var block = (0,_usedapp_core__WEBPACK_IMPORTED_MODULE_1__.useBlockNumber)();
+  var _useEthers = (0,_usedapp_core__WEBPACK_IMPORTED_MODULE_1__.useEthers)(),
+    chainId = _useEthers.chainId;
+  (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(function () {
+    function check() {
+      return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        var installedByClient;
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.next = 2;
+              return installedBy(client, system.address);
+            case 2:
+              installedByClient = _context4.sent;
+              setInstalls(installedByClient);
+            case 4:
+            case "end":
+              return _context4.stop();
+          }
+        }, _callee4);
+      }));
+    }
+    client && check();
+  }, [block, storedInstalls, client, chainId]);
+  return installs;
+}
+function isInstalled(upgrade, client, installedByClient) {
+  return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+    var provider, Loupe, facets, selectors, conflicts;
+    return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+      while (1) switch (_context5.prev = _context5.next) {
+        case 0:
+          provider = (0,_stores_dapplet__WEBPACK_IMPORTED_MODULE_9__.getProvider)();
+          Loupe = new ethers__WEBPACK_IMPORTED_MODULE_2__.Contract(client, _contracts_types__WEBPACK_IMPORTED_MODULE_8__.DiamondLoupeFacet__factory.abi, provider);
+          _context5.next = 4;
+          return Loupe.facets();
+        case 4:
+          facets = _context5.sent;
+          //check if facet selectors are already added
+          selectors = facets.map(function (f) {
+            return f.selectors.map(function (s) {
+              return s.toString();
+            });
+          }).flat();
+          conflicts = false;
+          upgrade === null || upgrade === void 0 ? void 0 : upgrade.facets.map(function (f) {
+            var _a;
+            var facet = Object.values(f)[0];
+            var sels = (_a = facet === null || facet === void 0 ? void 0 : facet.cut) === null || _a === void 0 ? void 0 : _a.selectors;
+            var _iterator = _createForOfIteratorHelper(sels),
+              _step;
+            try {
+              for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                var sel = _step.value;
+                if (selectors.includes(sel)) {
+                  conflicts = true;
+                  break;
+                }
+              }
+            } catch (err) {
+              _iterator.e(err);
+            } finally {
+              _iterator.f();
+            }
+          });
+          if (!conflicts) {
+            _context5.next = 10;
+            break;
+          }
+          return _context5.abrupt("return", installedByClient.includes(upgrade === null || upgrade === void 0 ? void 0 : upgrade.address));
+        case 10:
+          return _context5.abrupt("return", false);
+        case 11:
+        case "end":
+          return _context5.stop();
+      }
+    }, _callee5);
+  }));
+}
+function useIsInstalled() {
+  var _a, _b;
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(false),
+    _useState12 = _slicedToArray(_useState11, 2),
+    installed = _useState12[0],
+    setInstalled = _useState12[1];
+  var installs = useInstalledBy();
+  var store = (0,_stores_dapplet__WEBPACK_IMPORTED_MODULE_9__.useDappletStore)();
+  var client = (_a = store === null || store === void 0 ? void 0 : store.client) === null || _a === void 0 ? void 0 : _a.address;
+  var storedInstalls = (_b = store === null || store === void 0 ? void 0 : store.client) === null || _b === void 0 ? void 0 : _b.installs;
+  var upgrade = store === null || store === void 0 ? void 0 : store.upgrade;
+  var created = (0,_stores_dapplet__WEBPACK_IMPORTED_MODULE_9__.useUpgradeAddressDeployed)();
+  var _useEthers2 = (0,_usedapp_core__WEBPACK_IMPORTED_MODULE_1__.useEthers)(),
+    chainId = _useEthers2.chainId;
+  (0,react__WEBPACK_IMPORTED_MODULE_3__.useMemo)(function () {
+    function check() {
+      return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+        var installed;
+        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
+            case 0:
+              _context6.next = 2;
+              return isInstalled(upgrade, client, installs);
+            case 2:
+              installed = _context6.sent;
+              setInstalled(installed);
+            case 4:
+            case "end":
+              return _context6.stop();
+          }
+        }, _callee6);
+      }));
+    }
+    created && check();
+  }, [storedInstalls, client, chainId, created, upgrade, installs]);
+  return installed;
+}
+//TODO: trigger this on install/uninstall
+function usePkgInstalled() {
+  var _a, _b;
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(false),
+    _useState14 = _slicedToArray(_useState13, 2),
+    installed = _useState14[0],
+    setInstalled = _useState14[1];
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)([]),
+    _useState16 = _slicedToArray(_useState15, 2),
+    installs = _useState16[0],
+    setInstalls = _useState16[1];
+  var store = (0,_stores_dapplet__WEBPACK_IMPORTED_MODULE_9__.useDappletStore)();
+  var client = (_a = store === null || store === void 0 ? void 0 : store.client) === null || _a === void 0 ? void 0 : _a.address;
+  var storedInstalls = (_b = store === null || store === void 0 ? void 0 : store.client) === null || _b === void 0 ? void 0 : _b.installs;
+  var upgrade = store === null || store === void 0 ? void 0 : store.upgrade;
+  var created = (0,_stores_dapplet__WEBPACK_IMPORTED_MODULE_9__.useUpgradeAddressDeployed)();
+  var system = (0,___WEBPACK_IMPORTED_MODULE_4__.useSystem)();
+  var _useEthers3 = (0,_usedapp_core__WEBPACK_IMPORTED_MODULE_1__.useEthers)(),
+    chainId = _useEthers3.chainId;
+  (0,react__WEBPACK_IMPORTED_MODULE_3__.useMemo)(function () {
+    function check() {
+      return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+        var installedByClient, installed;
+        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+          while (1) switch (_context7.prev = _context7.next) {
+            case 0:
+              _context7.next = 2;
+              return installedBy(client, system.address);
+            case 2:
+              installedByClient = _context7.sent;
+              setInstalls(installedByClient);
+              _context7.next = 6;
+              return isInstalled(upgrade, client, installedByClient);
+            case 6:
+              installed = _context7.sent;
+              setInstalled(installed);
+            case 8:
+            case "end":
+              return _context7.stop();
+          }
+        }, _callee7);
+      }));
+    }
+    created && check();
+  }, [storedInstalls, client, chainId, created, upgrade]);
+  return {
+    installed: installed,
+    installs: installs
+  };
+}
+function useInitializerCost(addr, iface) {
+  var _a;
+  var _ref2 = (_a = (0,_usedapp_core__WEBPACK_IMPORTED_MODULE_1__.useCall)(addr && iface && {
+      contract: new ethers__WEBPACK_IMPORTED_MODULE_2__.Contract(addr, iface),
+      method: 'cost',
+      args: []
+    })) !== null && _a !== void 0 ? _a : {},
+    value = _ref2.value,
+    error = _ref2.error;
+  if (error) {
+    console.error(error.message);
+    return undefined;
+  }
+  return value === null || value === void 0 ? void 0 : value[0];
+}
+
+/***/ }),
+
+/***/ "./src/lib/stores/dapplet.ts":
+/*!***********************************!*\
+  !*** ./src/lib/stores/dapplet.ts ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getProvider: () => (/* binding */ getProvider),
+/* harmony export */   useDappletStore: () => (/* binding */ useDappletStore),
+/* harmony export */   useFacetDeployed: () => (/* binding */ useFacetDeployed),
+/* harmony export */   useGetPkg: () => (/* binding */ useGetPkg),
+/* harmony export */   useInitializerDeployed: () => (/* binding */ useInitializerDeployed),
+/* harmony export */   useUpgradeAddressDeployed: () => (/* binding */ useUpgradeAddressDeployed)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "tslib");
+/* harmony import */ var _usedapp_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @usedapp/core */ "@usedapp/core");
+/* harmony import */ var ethers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ethers */ "ethers");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var zustand__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! zustand */ "zustand");
+/* harmony import */ var _contracts__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../contracts */ "./src/lib/contracts/index.tsx");
+/* harmony import */ var _contracts_types__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../contracts/types */ "./src/lib/contracts/types/index.ts");
+/* harmony import */ var _hooks__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../hooks */ "./src/lib/hooks/index.tsx");
+/* harmony import */ var _hooks_useInstallPkg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../hooks/useInstallPkg */ "./src/lib/hooks/useInstallPkg.tsx");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e2) { throw _e2; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e3) { didErr = true; err = _e3; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+
+
+
+
+
+
+
+
+
+var useDappletStore = (0,zustand__WEBPACK_IMPORTED_MODULE_4__["default"])(function (set) {
+  return {
+    name: '',
+    client: {
+      address: '',
+      installs: []
+    },
+    chainId: {},
+    CID: '',
+    upgrade: {
+      address: '',
+      facets: [],
+      initalizer: {}
+    },
+    load: function load() {
+      return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(void 0, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var val, config, name, client, network, cid, upgrade;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              val = localStorage.getItem('DAPPLET_CONFIG');
+              config = val && JSON.parse(val);
+              console.log('asdf config', config);
+              name = config.name;
+              _context.next = 6;
+              return getClientFromLocalStorage(config);
+            case 6:
+              client = _context.sent;
+              network = config.chainId;
+              cid = config.CID || '';
+              _context.next = 11;
+              return getUpgradeFromLocalStorage(config);
+            case 11:
+              upgrade = _context.sent;
+              set(function () {
+                return {
+                  name: name,
+                  client: client,
+                  network: network,
+                  CID: cid,
+                  upgrade: upgrade,
+                  loading: false
+                };
+              });
+            case 13:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee);
+      }));
+    },
+    loading: true,
+    error: null,
+    // add
+    reset: function reset() {
+      return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(void 0, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) switch (_context2.prev = _context2.next) {
+            case 0:
+              localStorage.setItem(_hooks__WEBPACK_IMPORTED_MODULE_7__.storage_key, null);
+              set(function () {
+                return {
+                  upgrade: {
+                    facets: [],
+                    initalizer: {}
+                  }
+                };
+              });
+            case 2:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2);
+      }));
+    },
+    addFacetCut: function addFacetCut(name, cut) {
+      return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(void 0, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var isLive;
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.next = 2;
+              return (0,_hooks__WEBPACK_IMPORTED_MODULE_7__.isLiveAddress)(cut.target, getProvider());
+            case 2:
+              isLive = _context3.sent;
+              set(function (state) {
+                var _a, _b, _c, _d;
+                var facet = (_b = (_a = state.upgrade) === null || _a === void 0 ? void 0 : _a.facets) === null || _b === void 0 ? void 0 : _b.find(function (f) {
+                  return Object.keys(f)[0] === name;
+                });
+                if (isLive) {
+                  //overwrite with new cut
+                  var newFacet = _defineProperty({}, name, Object.assign(Object.assign({}, facet === null || facet === void 0 ? void 0 : facet[name]), {
+                    cut: cut
+                  }));
+                  var newFacets = (_d = (_c = state.upgrade) === null || _c === void 0 ? void 0 : _c.facets) === null || _d === void 0 ? void 0 : _d.map(function (f) {
+                    if (Object.keys(f)[0] === name) {
+                      return newFacet;
+                    }
+                    return f;
+                  });
+                  return Object.assign(Object.assign({}, state), {
+                    upgrade: Object.assign(Object.assign({}, state.upgrade), {
+                      facets: newFacets
+                    })
+                  });
+                }
+              });
+            case 4:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3);
+      }));
+    },
+    addInitializer: function addInitializer(initializer) {
+      return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(void 0, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        var isLive;
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.next = 2;
+              return (0,_hooks__WEBPACK_IMPORTED_MODULE_7__.isLiveAddress)(initializer.target, getProvider());
+            case 2:
+              isLive = _context4.sent;
+              set(function (state) {
+                if (isLive) {
+                  return Object.assign(Object.assign({}, state), {
+                    upgrade: Object.assign(Object.assign({}, state.upgrade), {
+                      initializer: Object.assign(Object.assign({}, state.upgrade.initializer), {
+                        target: initializer.target,
+                        selector: initializer.selector
+                      })
+                    })
+                  });
+                }
+              });
+            case 4:
+            case "end":
+              return _context4.stop();
+          }
+        }, _callee4);
+      }));
+    },
+    addAddress: function addAddress(address) {
+      return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(void 0, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+        var isLive;
+        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
+            case 0:
+              _context5.next = 2;
+              return (0,_hooks__WEBPACK_IMPORTED_MODULE_7__.isLiveAddress)(address, getProvider());
+            case 2:
+              isLive = _context5.sent;
+              set(function (state) {
+                if (isLive) {
+                  return Object.assign(Object.assign({}, state), {
+                    upgrade: Object.assign(Object.assign({}, state.upgrade), {
+                      address: address
+                    })
+                  });
+                }
+              });
+            case 4:
+            case "end":
+              return _context5.stop();
+          }
+        }, _callee5);
+      }));
+    },
+    setFacetIsDeployed: function setFacetIsDeployed(name, isDeployed) {
+      return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(void 0, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
+            case 0:
+              set(function (state) {
+                var _a, _b, _c, _d;
+                var facet = (_b = (_a = state.upgrade) === null || _a === void 0 ? void 0 : _a.facets) === null || _b === void 0 ? void 0 : _b.find(function (f) {
+                  return Object.keys(f)[0] === name;
+                });
+                if (facet) {
+                  return Object.assign(Object.assign({}, state), {
+                    upgrade: Object.assign(Object.assign({}, state.upgrade), {
+                      facets: (_d = (_c = state.upgrade) === null || _c === void 0 ? void 0 : _c.facets) === null || _d === void 0 ? void 0 : _d.map(function (f) {
+                        if (Object.keys(f)[0] === name) {
+                          return _defineProperty({}, name, Object.assign(Object.assign({}, facet === null || facet === void 0 ? void 0 : facet[name]), {
+                            isDeployed: isDeployed
+                          }));
+                        }
+                        return f;
+                      })
+                    })
+                  });
+                }
+              });
+            case 1:
+            case "end":
+              return _context6.stop();
+          }
+        }, _callee6);
+      }));
+    },
+    setInitializerIsDeployed: function setInitializerIsDeployed(isDeployed) {
+      return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(void 0, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+          while (1) switch (_context7.prev = _context7.next) {
+            case 0:
+              set(function (state) {
+                return Object.assign(Object.assign({}, state), {
+                  upgrade: Object.assign(Object.assign({}, state.upgrade), {
+                    initializer: Object.assign(Object.assign({}, state.upgrade.initializer), {
+                      isDeployed: isDeployed
+                    })
+                  })
+                });
+              });
+            case 1:
+            case "end":
+              return _context7.stop();
+          }
+        }, _callee7);
+      }));
+    },
+    setCID: function setCID(CID) {
+      return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(void 0, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+          while (1) switch (_context8.prev = _context8.next) {
+            case 0:
+              set(function (state) {
+                return Object.assign(Object.assign({}, state), {
+                  CID: CID
+                });
+              });
+            case 1:
+            case "end":
+              return _context8.stop();
+          }
+        }, _callee8);
+      }));
+    },
+    checkInstalls: function checkInstalls() {
+      return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(void 0, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
+        var config, client, installs;
+        return _regeneratorRuntime().wrap(function _callee10$(_context10) {
+          while (1) switch (_context10.prev = _context10.next) {
+            case 0:
+              config = JSON.parse("{\"name\":\"assistant\",\"client\":\"0x407d99d3dea54fa55860678dad2d1749afcbca5c\",\"chainId\":11155111,\"facets\":{\"DiamondCutFacet\":{\"abi\":[{\"inputs\":[],\"name\":\"DiamondWritable__InvalidInitializationParameters\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"DiamondWritable__RemoveTargetNotZeroAddress\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"DiamondWritable__ReplaceTargetIsIdentical\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"DiamondWritable__SelectorAlreadyAdded\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"DiamondWritable__SelectorIsImmutable\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"DiamondWritable__SelectorNotFound\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"DiamondWritable__SelectorNotSpecified\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"DiamondWritable__TargetHasNoCode\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"Ownable__NotOwner\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"Ownable__NotTransitiveOwner\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"target\",\"type\":\"address\"},{\"internalType\":\"enum IDiamondWritableInternal.FacetCutAction\",\"name\":\"action\",\"type\":\"uint8\"},{\"internalType\":\"bytes4[]\",\"name\":\"selectors\",\"type\":\"bytes4[]\"}],\"indexed\":false,\"internalType\":\"struct IDiamondWritableInternal.FacetCut[]\",\"name\":\"facetCuts\",\"type\":\"tuple[]\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"target\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"DiamondCut\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"inputs\":[{\"components\":[{\"internalType\":\"address\",\"name\":\"target\",\"type\":\"address\"},{\"internalType\":\"enum IDiamondWritableInternal.FacetCutAction\",\"name\":\"action\",\"type\":\"uint8\"},{\"internalType\":\"bytes4[]\",\"name\":\"selectors\",\"type\":\"bytes4[]\"}],\"internalType\":\"struct IDiamondWritableInternal.FacetCut[]\",\"name\":\"facetCuts\",\"type\":\"tuple[]\"},{\"internalType\":\"address\",\"name\":\"target\",\"type\":\"address\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"diamondCut\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"bytecode\":\"608060405234801561001057600080fd5b506118b1806100206000396000f3fe608060405234801561001057600080fd5b506004361061002b5760003560e01c80631f931c1c14610030575b600080fd5b61004a6004803603810190610045919061111d565b61004c565b005b61005461011a565b73ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff16146100b8576040517f2f7a8ee100000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b6101138585906100c891906114bb565b8484848080601f016020809104026020016040519081016040528093929190818152602001838380828437600081840152601f19601f8201169050808301925050505050505061014d565b5050505050565b6000610124610388565b60000160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b60006101576103b5565b905060008160010160009054906101000a900461ffff1661ffff16905060008190506000806007831611156101a357836002016000600384901c81526020019081526020016000205490505b60005b87518110156102e75760008882815181106101c4576101c36114d0565b5b60200260200101519050600081602001519050600082604001515103610216576040517feb6c3aeb00000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b6000600281111561022a576102296114ff565b5b81600281111561023d5761023c6114ff565b5b0361025b5761024e878686856103e2565b80955081965050506102d8565b6001600281111561026f5761026e6114ff565b5b816002811115610282576102816114ff565b5b03610296576102918783610694565b6102d7565b6002808111156102a9576102a86114ff565b5b8160028111156102bc576102bb6114ff565b5b036102d6576102cd8786868561094a565b80955081965050505b5b5b505080806001019150506101a6565b5082821461030f57818460010160006101000a81548161ffff021916908361ffff1602179055505b600060078316111561033a5780846002016000600385901c8152602001908152602001600020819055505b7f8faa70878671ccd212d20771b795c50af8fd3ff6cf27f4bde57e5d4de0aeb67387878760405161036d939291906117e3565b60405180910390a161037f8686610e30565b50505050505050565b6000807f8a22373512790c48b83a1fe2efdd2888d4a917bcdc24d0adf63e60f67168046090508091505090565b6000807f177481ac65e4292921c69f62d1cc7f57541261e5d61c8175cf4e36a01c9bfc9390508091505090565b6000803073ffffffffffffffffffffffffffffffffffffffff16836000015173ffffffffffffffffffffffffffffffffffffffff16141580156104455750610443836000015173ffffffffffffffffffffffffffffffffffffffff16610fdd565b155b1561047c576040517ff77172ac00000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b60005b836040015151811015610684576000846040015182815181106104a5576104a46114d0565b5b602002602001015190506000886000016000837bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19167bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19168152602001908152602001600020549050600073ffffffffffffffffffffffffffffffffffffffff168160601c73ffffffffffffffffffffffffffffffffffffffff1614610570576040517f92474ee200000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b8760001b866000015160601b6bffffffffffffffffffffffff191617896000016000847bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19167bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19168152602001908152602001600020819055506000600560078a16901b905080837bffffffffffffffffffffffffffffffffffffffffffffffffffffffff1916901c817fffffffff0000000000000000000000000000000000000000000000000000000060001b901c19891617975060e0810361066c57878a600201600060038c901c8152602001908152602001600020819055506000801b97505b8880600101995050505050808060010191505061047f565b5084849150915094509492505050565b6106b7816000015173ffffffffffffffffffffffffffffffffffffffff16610fdd565b6106ed576040517ff77172ac00000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b60005b81604001515181101561094557600082604001518281518110610716576107156114d0565b5b602002602001015190506000846000016000837bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19167bffffffffffffffffffffffffffffffffffffffffffffffffffffffff1916815260200190815260200160002054905060008160601c9050600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16036107e6576040517f6fc4b52e00000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b3073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff160361084b576040517fe983573100000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b846000015173ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16036108b4576040517f617557e600000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b846000015160601b6bffffffffffffffffffffffff19166bffffffffffffffffffffffff60001b831617866000016000857bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19167bffffffffffffffffffffffffffffffffffffffffffffffffffffffff191681526020019081526020016000208190555050505080806001019150506106f0565b505050565b600080600073ffffffffffffffffffffffffffffffffffffffff16836000015173ffffffffffffffffffffffffffffffffffffffff16146109b7576040517feacd242400000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b6000600386901c9050600060078716905060005b856040015151811015610e15576000866040015182815181106109f1576109f06114d0565b5b6020026020010151905060008a6000016000837bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19167bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19168152602001908152602001600020549050600073ffffffffffffffffffffffffffffffffffffffff168160601c73ffffffffffffffffffffffffffffffffffffffff1603610abc576040517f6fc4b52e00000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b3073ffffffffffffffffffffffffffffffffffffffff168160601c73ffffffffffffffffffffffffffffffffffffffff1603610b24576040517fe983573100000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b6000801b8903610b58578480600190039550508a600201600086815260200190815260200160002054985060079350610b62565b8380600190039450505b6000806000600587901b8c901b9250847bffffffffffffffffffffffffffffffffffffffffffffffffffffffff1916837bffffffffffffffffffffffffffffffffffffffffffffffffffffffff191614610c84578d6000016000847bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19167bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19168152602001908152602001600020546bffffffffffffffffffffffff19166bffffffffffffffffffffffff60001b8516178e6000016000857bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19167bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19168152602001908152602001600020819055505b8d6000016000867bffffffffffffffffffffffffffffffffffffffffffffffffffffffff19167bffffffffffffffffffffffffffffffffffffffffffffffffffffffff191681526020019081526020016000206000905560008460001c61ffff169050600381901c9250600560078216901b915050878214610d8a5760008e600201600084815260200190815260200160002054905081847bffffffffffffffffffffffffffffffffffffffffffffffffffffffff1916901c827fffffffff0000000000000000000000000000000000000000000000000000000060001b901c198216179050808f60020160008581526020019081526020016000208190555050610ddb565b80837bffffffffffffffffffffffffffffffffffffffffffffffffffffffff1916901c817fffffffff0000000000000000000000000000000000000000000000000000000060001b901c198d16179b505b60008703610e03578d6002016000898152602001908152602001600020600090556000801b9b505b505050505080806001019150506109cb565b5080600383901b179650868693509350505094509492505050565b60008151141515600073ffffffffffffffffffffffffffffffffffffffff168373ffffffffffffffffffffffffffffffffffffffff1614151514610ea0576040517f26df4ccd00000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b600073ffffffffffffffffffffffffffffffffffffffff168273ffffffffffffffffffffffffffffffffffffffff1614610fd9573073ffffffffffffffffffffffffffffffffffffffff168273ffffffffffffffffffffffffffffffffffffffff1614610f5d57610f268273ffffffffffffffffffffffffffffffffffffffff16610fdd565b610f5c576040517ff77172ac00000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b5b60008273ffffffffffffffffffffffffffffffffffffffff1682604051610f849190611864565b600060405180830381855af49150503d8060008114610fbf576040519150601f19603f3d011682016040523d82523d6000602084013e610fc4565b606091505b5050905080610fd7573d6000803e3d6000fd5b505b5050565b600080823b905060008111915050919050565b6000604051905090565b600080fd5b600080fd5b600080fd5b600080fd5b600080fd5b60008083601f84011261102957611028611004565b5b8235905067ffffffffffffffff81111561104657611045611009565b5b6020830191508360208202830111156110625761106161100e565b5b9250929050565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b600061109482611069565b9050919050565b6110a481611089565b81146110af57600080fd5b50565b6000813590506110c18161109b565b92915050565b60008083601f8401126110dd576110dc611004565b5b8235905067ffffffffffffffff8111156110fa576110f9611009565b5b6020830191508360018202830111156111165761111561100e565b5b9250929050565b60008060008060006060868803121561113957611138610ffa565b5b600086013567ffffffffffffffff81111561115757611156610fff565b5b61116388828901611013565b95509550506020611176888289016110b2565b935050604086013567ffffffffffffffff81111561119757611196610fff565b5b6111a3888289016110c7565b92509250509295509295909350565b6000601f19601f8301169050919050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b6111fb826111b2565b810181811067ffffffffffffffff8211171561121a576112196111c3565b5b80604052505050565b600061122d610ff0565b905061123982826111f2565b919050565b600067ffffffffffffffff821115611259576112586111c3565b5b602082029050602081019050919050565b600080fd5b600080fd5b6003811061128157600080fd5b50565b60008135905061129381611274565b92915050565b600067ffffffffffffffff8211156112b4576112b36111c3565b5b602082029050602081019050919050565b60007fffffffff0000000000000000000000000000000000000000000000000000000082169050919050565b6112fa816112c5565b811461130557600080fd5b50565b600081359050611317816112f1565b92915050565b600061133061132b84611299565b611223565b905080838252602082019050602084028301858111156113535761135261100e565b5b835b8181101561137c57806113688882611308565b845260208401935050602081019050611355565b5050509392505050565b600082601f83011261139b5761139a611004565b5b81356113ab84826020860161131d565b91505092915050565b6000606082840312156113ca576113c961126a565b5b6113d46060611223565b905060006113e4848285016110b2565b60008301525060206113f884828501611284565b602083015250604082013567ffffffffffffffff81111561141c5761141b61126f565b5b61142884828501611386565b60408301525092915050565b60006114476114428461123e565b611223565b9050808382526020820190506020840283018581111561146a5761146961100e565b5b835b818110156114b157803567ffffffffffffffff81111561148f5761148e611004565b5b80860161149c89826113b4565b8552602085019450505060208101905061146c565b5050509392505050565b60006114c8368484611434565b905092915050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b7f4e487b7100000000000000000000000000000000000000000000000000000000600052602160045260246000fd5b600081519050919050565b600082825260208201905092915050565b6000819050602082019050919050565b61156381611089565b82525050565b6003811061157a576115796114ff565b5b50565b600081905061158b82611569565b919050565b600061159b8261157d565b9050919050565b6115ab81611590565b82525050565b600081519050919050565b600082825260208201905092915050565b6000819050602082019050919050565b6115e6816112c5565b82525050565b60006115f883836115dd565b60208301905092915050565b6000602082019050919050565b600061161c826115b1565b61162681856115bc565b9350611631836115cd565b8060005b8381101561166257815161164988826115ec565b975061165483611604565b925050600181019050611635565b5085935050505092915050565b6000606083016000830151611687600086018261155a565b50602083015161169a60208601826115a2565b50604083015184820360408601526116b28282611611565b9150508091505092915050565b60006116cb838361166f565b905092915050565b6000602082019050919050565b60006116eb8261152e565b6116f58185611539565b9350836020820285016117078561154a565b8060005b85811015611743578484038952815161172485826116bf565b945061172f836116d3565b925060208a0199505060018101905061170b565b50829750879550505050505092915050565b61175e81611089565b82525050565b600081519050919050565b600082825260208201905092915050565b60005b8381101561179e578082015181840152602081019050611783565b60008484015250505050565b60006117b582611764565b6117bf818561176f565b93506117cf818560208601611780565b6117d8816111b2565b840191505092915050565b600060608201905081810360008301526117fd81866116e0565b905061180c6020830185611755565b818103604083015261181e81846117aa565b9050949350505050565b600081905092915050565b600061183e82611764565b6118488185611828565b9350611858818560208601611780565b80840191505092915050565b60006118708284611833565b91508190509291505056fea2646970667358221220789f95ee675a7e717d0c82ce97559302e80be45b9eac7e2c26ff49321b0bc72264736f6c63430008120033\"}},\"initializer\":{}}");
+              _context10.next = 3;
+              return getClientFromLocalStorage(config);
+            case 3:
+              client = _context10.sent;
+              _context10.next = 6;
+              return Promise.all(client.installs.map(function (install) {
+                return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(void 0, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
+                  var isLive;
+                  return _regeneratorRuntime().wrap(function _callee9$(_context9) {
+                    while (1) switch (_context9.prev = _context9.next) {
+                      case 0:
+                        _context9.next = 2;
+                        return (0,_hooks__WEBPACK_IMPORTED_MODULE_7__.isLiveAddress)(install.address, getProvider());
+                      case 2:
+                        isLive = _context9.sent;
+                        return _context9.abrupt("return", Object.assign(Object.assign({}, install), {
+                          isLive: isLive
+                        }));
+                      case 4:
+                      case "end":
+                        return _context9.stop();
+                    }
+                  }, _callee9);
+                }));
+              }));
+            case 6:
+              installs = _context10.sent;
+              set(function (state) {
+                return Object.assign(Object.assign({}, state), {
+                  client: Object.assign(Object.assign({}, state.client), {
+                    installs: installs
+                  })
+                });
+              });
+            case 8:
+            case "end":
+              return _context10.stop();
+          }
+        }, _callee10);
+      }));
+    },
+    updateInstalls: function updateInstalls(client, system) {
+      return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(void 0, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee11() {
+        var installs;
+        return _regeneratorRuntime().wrap(function _callee11$(_context11) {
+          while (1) switch (_context11.prev = _context11.next) {
+            case 0:
+              _context11.next = 2;
+              return (0,_hooks_useInstallPkg__WEBPACK_IMPORTED_MODULE_8__.installedBy)(client, system);
+            case 2:
+              installs = _context11.sent;
+              set(function (state) {
+                return Object.assign(Object.assign({}, state), {
+                  client: Object.assign(Object.assign({}, state.client), {
+                    installs: installs
+                  })
+                });
+              });
+            case 4:
+            case "end":
+              return _context11.stop();
+          }
+        }, _callee11);
+      }));
+    }
+    // // remove
+    // removeFacetByTarget: (target: string) => {
+    //   set((state) => ({
+    //     // cuts: state.cuts.filter((cut) => cut.target !== target),
+    //   }));
+    // },
+    // removeSelector: (target: string, selector: string) => {
+    //   set((state) => ({
+    //     // cuts: state.cuts.map((cut) => {
+    //     //   if (cut.target === target) {
+    //     //     return {
+    //     //       ...cut,
+    //     //       selectors: cut.selectors.filter((s) => s !== selector),
+    //     //     };
+    //     //   }
+    //     //   return cut;
+    //     // }),
+    //   }));
+    // },
+  };
+});
+// setup().then((upgrade) => useDappletStore.setState({ upgrade }));
+//TODO: change getFromLocalStorage functions to NOT use ENV variables
+function getClientFromLocalStorage(config) {
+  return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee12() {
+    var _ref2;
+    var client, provider, chainId, system, DappletsFacet, installs;
+    return _regeneratorRuntime().wrap(function _callee12$(_context12) {
+      while (1) switch (_context12.prev = _context12.next) {
+        case 0:
+          if (config) {
+            _context12.next = 2;
+            break;
+          }
+          throw new Error('Dapplet config not found');
+        case 2:
+          client = config.client;
+          if (client) {
+            _context12.next = 5;
+            break;
+          }
+          throw new Error('Dapplet client not found. You must provide one!');
+        case 5:
+          provider = getProvider();
+          _context12.next = 8;
+          return provider.getNetwork();
+        case 8:
+          chainId = _context12.sent.chainId;
+          system = (0,_contracts__WEBPACK_IMPORTED_MODULE_5__.deployment)('Diamond', chainId);
+          DappletsFacet = new ethers__WEBPACK_IMPORTED_MODULE_2__.Contract(system.address, _contracts_types__WEBPACK_IMPORTED_MODULE_6__.DappletsFacet__factory.abi, provider);
+          _context12.next = 13;
+          return DappletsFacet.installedBy(client);
+        case 13:
+          installs = _context12.sent;
+          return _context12.abrupt("return", (_ref2 = {}, _defineProperty(_ref2, 'address', client), _defineProperty(_ref2, 'installs', installs), _ref2));
+        case 15:
+        case "end":
+          return _context12.stop();
+      }
+    }, _callee12);
+  }));
+}
+function getUpgradeFromLocalStorage(config) {
+  return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee14() {
+    var _this = this,
+      _ref6;
+    var facets, initializer, a, f, i;
+    return _regeneratorRuntime().wrap(function _callee14$(_context14) {
+      while (1) switch (_context14.prev = _context14.next) {
+        case 0:
+          if (config) {
+            _context14.next = 2;
+            break;
+          }
+          throw new Error('Dapplet config not found');
+        case 2:
+          facets = config.facets, initializer = config.initializer;
+          _context14.next = 5;
+          return getUpgradeAddressFromLocalStorage();
+        case 5:
+          a = _context14.sent;
+          _context14.next = 8;
+          return Promise.all(Object.entries(facets).map(function (_ref3) {
+            var _ref4 = _slicedToArray(_ref3, 2),
+              name = _ref4[0],
+              obj = _ref4[1];
+            return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(_this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee13() {
+              var abi, bytecode, functions, cut;
+              return _regeneratorRuntime().wrap(function _callee13$(_context13) {
+                while (1) switch (_context13.prev = _context13.next) {
+                  case 0:
+                    abi = obj.abi, bytecode = obj.bytecode, functions = obj.functions;
+                    _context13.next = 3;
+                    return getCutFromLocalStorage(name);
+                  case 3:
+                    cut = _context13.sent;
+                    return _context13.abrupt("return", _defineProperty({}, name, {
+                      abi: abi,
+                      bytecode: bytecode,
+                      functions: functions,
+                      cut: cut
+                    }));
+                  case 5:
+                  case "end":
+                    return _context13.stop();
+                }
+              }, _callee13);
+            }));
+          }));
+        case 8:
+          f = _context14.sent;
+          _context14.t0 = Object;
+          _context14.next = 12;
+          return getInitializerFromLocalStorage();
+        case 12:
+          _context14.t1 = _context14.sent;
+          _context14.t2 = initializer;
+          i = _context14.t0.assign.call(_context14.t0, _context14.t1, _context14.t2);
+          return _context14.abrupt("return", (_ref6 = {}, _defineProperty(_ref6, 'address', a), _defineProperty(_ref6, 'facets', f), _defineProperty(_ref6, 'initializer', i), _ref6));
+        case 16:
+        case "end":
+          return _context14.stop();
+      }
+    }, _callee14);
+  }));
+}
+function getUpgradeAddressFromLocalStorage() {
+  return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee15() {
+    var addr, local, _JSON$parse, upgrade, isLive;
+    return _regeneratorRuntime().wrap(function _callee15$(_context15) {
+      while (1) switch (_context15.prev = _context15.next) {
+        case 0:
+          addr = '';
+          _context15.prev = 1;
+          local = localStorage.getItem(_hooks__WEBPACK_IMPORTED_MODULE_7__.storage_key);
+          if (!local) {
+            _context15.next = 10;
+            break;
+          }
+          _JSON$parse = JSON.parse(local), upgrade = _JSON$parse.upgrade;
+          _context15.next = 7;
+          return (0,_hooks__WEBPACK_IMPORTED_MODULE_7__.isLiveAddress)(upgrade.address, getProvider());
+        case 7:
+          isLive = _context15.sent;
+          console.log('upgrade deployed:', isLive, upgrade.address);
+          if (isLive) {
+            addr = upgrade.address;
+            // get pkg contents
+            // check if pkg contents match upgrade.facets & initializer
+          }
+        case 10:
+          _context15.next = 15;
+          break;
+        case 12:
+          _context15.prev = 12;
+          _context15.t0 = _context15["catch"](1);
+          console.error('error getting upgrade address from local storage', _context15.t0);
+        case 15:
+          return _context15.abrupt("return", addr);
+        case 16:
+        case "end":
+          return _context15.stop();
+      }
+    }, _callee15, null, [[1, 12]]);
+  }));
+}
+function getCutFromLocalStorage(name) {
+  var _a, _b, _c, _d;
+  return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee16() {
+    var local, cut, facet, target, isLive;
+    return _regeneratorRuntime().wrap(function _callee16$(_context16) {
+      while (1) switch (_context16.prev = _context16.next) {
+        case 0:
+          local = localStorage.getItem(_hooks__WEBPACK_IMPORTED_MODULE_7__.storage_key);
+          cut = {};
+          if (!local) {
+            _context16.next = 10;
+            break;
+          }
+          facet = (_b = (_a = JSON.parse(local)) === null || _a === void 0 ? void 0 : _a.upgrade) === null || _b === void 0 ? void 0 : _b.facets.find(function (f) {
+            return Object.keys(f)[0] === name;
+          });
+          target = (_d = (_c = facet === null || facet === void 0 ? void 0 : facet[name]) === null || _c === void 0 ? void 0 : _c.cut) === null || _d === void 0 ? void 0 : _d.target;
+          _context16.next = 7;
+          return (0,_hooks__WEBPACK_IMPORTED_MODULE_7__.isLiveAddress)(target, getProvider());
+        case 7:
+          isLive = _context16.sent;
+          console.log('isLive', name, isLive, target);
+          if (isLive) {
+            cut = facet[name].cut;
+          }
+        case 10:
+          return _context16.abrupt("return", cut);
+        case 11:
+        case "end":
+          return _context16.stop();
+      }
+    }, _callee16);
+  }));
+}
+function getInitializerFromLocalStorage() {
+  var _a, _b;
+  return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee17() {
+    var local, init, initializer, isLive;
+    return _regeneratorRuntime().wrap(function _callee17$(_context17) {
+      while (1) switch (_context17.prev = _context17.next) {
+        case 0:
+          local = localStorage.getItem(_hooks__WEBPACK_IMPORTED_MODULE_7__.storage_key);
+          init = {
+            target: ethers__WEBPACK_IMPORTED_MODULE_2__.ethers.constants.AddressZero,
+            selector: '0x00000000'
+          };
+          if (!local) {
+            _context17.next = 8;
+            break;
+          }
+          initializer = (_b = (_a = JSON.parse(local)) === null || _a === void 0 ? void 0 : _a.upgrade) === null || _b === void 0 ? void 0 : _b.initializer;
+          _context17.next = 6;
+          return (0,_hooks__WEBPACK_IMPORTED_MODULE_7__.isLiveAddress)(initializer === null || initializer === void 0 ? void 0 : initializer.target, getProvider());
+        case 6:
+          isLive = _context17.sent;
+          if (isLive) {
+            init = {
+              target: initializer.target,
+              selector: initializer.selector
+            };
+          }
+        case 8:
+          return _context17.abrupt("return", init);
+        case 9:
+        case "end":
+          return _context17.stop();
+      }
+    }, _callee17);
+  }));
+}
+function getProvider() {
+  if (window.ethereum) {
+    return new ethers__WEBPACK_IMPORTED_MODULE_2__.ethers.providers.Web3Provider(window.ethereum);
+    // use the provider object to interact with the blockchain
+  } else {
+    console.log('Please install MetaMask!');
+  }
+}
+function useFacetDeployed(name) {
+  var _a, _b;
+  var store = useDappletStore();
+  var _useEthers = (0,_usedapp_core__WEBPACK_IMPORTED_MODULE_1__.useEthers)(),
+    library = _useEthers.library;
+  var facet = (store === null || store === void 0 ? void 0 : store.upgrade) && ((_a = store === null || store === void 0 ? void 0 : store.upgrade.facets.find(function (f) {
+    return Object.keys(f)[0] === name;
+  })) === null || _a === void 0 ? void 0 : _a[name]);
+  var target = (_b = facet === null || facet === void 0 ? void 0 : facet.cut) === null || _b === void 0 ? void 0 : _b.target;
+  (0,react__WEBPACK_IMPORTED_MODULE_3__.useMemo)(function () {
+    function checkAddress() {
+      return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee18() {
+        var isLive;
+        return _regeneratorRuntime().wrap(function _callee18$(_context18) {
+          while (1) switch (_context18.prev = _context18.next) {
+            case 0:
+              _context18.next = 2;
+              return (0,_hooks__WEBPACK_IMPORTED_MODULE_7__.isLiveAddress)(target, getProvider());
+            case 2:
+              isLive = _context18.sent;
+              isLive ? store.setFacetIsDeployed(name, true) : store.setFacetIsDeployed(name, false);
+            case 4:
+            case "end":
+              return _context18.stop();
+          }
+        }, _callee18);
+      }));
+    }
+    checkAddress();
+  }, [target, library]);
+  console.log(name, 'deployed', facet === null || facet === void 0 ? void 0 : facet.isDeployed, target);
+  return facet === null || facet === void 0 ? void 0 : facet.isDeployed;
+}
+function useInitializerDeployed() {
+  var _a;
+  var store = useDappletStore();
+  var initializer = (_a = store === null || store === void 0 ? void 0 : store.upgrade) === null || _a === void 0 ? void 0 : _a.initializer;
+  var target = initializer === null || initializer === void 0 ? void 0 : initializer.target;
+  (0,react__WEBPACK_IMPORTED_MODULE_3__.useMemo)(function () {
+    function checkAddress() {
+      return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee19() {
+        var isLive;
+        return _regeneratorRuntime().wrap(function _callee19$(_context19) {
+          while (1) switch (_context19.prev = _context19.next) {
+            case 0:
+              _context19.next = 2;
+              return (0,_hooks__WEBPACK_IMPORTED_MODULE_7__.isLiveAddress)(target, getProvider());
+            case 2:
+              isLive = _context19.sent;
+              isLive ? store.setInitializerIsDeployed(true) : store.setInitializerIsDeployed(false);
+            case 4:
+            case "end":
+              return _context19.stop();
+          }
+        }, _callee19);
+      }));
+    }
+    checkAddress();
+  }, [target]);
+  console.log('initializer deployed', initializer === null || initializer === void 0 ? void 0 : initializer.isDeployed, target);
+  return initializer === null || initializer === void 0 ? void 0 : initializer.isDeployed;
+}
+function useUpgradeAddressDeployed() {
+  var _useDappletStore = useDappletStore(),
+    upgrade = _useDappletStore.upgrade;
+  var address = upgrade === null || upgrade === void 0 ? void 0 : upgrade.address;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(false),
+    _useState2 = _slicedToArray(_useState, 2),
+    deployed = _useState2[0],
+    setDeployed = _useState2[1];
+  (0,react__WEBPACK_IMPORTED_MODULE_3__.useMemo)(function () {
+    function checkAddress() {
+      var _a, _b;
+      return (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__awaiter)(this, void 0, void 0, /*#__PURE__*/_regeneratorRuntime().mark(function _callee20() {
+        var isLive, PKG, get, eq, _iterator, _step, _loop, _isLive;
+        return _regeneratorRuntime().wrap(function _callee20$(_context21) {
+          while (1) switch (_context21.prev = _context21.next) {
+            case 0:
+              _context21.next = 2;
+              return (0,_hooks__WEBPACK_IMPORTED_MODULE_7__.isLiveAddress)(address, getProvider());
+            case 2:
+              isLive = _context21.sent;
+              if (!isLive) {
+                _context21.next = 30;
+                break;
+              }
+              PKG = new ethers__WEBPACK_IMPORTED_MODULE_2__.ethers.Contract(address, _contracts_types__WEBPACK_IMPORTED_MODULE_6__.PKG__factory.abi, getProvider());
+              _context21.next = 7;
+              return PKG.get(0);
+            case 7:
+              get = _context21.sent;
+              //match get with store.upgrade facets & initializers
+              eq = true;
+              _iterator = _createForOfIteratorHelper(get.cuts);
+              _context21.prev = 10;
+              _loop = /*#__PURE__*/_regeneratorRuntime().mark(function _loop() {
+                var cut, isLive;
+                return _regeneratorRuntime().wrap(function _loop$(_context20) {
+                  while (1) switch (_context20.prev = _context20.next) {
+                    case 0:
+                      cut = _step.value;
+                      _context20.next = 3;
+                      return (0,_hooks__WEBPACK_IMPORTED_MODULE_7__.isLiveAddress)(cut.target, getProvider());
+                    case 3:
+                      isLive = _context20.sent;
+                      if (isLive) {
+                        // cut should match the cut in store.upgrade.facets.map(facet => facet[facetName].cut)
+                        eq = eq && (upgrade === null || upgrade === void 0 ? void 0 : upgrade.facets.find(function (f) {
+                          var _a;
+                          var obj = Object.values(f)[0];
+                          return ((_a = obj === null || obj === void 0 ? void 0 : obj.cut) === null || _a === void 0 ? void 0 : _a.target) === cut.target;
+                        }));
+                      }
+                    case 5:
+                    case "end":
+                      return _context20.stop();
+                  }
+                }, _loop);
+              });
+              _iterator.s();
+            case 13:
+              if ((_step = _iterator.n()).done) {
+                _context21.next = 17;
+                break;
+              }
+              return _context21.delegateYield(_loop(), "t0", 15);
+            case 15:
+              _context21.next = 13;
+              break;
+            case 17:
+              _context21.next = 22;
+              break;
+            case 19:
+              _context21.prev = 19;
+              _context21.t1 = _context21["catch"](10);
+              _iterator.e(_context21.t1);
+            case 22:
+              _context21.prev = 22;
+              _iterator.f();
+              return _context21.finish(22);
+            case 25:
+              _context21.next = 27;
+              return (0,_hooks__WEBPACK_IMPORTED_MODULE_7__.isLiveAddress)(get.target, getProvider());
+            case 27:
+              _isLive = _context21.sent;
+              if (_isLive) {
+                eq = eq && ((_a = upgrade === null || upgrade === void 0 ? void 0 : upgrade.initializer) === null || _a === void 0 ? void 0 : _a.target) === get.target && ((_b = upgrade === null || upgrade === void 0 ? void 0 : upgrade.initializer) === null || _b === void 0 ? void 0 : _b.selector) === get.selector;
+              }
+              setDeployed(eq);
+            case 30:
+            case "end":
+              return _context21.stop();
+          }
+        }, _callee20, null, [[10, 19, 22, 25]]);
+      }));
+    }
+    checkAddress();
+  }, [address, upgrade === null || upgrade === void 0 ? void 0 : upgrade.facets, upgrade === null || upgrade === void 0 ? void 0 : upgrade.initializer]);
+  return deployed;
+}
+function useGetPkg(addr) {
+  var PKG = new ethers__WEBPACK_IMPORTED_MODULE_2__.Contract(addr, _contracts_types__WEBPACK_IMPORTED_MODULE_6__.PKG__factory.abi, getProvider());
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_3__.useState)(null),
+    _useState4 = _slicedToArray(_useState3, 2),
+    pkg = _useState4[0],
+    setPkg = _useState4[1];
+  (0,react__WEBPACK_IMPORTED_MODULE_3__.useMemo)(function () {
+    PKG.get(0).then(function (pkg) {
+      setPkg(pkg);
+    });
+  }, [addr]);
+  return pkg;
+}
+
+/***/ }),
+
+/***/ "../../../node_modules/piral-cli-webpack5/node_modules/css-loader/dist/cjs.js!./src/main.css":
+/*!***************************************************************************************************!*\
+  !*** ../../../node_modules/piral-cli-webpack5/node_modules/css-loader/dist/cjs.js!./src/main.css ***!
+  \***************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_piral_cli_webpack5_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/piral-cli-webpack5/node_modules/css-loader/dist/runtime/cssWithMappingToString.js */ "../../../node_modules/piral-cli-webpack5/node_modules/css-loader/dist/runtime/cssWithMappingToString.js");
+/* harmony import */ var _node_modules_piral_cli_webpack5_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_piral_cli_webpack5_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_piral_cli_webpack5_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/piral-cli-webpack5/node_modules/css-loader/dist/runtime/api.js */ "../../../node_modules/piral-cli-webpack5/node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_piral_cli_webpack5_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_piral_cli_webpack5_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_piral_cli_webpack5_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_piral_cli_webpack5_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".creation-card::part(body) {\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n  padding-top: 1rem;\n}\n\n.active-indicator {\n  width: 10px;\n  height: 10px;\n  margin-right: 0.5rem;\n  border-radius: 50%;\n  background-color: var(--sl-color-success);\n  animation: pulse 1s infinite alternate;\n}\n\n@keyframes pulse {\n  0% {\n    transform: scale(1);\n  }\n  100% {\n    transform: scale(1.2);\n  }\n}\n", "",{"version":3,"sources":["webpack://./src/main.css"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,sBAAsB;EACtB,SAAS;EACT,iBAAiB;AACnB;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,oBAAoB;EACpB,kBAAkB;EAClB,yCAAyC;EACzC,sCAAsC;AACxC;;AAEA;EACE;IACE,mBAAmB;EACrB;EACA;IACE,qBAAqB;EACvB;AACF","sourcesContent":[".creation-card::part(body) {\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n  padding-top: 1rem;\n}\n\n.active-indicator {\n  width: 10px;\n  height: 10px;\n  margin-right: 0.5rem;\n  border-radius: 50%;\n  background-color: var(--sl-color-success);\n  animation: pulse 1s infinite alternate;\n}\n\n@keyframes pulse {\n  0% {\n    transform: scale(1);\n  }\n  100% {\n    transform: scale(1.2);\n  }\n}\n"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "../../../node_modules/piral-cli-webpack5/node_modules/css-loader/dist/runtime/api.js":
+/*!********************************************************************************************!*\
+  !*** ../../../node_modules/piral-cli-webpack5/node_modules/css-loader/dist/runtime/api.js ***!
+  \********************************************************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+
+/*
+  MIT License http://www.opensource.org/licenses/mit-license.php
+  Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+// eslint-disable-next-line func-names
+module.exports = function (cssWithMappingToString) {
+  var list = []; // return the list of modules as css string
+
+  list.toString = function toString() {
+    return this.map(function (item) {
+      var content = cssWithMappingToString(item);
+
+      if (item[2]) {
+        return "@media ".concat(item[2], " {").concat(content, "}");
+      }
+
+      return content;
+    }).join("");
+  }; // import a list of modules into the list
+  // eslint-disable-next-line func-names
+
+
+  list.i = function (modules, mediaQuery, dedupe) {
+    if (typeof modules === "string") {
+      // eslint-disable-next-line no-param-reassign
+      modules = [[null, modules, ""]];
+    }
+
+    var alreadyImportedModules = {};
+
+    if (dedupe) {
+      for (var i = 0; i < this.length; i++) {
+        // eslint-disable-next-line prefer-destructuring
+        var id = this[i][0];
+
+        if (id != null) {
+          alreadyImportedModules[id] = true;
+        }
+      }
+    }
+
+    for (var _i = 0; _i < modules.length; _i++) {
+      var item = [].concat(modules[_i]);
+
+      if (dedupe && alreadyImportedModules[item[0]]) {
+        // eslint-disable-next-line no-continue
+        continue;
+      }
+
+      if (mediaQuery) {
+        if (!item[2]) {
+          item[2] = mediaQuery;
+        } else {
+          item[2] = "".concat(mediaQuery, " and ").concat(item[2]);
+        }
+      }
+
+      list.push(item);
+    }
+  };
+
+  return list;
+};
+
+/***/ }),
+
+/***/ "../../../node_modules/piral-cli-webpack5/node_modules/css-loader/dist/runtime/cssWithMappingToString.js":
+/*!***************************************************************************************************************!*\
+  !*** ../../../node_modules/piral-cli-webpack5/node_modules/css-loader/dist/runtime/cssWithMappingToString.js ***!
+  \***************************************************************************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+module.exports = function cssWithMappingToString(item) {
+  var _item = _slicedToArray(item, 4),
+      content = _item[1],
+      cssMapping = _item[3];
+
+  if (!cssMapping) {
+    return content;
+  }
+
+  if (typeof btoa === "function") {
+    // eslint-disable-next-line no-undef
+    var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(cssMapping))));
+    var data = "sourceMappingURL=data:application/json;charset=utf-8;base64,".concat(base64);
+    var sourceMapping = "/*# ".concat(data, " */");
+    var sourceURLs = cssMapping.sources.map(function (source) {
+      return "/*# sourceURL=".concat(cssMapping.sourceRoot || "").concat(source, " */");
+    });
+    return [content].concat(sourceURLs).concat([sourceMapping]).join("\n");
+  }
+
+  return [content].join("\n");
+};
+
+/***/ }),
+
 /***/ "./src/main.css":
 /*!**********************!*\
   !*** ./src/main.css ***!
@@ -97255,9 +97255,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_main_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../node_modules/css-loader/dist/cjs.js!./main.css */ "./node_modules/css-loader/dist/cjs.js!./src/main.css");
+/* harmony import */ var _node_modules_piral_cli_webpack5_node_modules_css_loader_dist_cjs_js_main_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/piral-cli-webpack5/node_modules/css-loader/dist/cjs.js!./main.css */ "../../../node_modules/piral-cli-webpack5/node_modules/css-loader/dist/cjs.js!./src/main.css");
 
             
 
@@ -97266,18 +97266,18 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_main_css__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_piral_cli_webpack5_node_modules_css_loader_dist_cjs_js_main_css__WEBPACK_IMPORTED_MODULE_1__["default"], options);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_main_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_piral_cli_webpack5_node_modules_css_loader_dist_cjs_js_main_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js ***!
-  \****************************************************************************/
+/***/ "../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js":
+/*!***********************************************************************************!*\
+  !*** ../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js ***!
+  \***********************************************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 "use strict";
@@ -97553,13 +97553,13 @@ module.exports = function (list, options) {
 
 /***/ }),
 
-/***/ "./node_modules/systemjs-webpack-interop/auto-public-path/auto-public-path.js":
-/*!************************************************************************************!*\
-  !*** ./node_modules/systemjs-webpack-interop/auto-public-path/auto-public-path.js ***!
-  \************************************************************************************/
+/***/ "../../../node_modules/systemjs-webpack-interop/auto-public-path/auto-public-path.js":
+/*!*******************************************************************************************!*\
+  !*** ../../../node_modules/systemjs-webpack-interop/auto-public-path/auto-public-path.js ***!
+  \*******************************************************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-const resolveDirectory = (__webpack_require__(/*! ../public-path */ "./node_modules/systemjs-webpack-interop/public-path.js").resolveDirectory);
+const resolveDirectory = (__webpack_require__(/*! ../public-path */ "../../../node_modules/systemjs-webpack-interop/public-path.js").resolveDirectory);
 
 exports.autoPublicPath = function autoPublicPath(rootDirLevel) {
   if (!rootDirLevel) {
@@ -97586,10 +97586,10 @@ exports.autoPublicPath = function autoPublicPath(rootDirLevel) {
 
 /***/ }),
 
-/***/ "./node_modules/systemjs-webpack-interop/public-path.js":
-/*!**************************************************************!*\
-  !*** ./node_modules/systemjs-webpack-interop/public-path.js ***!
-  \**************************************************************/
+/***/ "../../../node_modules/systemjs-webpack-interop/public-path.js":
+/*!*********************************************************************!*\
+  !*** ../../../node_modules/systemjs-webpack-interop/public-path.js ***!
+  \*********************************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 exports.setPublicPath = function setPublicPath(
@@ -97994,10 +97994,10 @@ module.exports = JSON.parse('{"31337":{"Multicall2":{"address":"0x4CDc373E778883
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other entry modules.
 (() => {
-/*!*********************************************************************!*\
-  !*** ./node_modules/systemjs-webpack-interop/auto-public-path/1.js ***!
-  \*********************************************************************/
-const autoPublicPath = (__webpack_require__(/*! ./auto-public-path */ "./node_modules/systemjs-webpack-interop/auto-public-path/auto-public-path.js").autoPublicPath);
+/*!****************************************************************************!*\
+  !*** ../../../node_modules/systemjs-webpack-interop/auto-public-path/1.js ***!
+  \****************************************************************************/
+const autoPublicPath = (__webpack_require__(/*! ./auto-public-path */ "../../../node_modules/systemjs-webpack-interop/auto-public-path/auto-public-path.js").autoPublicPath);
 
 autoPublicPath(1);
 
