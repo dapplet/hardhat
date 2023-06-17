@@ -4,6 +4,8 @@ import Assistant from './components/templates/Assistant';
 import './main.css';
 
 export function setup(app: PiletApi) {
+  
+
   app.registerTile(
     () => {
       return <Assistant />;

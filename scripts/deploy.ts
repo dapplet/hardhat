@@ -179,7 +179,6 @@ async function main() {
   await saveContracts(contracts, chainId, [
     '../interface/src/contracts/deployments.json',
     '../shell/src/contracts/deployments.json',
-    '../ide/src/contracts/deployments.json',
     './assistant/src/lib/contracts/deployments.json',
   ]);
 

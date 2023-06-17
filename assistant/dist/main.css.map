@@ -1,1 +1,0 @@
-{"version":3,"file":"main.css","mappings":"AAAA,2BACE,YAAa,CACb,qBAAsB,CACtB,QAAS,CACT,gBACF","sources":["webpack://pr_assistant/./src/main.css"],"sourcesContent":[".creation-card::part(body) {\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n  padding-top: 1rem;\n}\n"],"names":[],"sourceRoot":""}
