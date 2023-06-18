@@ -8,21 +8,16 @@ import { IDiamondWritable } from '@solidstate/contracts/proxy/diamond/writable/I
 
 interface IBaseplate is IDiamondReadable, IDiamondWritable {
 
-  /**
-   * @notice the baseplate's unique identifier
-   */
-  bytes32 public baseplateId;
+  event DappletUpgrade (address indexed pkg, bool indexed install);
 
-  /**
-   * @notice the address of the system operator
-   */
-  address payable immutable operator;
+  receive() external payable;
 
   /**
    * 
    * @notice install a pkg to the client, served by the system
    * @param _pkg the pkg to install
-   * @param data the initializable data to pass to the pkg's EIP-2535 upgrade initializer
+   * @param _data the initializable data to pass to the pkg's EIP-2535 upgrade initializer
+   * @dev this function is only callable by the owner
    */
   function install(address _pkg, bytes memory _data) external payable;
 
@@ -30,7 +25,8 @@ interface IBaseplate is IDiamondReadable, IDiamondWritable {
    * 
    * @notice uninstall a pkg from the client, served by the system
    * @param _pkg the pkg to uninstall
-   * @param data the initializable data to pass to the pkg's EIP-2535 upgrade initializer
+   * @param _data the initializable data to pass to the pkg's EIP-2535 upgrade initializer
+   * @dev this function is only callable by the owner
    */
   function uninstall(address _pkg, bytes memory _data) external;
 
@@ -39,6 +35,8 @@ interface IBaseplate is IDiamondReadable, IDiamondWritable {
    * @notice create a new pkg
    * @param _pkg the pkg's initial upgrade data
    * @param _ipfsCid the pkg's IPFS CID for metadata - usually a JSON file pointing to a js module
+   * @return pkg the address of the created pkg
+   * @dev this function is only callable by the owner
    */
   function create(
     IPKG.UPGRADE memory _pkg,

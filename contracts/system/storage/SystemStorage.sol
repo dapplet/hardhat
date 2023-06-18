@@ -19,6 +19,8 @@ library SystemStorage {
     using EnumerableSet for EnumerableSet.AddressSet;
     using AccessControlStorage for AccessControlStorage.Layout;
 
+    event NewBaseplate(bytes32 indexed baseplateId, address indexed baseplate);
+
     struct Layout {
         // slot => baseplate
         mapping(bytes32 => address) baseplate;
@@ -51,7 +53,7 @@ library SystemStorage {
 
     function setBaseplate(Layout storage l, bytes32 baseplateId, address addr) internal {
         l.baseplate[baseplateId] = addr;
-        emit NewBaseplateAvailable(baseplateId);
+        emit NewBaseplate(baseplateId, addr);
     }
 
     function setMetadata(Layout storage l, address pkg, string memory metadata) internal {

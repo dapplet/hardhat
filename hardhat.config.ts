@@ -1,6 +1,5 @@
 import '@nomicfoundation/hardhat-toolbox';
 import '@nomiclabs/hardhat-ethers';
-import '@nomiclabs/hardhat-waffle';
 import dotenv from 'dotenv';
 import 'hardhat-abi-exporter';
 import 'hardhat-dependency-compiler';

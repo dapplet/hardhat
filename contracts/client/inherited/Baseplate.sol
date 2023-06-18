@@ -2,11 +2,10 @@
 pragma solidity ^0.8.0;
 
 import { IBaseplate } from '../interfaces/IBaseplate.sol';
+import { OwnableInternal } from '@solidstate/contracts/access/ownable/OwnableInternal.sol';
 import { DiamondBase } from '@solidstate/contracts/proxy/diamond/base/DiamondBase.sol';
 import { DiamondReadable } from '@solidstate/contracts/proxy/diamond/readable/DiamondReadable.sol';
-import { DiamondWritable, DiamondWritableInternal } from '@solidstate/contracts/proxy/diamond/writable/DiamondWritable.sol';
-
-import { OwnableInternal } from '@solidstate/contracts/access/ownable/OwnableInternal.sol';
+import { DiamondWritableInternal } from '@solidstate/contracts/proxy/diamond/writable/DiamondWritableInternal.sol';
 
 import { IOperator } from '../../system/interfaces/IOperator.sol';
 
@@ -14,17 +13,15 @@ import { IPKG } from '../../external/IPKG.sol';
 
 // import 'hardhat/console.sol';
 
-contract Baseplate is IBaseplate, DiamondBase, DiamondReadable, DiamondWritable, OwnableInternal {
-
-  event DappletUpgrade (address indexed pkg, bool indexed install);
+abstract contract Baseplate is IBaseplate, OwnableInternal, DiamondBase, DiamondReadable, DiamondWritableInternal {
 
   /**
-   * @inheritdoc IBaseplate
+   * @notice the baseplate's unique identifier
    */
   bytes32 public baseplateId;
 
   /**
-   * @inheritdoc IBaseplate
+   * @notice the address of the system operator
    */
   address payable immutable operator;
   
@@ -36,7 +33,7 @@ contract Baseplate is IBaseplate, DiamondBase, DiamondReadable, DiamondWritable,
     initialized = true;
   }
 
-  function init(address _creator, bytes32 _baseplateId) external {
+  function init(address _creator, bytes32 _baseplateId) external virtual {
     _init(_creator, _baseplateId);
   }
 
@@ -113,7 +110,7 @@ contract Baseplate is IBaseplate, DiamondBase, DiamondReadable, DiamondWritable,
     FacetCut[] memory facetCuts,
     address target,
     bytes memory data
-  ) external override {
+  ) external {
     require(msg.sender == operator, "Baseplate: only callable by System");
     _diamondCut(facetCuts, target, data);
   }

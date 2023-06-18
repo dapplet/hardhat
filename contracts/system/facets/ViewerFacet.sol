@@ -35,8 +35,8 @@ contract ViewerFacet {
 
   /**
    * 
-   * @param pkg the address of the package to check
-   * @return metadata the metadata of the package (IPFS CID)
+   * @param pkgs the addresses of the packages to check
+   * @return metadata the metadata of each package (IPFS CIDs)
    */
   function metadataOf(address[] memory pkgs) external view returns (string[] memory metadata) {
     metadata = SystemStorage.layout().metadataOf(pkgs);
